@@ -229,6 +229,10 @@ PRODUCT_PACKAGES += \
     init.qcom.usb.sh \
     ueventd.qcom.rc
 
+# Recovery
+PRODUCT_PACKAGES += \
+    librecovery_updater_kiwi
+
 # RIL
 PRODUCT_PACKAGES += \
     libxml2
