@@ -287,4 +287,7 @@
          RIL_REQUEST_GET_RADIO_CAPABILITY + format is UMTS|LTE|... -->
     <string translatable="false" name="config_radio_access_family">GSM|UMTS|LTE</string>
 
+    <!-- Permit doze mode to operate -->
+    <bool name="config_enableAutoPowerModes">true</bool>
+
 </resources>
