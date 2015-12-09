@@ -43,7 +43,7 @@ vendor/lib64/libbtnv.so
 
 # Camera
 bin/mm-qcamera-daemon
-lib/hw/camera.msm8916.so
+lib/hw/camera.msm8916.so:lib/hw/camera.vendor.msm8916.so
 lib/libBestShot.so
 lib/libcamera_af.so
 lib/libcamera_af_ATH.so
@@ -51,6 +51,8 @@ lib/lib_camera_hall_overturn.so
 lib/libcamera_hwaaf.so
 lib/libCameraHwExtend.so
 lib/libcamera_ipp_algo_dflash.so
+lib/libmm-qcamera.so
+lib/libmmcamera_interface.so
 lib/libcamera_post_mediaserver.so
 lib/libcamera_wrapper_algo_omron_makeup.so
 lib/libchromatix_imx135_liveshot.so
