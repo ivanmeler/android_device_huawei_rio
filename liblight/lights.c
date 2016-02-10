@@ -1,6 +1,7 @@
 /*
  * Copyright (C) 2008 The Android Open Source Project
- * Copyright (C) 2014 The  Linux Foundation. All rights reserved.
+ * Copyright (C) 2014 The Linux Foundation. All rights reserved.
+ * Copyright (C) 2016 The CyanogenMod Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +22,7 @@
 #include <cutils/log.h>
 
 #include <stdint.h>
+#include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 #include <errno.h>
@@ -51,6 +53,33 @@ char const*const BLUE_LED_FILE
 
 char const*const LCD_FILE
         = "/sys/class/leds/lcd-backlight/brightness";
+
+char const*const RED_BLINK_FILE
+        = "/sys/class/leds/red/blink";
+
+char const*const GREEN_BLINK_FILE
+        = "/sys/class/leds/green/blink";
+
+char const*const BLUE_BLINK_FILE
+        = "/sys/class/leds/blue/blink";
+
+char const*const RED_BLINK_ONMS_FILE
+        = "/sys/class/leds/red/onMS";
+
+char const*const GREEN_BLINK_ONMS_FILE
+        = "/sys/class/leds/green/onMS";
+
+char const*const BLUE_BLINK_ONMS_FILE
+        = "/sys/class/leds/blue/onMS";
+
+char const*const RED_BLINK_OFFMS_FILE
+        = "/sys/class/leds/red/offMS";
+
+char const*const GREEN_BLINK_OFFMS_FILE
+        = "/sys/class/leds/green/offMS";
+
+char const*const BLUE_BLINK_OFFMS_FILE
+        = "/sys/class/leds/blue/offMS";
 
 /**
  * device methods
@@ -118,21 +147,69 @@ set_speaker_light_locked(struct light_device_t* dev,
         struct light_state_t const* state)
 {
     int red, green, blue;
+    int blink;
+    int onMS, offMS;
     unsigned int colorRGB;
 
     if(!dev) {
         return -1;
     }
 
+    switch (state->flashMode) {
+        case LIGHT_FLASH_TIMED:
+            onMS = state->flashOnMS;
+            offMS = state->flashOffMS;
+            break;
+        case LIGHT_FLASH_NONE:
+        default:
+            onMS = 0;
+            offMS = 0;
+            break;
+    }
+
     colorRGB = state->color;
+
+#if 0
+    ALOGD("set_speaker_light_locked mode %d, colorRGB=%08X, onMS=%d, offMS=%d\n",
+            state->flashMode, colorRGB, onMS, offMS);
+#endif
 
     red = (colorRGB >> 16) & 0xFF;
     green = (colorRGB >> 8) & 0xFF;
     blue = colorRGB & 0xFF;
 
-    write_int(RED_LED_FILE, red);
-    write_int(GREEN_LED_FILE, green);
-    write_int(BLUE_LED_FILE, blue);
+    if (onMS > 0 && offMS > 0) {
+        blink = 1;
+    } else {
+        blink = 0;
+    }
+
+    // reset blink status
+    write_int(RED_BLINK_FILE, 0);
+    write_int(GREEN_BLINK_FILE, 0);
+    write_int(BLUE_BLINK_FILE, 0);
+
+    if (blink) {
+        write_int(RED_LED_FILE, 0);
+        write_int(GREEN_LED_FILE, 0);
+        write_int(BLUE_LED_FILE, 0);
+        write_int(RED_BLINK_ONMS_FILE, onMS);
+        write_int(GREEN_BLINK_ONMS_FILE, onMS);
+        write_int(BLUE_BLINK_ONMS_FILE, onMS);
+        write_int(RED_BLINK_OFFMS_FILE, offMS);
+        write_int(GREEN_BLINK_OFFMS_FILE, offMS);
+        write_int(BLUE_BLINK_OFFMS_FILE, offMS);
+        if (red)
+            write_int(RED_BLINK_FILE, blink);
+        if (green)
+            write_int(GREEN_BLINK_FILE, blink);
+        if (blue)
+            write_int(BLUE_BLINK_FILE, blink);
+    } else {
+        write_int(RED_LED_FILE, red);
+        write_int(GREEN_LED_FILE, green);
+        write_int(BLUE_LED_FILE, blue);
+    }
 
     return 0;
 }
@@ -140,10 +217,10 @@ set_speaker_light_locked(struct light_device_t* dev,
 static void
 handle_speaker_battery_locked(struct light_device_t* dev)
 {
-    if (is_lit(&g_battery)) {
-        set_speaker_light_locked(dev, &g_battery);
-    } else {
+    if (is_lit(&g_notification)) {
         set_speaker_light_locked(dev, &g_notification);
+    } else {
+        set_speaker_light_locked(dev, &g_battery);
     }
 }
 
@@ -250,7 +327,7 @@ struct hw_module_t HAL_MODULE_INFO_SYM = {
     .version_major = 1,
     .version_minor = 0,
     .id = LIGHTS_HARDWARE_MODULE_ID,
-    .name = "Huawei lights Module",
+    .name = "cherry lights Module",
     .author = "Google, Inc., dianlujitao",
     .methods = &lights_module_methods,
 };
