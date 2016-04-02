@@ -31,8 +31,8 @@ import android.telephony.Rlog;
  *
  * {@hide}
  */
-public class KiwiRIL extends RIL {
-    public KiwiRIL(Context context, int networkMode, int cdmaSubscription, Integer instanceId) {
+public class RioRIL extends RIL {
+    public RioRIL(Context context, int networkMode, int cdmaSubscription, Integer instanceId) {
         super(context, networkMode, cdmaSubscription, instanceId);
     }
 
