@@ -165,3 +165,4 @@ ro.nfc.port="I2C"
 
 # WiFi
 wifi.interface=wlan0
+ro.disableWifiApFirmwareReload=true
