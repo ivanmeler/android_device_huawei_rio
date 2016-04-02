@@ -105,8 +105,6 @@ on post-fs-data
     # END PN:DTS2015061604204 xutao 00182802 20150627
     #add for fingerprint
 
-    chown system system /dev/fpc1020
-    chmod 0660 /dev/fpc1020
     chown system system /sys/devices/platform/fingerprint/diag/result
     chown system system /sys/devices/platform/fingerprint/diag/navigation_enable
     chown system system /sys/devices/platform/fingerprint/diag/wakeup_enable
@@ -394,11 +392,10 @@ service systeminfo /system/bin/systeminfo
     #seclabel u:r:systeminfo:s0
     oneshot    
 
-service fingerprint_log  /system/bin/fingerprint_log
-    class main
+service fingerprintd  /system/bin/fingerprintd
+    class late_start
     user system
-    group system system 
-    oneshot
+    group system input
 
 on property:ro.cust.complete="true"
     start  rebootmgr
