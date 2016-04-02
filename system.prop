@@ -26,7 +26,7 @@ ro.config.nostore_nw_sel_mode=false
 ro.multi.rild=true
 ro.ril.multi_rat_capable=true
 telephony.lteOnCdmaDevice=1
-
+persist.data.qmi.adb_logmask=0
 persist.cne.feature=0
 persist.data.ds_fmc_app.mode=0
 persist.omh.enabled=0
@@ -88,18 +88,18 @@ debug.mdpcomp.idletime=600
 debug.enable.sglscale=1
 # disable vsync for cpu render apps
 debug.cpurend.vsync=false
-ro.opengles.version=196608
+ro.opengles.version=196609
 # System property for cabl
 ro.qualcomm.cabl=0
 
 ro.qcom.ad=1
-ro.qcom.ad.calib.data=/system/etc/calib_kiw.cfg
+ro.qcom.ad.calib.data=/system/etc/calib_rio.cfg
 
 # GPS
-persist.gps.qc_nlp_in_use=1
-persist.loc.nlp_name=com.qualcomm.location
+persist.gps.qc_nlp_in_use=0
 ro.gps.agps_provider=1
-ro.pip.gated=0
+ro.qc.sdk.izat.premium.enabled=0
+ro.qc.sdk.izat.service_mask=0x0
 
 
 # Media
@@ -115,35 +115,21 @@ mm.enable.smoothstreaming=true
 mmp.enable.3g2=true
 media.aac_51_output_enabled=true
 ro.qc.sdk.audio.ssr=false
-##fluencetype can be "fluence" or "fluencepro" or "none"
+
 ro.qc.sdk.audio.fluencetype=none
 persist.audio.fluence.voicecall=true
 persist.audio.fluence.voicerec=false
 persist.audio.fluence.speaker=true
-#Set for msm8916
+
 tunnel.audio.encode = false
-#Buffer size in kbytes for compress offload playback
 audio.offload.buffer.size.kb=64
-#Minimum duration for offload playback in secs
 audio.offload.min.duration.secs=30
-#Enable offload audio video playback by default
 av.offload.enable=true
-#tenghui modify for software menu  2014/11/20
-#enable voice path for PCM VoIP by default
 use.voice.path.for.pcm.voip=true
-#/* < DTS2015072103021 tianli/220177 20150721 begin */
-#disable offload audio playback for DTS in the DSP
 audio.offload.pcm.enable=false
 audio.offload.disable=1
-#/* < DTS2015042705935 tianli/220177 20150422 begin */
-#Enable offload audio playback for DTS in the DSP
-#/* DTS2015042705935 tianli/220177 20150422 end > */
-#/* DTS2015072103021 tianli/220177 20150721 end > */
-#System property for FM transmitter
 ro.fm.transmitter=false
-#enable dsp gapless mode by default
 audio.offload.gapless.enabled=true
-#Audio voice concurrency related flags
 voice.playback.conc.disabled=false
 voice.record.conc.disabled=false
 voice.voip.conc.disabled=true
@@ -158,7 +144,6 @@ ro.sf.lcd_density=480
 qemu.hw.mainkeys=0
 ro.qcom.ad.sensortype=2
 ro.vendor.extension_library=libqti-perfd-client.so
-persist.sys.isUsbOtgEnabled=true
 
 # NFC
 ro.nfc.port="I2C"
