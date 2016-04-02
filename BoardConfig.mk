@@ -144,6 +144,12 @@ BOARD_RIL_CLASS := ../../../device/huawei/kiwi/ril
 PROTOBUF_SUPPORTED := true
 TARGET_RIL_VARIANT := proprietary
 
+# CMHW
+BOARD_USES_CYANOGEN_HARDWARE := true
+BOARD_HARDWARE_CLASS := \
+    $(LOCAL_PATH)/cmhw \
+    hardware/cyanogen/cmhw
+
 # SELinux
 include device/qcom/sepolicy/sepolicy.mk
 
