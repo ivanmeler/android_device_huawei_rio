@@ -19,11 +19,11 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
 # Inherit from kiwi device
-$(call inherit-product, device/huawei/kiwi/device.mk)
+$(call inherit-product, device/huawei/rio/device.mk)
 
 # Device identifier. This must come after all inclusions
-PRODUCT_DEVICE := kiwi
-PRODUCT_NAME := full_kiwi
-PRODUCT_BRAND := HONOR
-PRODUCT_MODEL := KIW-L24
+PRODUCT_NAME := full_rio
+PRODUCT_DEVICE := rio
+PRODUCT_BRAND := Huawei
 PRODUCT_MANUFACTURER := HUAWEI
+PRODUCT_MODEL := HUAWEI RIO-L01
