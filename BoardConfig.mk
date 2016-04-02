@@ -133,7 +133,7 @@ TARGET_POWERHAL_VARIANT := qcom
 TARGET_TAP_TO_WAKE_NODE := /sys/touch_screen/easy_wakeup_gesture
 
 # Properties
-TARGET_SYSTEM_PROP += $(LOCAL_PATH)/system.prop
+TARGET_SYSTEM_PROP := $(LOCAL_PATH)/system.prop
 
 # Qualcomm support
 BOARD_USES_QC_TIME_SERVICES := true
