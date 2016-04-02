@@ -148,7 +148,6 @@
 /dev/msm_preproc_ctl      0660   system     audio
 /dev/msm_rtac             0660   system     audio
 /dev/msm_voicememo        0660   system     audio
-/dev/radio0               0640   fm_radio   fm_radio
 /dev/smd3                 0660   bluetooth  net_bt_stack
 /dev/smd2                 0660   bluetooth  net_bt_stack
 /dev/ttyHSL1              0660   system     system
@@ -160,6 +159,7 @@
 /dev/ttyGS0               0660   system     system
 /dev/i2c-5                0660   media       media
 /dev/voice_svc            0660   system     audio
+/dev/avtimer              0660   system     audio
 
 # DVB devices
 /dev/dvb/adapter0/demux*  0440   media       media
@@ -203,6 +203,7 @@
 /dev/rfkill               0660   root       wifi
 
 #nfc permissions
+/dev/pn544                0660    nfc         nfc
 /dev/nfc-nci              0660    nfc         nfc
 /dev/assd                 0660    nfc         nfc
 
@@ -219,6 +220,9 @@
 
 # Ramdump devices
 /dev/ramdump*             0640   system     system
+
+# Fingerprint sensor
+/dev/fpc1020		  0660	 system	    system
 
 # Add device block for FRP
 /dev/block/bootdevice/by-name/config    0660   system     system
