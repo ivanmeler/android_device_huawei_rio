@@ -309,11 +309,6 @@ on property:sys.boot_completed=1
 on property:persist.radio.atfwd.start=false
     stop atfwd
 
-service qcom-debug /system/bin/sh /system/etc/init.qcom.debug.sh
-    class core
-    user root
-    oneshot
-
 # corefile limit and ETB enabling
 on property:persist.debug.trace=1
     mkdir /data/core 0777 root root
@@ -440,13 +435,6 @@ on property:bluetooth.hciattach=true
 
 on property:bluetooth.hciattach=false
     setprop bluetooth.status off
-
-service hciattach_ath3k /system/bin/sh /system/etc/init.ath3k.bt.sh
-     class late_start
-     user bluetooth
-     group system bluetooth net_bt_admin misc
-     disabled
-     oneshot
 
 service bt-dun /system/bin/dun-server /dev/smd7 /dev/rfcomm0
     class late_start
@@ -605,7 +593,6 @@ service iprenew_p2p /system/bin/dhcpcd -n
     disabled
     oneshot
 
-
 service ptt_ffbm /system/bin/ptt_socket_app -f -d
     user root
     group root
@@ -702,15 +689,8 @@ service wifi-sdio-on /system/bin/sh /system/etc/init.qcom.sdio.sh
     disabled
     oneshot
 
-service config-zram /system/bin/sh /system/etc/init.qcom.zram.sh
-   class late_start
-   user root
-   disabled
-   oneshot
-
 on property:sys.boot_completed=1
     start qcom-post-boot
-    start config-zram
 
 service atfwd /system/bin/ATFWD-daemon
     class late_start
@@ -792,8 +772,9 @@ service hcidump /system/bin/sh /system/etc/hcidump.sh
     disabled
     oneshot
 
-service charger /charger -h
+service charger /charger
     class charger
+    group graphics
     seclabel u:r:healthd:s0
 
 service ssr_diag /system/bin/ssr_diag

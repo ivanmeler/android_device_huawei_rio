@@ -1,9 +1,6 @@
 on early-init
     setprop persist.service.hbd.enable true
 
-on init
-    mkdir /cust
-
 # Create cgroup mount point for freezer
     mkdir /dev/frz
     mount cgroup none /dev/frz freezer
@@ -47,17 +44,13 @@ on post-fs-data
     mkdir /data/drm/rights 0770 drm drm
     mkdir /data/drm/widevine 0770 drm drm
 
-    # DTS2014081000069 wangyong/00205756 20140811 begin sync DTS2013082803931
     mkdir /data/midi
     chmod 0770 /data/midi
     chown media audio /data/midi
-    # DTS2014081000069 wangyong/00205756 20140811 end
 
     sys_wp_init_action
     start goldeneye
     start goldeneye_test
-
-    start cust
 
     chown system system /sys/devices/12c.hw-dev-detect/dev_flag
     chown system system /sys/touch_screen/touch_mmi_test
@@ -94,7 +87,7 @@ on post-fs-data
     chown system system /sys/touch_screen/touch_mmi_test/command
     chown system system /sys/touch_screen/touch_mmi_test/status
     chown system system /sys/touch_screen/touch_mmi_test/response
-    # BEGIN PN:DTS2015061604204 xutao 00182802 20150627
+
     restorecon /sys/class/leds/lcd-backlight/brightness
     restorecon /sys/class/power_supply/battery/charging_enabled
     restorecon /sys/class/graphics/fb0/inversion_mode
@@ -102,8 +95,6 @@ on post-fs-data
     restorecon /sys/class/leds/red/brightness
     restorecon /sys/class/leds/blue/brightness
     restorecon /sys/class/hw_power/charger/charge_data/enable_charger
-    # END PN:DTS2015061604204 xutao 00182802 20150627
-    #add for fingerprint
 
     chown system system /sys/devices/platform/fingerprint/diag/result
     chown system system /sys/devices/platform/fingerprint/diag/navigation_enable
@@ -149,10 +140,9 @@ on post-fs-data
     chown system system /sys/class/graphics/fb0/inversion_mode
     chown system system /sys/class/graphics/fb0/panel_status
     chown system system /sys/class/graphics/fb0/lcd_checksum
-    # BEGIN PN: DTS2015082001462 fwx295956 20150820
+
     chown system system /sys/class/graphics/fb0/lcd_comform_mode
     chown system system /sys/class/graphics/fb0/lcd_support_mode
-    # END PN: DTS2015082001462 fwx295956 20150820
 
     chown system system /sys/bus/i2c/devices/0-002c/adux1050_calib_target
     chown system system /sys/bus/i2c/devices/0-002c/adux1050_calibration
@@ -169,6 +159,7 @@ on post-fs-data
     chown system system /sys/bus/i2c/devices/0-002c/adux1050_update_calib
     chown system system /sys/bus/i2c/devices/0-002c/adux1050_update_config
     chown system system /sys/bus/i2c/devices/0-002c/adux1050_vendor
+
     mkdir /data/log/sar_cap
     chown system system /data/log/sar_cap
     chown system system /sys/bus/i2c/devices/0-001e/ps_calibration
@@ -191,8 +182,6 @@ service powerlogd /system/bin/powerlogd
     socket powerlogdr seqpacket 0600 system system
     socket powerlogdw dgram 0220 system system
 
-# stock's init.rc adds sdcard_rw as a group for ril-daemon
-
 service ddrtest /system/bin/do_ddrtest
     user root
     disabled
@@ -213,25 +202,13 @@ on property:debug.rt.ddr.test=3
 on property:debug.rt.ddr.test=4
     start stop_ddrtest
 
-# service drm adds sdcard_r media_rw shell groups
-
-service filebackup /system/bin/filebackup
-    class main
-    socket filebackup stream 0660 radio system
-
-# service media adds system dsm shell sdcard_rw sdcard_r groups
-
-# service bootanim runs as user media
-
 service oeminfo_server /system/bin/oeminfo_server
     class core
     user root
-    #seclabel u:r:oeminfo_domain:s0
 
 service rmt_oeminfo /sbin/rmt_oeminfo
     class core
     user root
-    #seclabel u:r:oeminfo_domain:s0
 
 service teecd /system/bin/teecd
     class core
@@ -239,21 +216,8 @@ service teecd /system/bin/teecd
     group system
     seclabel u:r:tee:s0
 
-service signinfolistener /sbin/signinfolistener
-    class core
-    user system
-    #seclabel u:r:signinfolistener:s0
-
 service libqmi_oem_main /sbin/libqmi_oem_main
     class main
-    #seclabel u:r:libqmi_oem_main:s0
-
-service rebootmgr /system/bin/rebootmgr
-    class core
-    oneshot
-    disabled
-
-# disable enable_swap
 
 service chargelog  /sbin/chargelog.sh 2 51200
     class main
@@ -298,13 +262,6 @@ service huawei_version /sbin/huawei_version
     class core
     user root
     oneshot
-    #seclabel u:r:huawei_version:s0
-
-service test_diag /sbin/test_diag
-    user root
-    disabled
-    seclabel u:r:test_diag:s0
-
 
 service oem_sar_main /system/bin/oem_sar_main
     class core
@@ -329,14 +286,12 @@ service mmc_ro_monitor /sbin/huawei_mmc_monitor -f -c
     group root
     disabled
     oneshot
-    #seclabel u:r:huawei_mmc_monitor:s0
 
 service mmc_ro_scan /sbin/huawei_mmc_monitor -f -c -d
     user root
     group root
     disabled
     oneshot
-    #seclabel u:r:huawei_mmc_monitor:s0
 
 on property:debug.rt.emmc.test=1
     stop mmc_ro_monitor
@@ -348,13 +303,14 @@ on property:debug.emmc.daemon.test=1
 
 on property:ro.runmode=factory
     start send_data_srv
-        mkdir /data/img media media
-        chmod 0777 /data/img
-        mkdir /data/camera camera camera
-        chmod 0777 /data/camera
+    mkdir /data/img media media
+    chmod 0777 /data/img
+    mkdir /data/camera camera camera
+    chmod 0777 /data/camera
     mkdir /data/misp root root
     chmod 0777 /data/misp
     chmod 0777 /sys/bus/spi/devices/spi1.0/misp_config
+
 # for hwnff
 service hwnffserver /system/bin/hwnffserver
     class core
@@ -365,26 +321,9 @@ service hwpged /system/bin/hwpged
     socket MsgHubSock stream 0660 root system
     user root
 
-service check_root /sbin/check_root
-    user root
-    group radio system
-    oneshot
-    disabled
-    seclabel u:r:check_root:s0
-
-on property:sys.boot_completed=1
-    start check_root
-    huawei_boot_complete_save_action
-
 on property:persist.sys.hlcharging=true
     write /sys/class/power_supply/battery/device/not_limit_chrg_flag 1
 mkdir system/etc/tp_test_parameters
-
-
-service cust /system/bin/cust
-       user root   
-       oneshot  
-       disabled  
 
 service systeminfo /system/bin/systeminfo
     class main
@@ -396,9 +335,6 @@ service fingerprintd  /system/bin/fingerprintd
     class late_start
     user system
     group system input
-
-on property:ro.cust.complete="true"
-    start  rebootmgr
 
 on property:hw.accel.calib="true"
     chmod 0664 /dev/input/event0

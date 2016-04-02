@@ -50,11 +50,6 @@ on fs
     # these partition flashed on the device. Failure to mount any partition in fstab file
     # results in failure to launch late-start class.
 
-    #wait /dev/block/bootdevice/by-name/cache
-    #mount ext4 /dev/block/bootdevice/by-name/cache /cache nosuid nodev barrier=1
-
-    #wait /dev/block/bootdevice/by-name/persist
-    #mount ext4 /dev/block/bootdevice/by-name/persist /persist nosuid nodev barrier=1
     mkdir /persist/data 0700 system system
     restorecon_recursive /persist
 
@@ -64,13 +59,6 @@ on fs
     mkdir /log/sdlog 0775 system system
     write /log/sdlog/sd_err.log 0
     
-    service ota_detect /sbin/ota_sudden_poweroff_detect
-        class main
-        user root
-        group root
-        oneshot
-        seclabel u:r:ota_detect:s0 
-
 on post-fs-data
     mkdir /data/tombstones 0771 system system
     mkdir /tombstones/modem 0771 system system
@@ -113,11 +101,6 @@ service qseecomd /system/bin/qseecomd
    class core
    user root
    group root
-
-#service aostlmd /system/bin/aostlmd
-#   class late_start
-#   user system
-#   group system net_raw
 
 service perfd /system/vendor/bin/perfd
    class main
@@ -221,7 +204,6 @@ on property:init.svc.surfaceflinger=stopped
 
 on property:init.svc.surfaceflinger=running
     start ppd
-
 
 on charger-fs
     mount ext4 /dev/block/bootdevice/by-name/userdata /data rw
