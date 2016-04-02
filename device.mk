@@ -102,11 +102,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     init.qcom.bt.sh
 
-# Camera
-PRODUCT_PACKAGES += \
-    camera.msm8916 \
-    libmm-qcamera
-
 # Charger
 PRODUCT_PACKAGES += \
     charger_res_images

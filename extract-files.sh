@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #set -e
-export DEVICE=kiwi
+export DEVICE=rio
 export VENDOR=huawei
 
 if [ $# -eq 0 ]; then
