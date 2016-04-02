@@ -100,7 +100,6 @@ PRODUCT_PACKAGES += \
     libboringssl-compat \
     libshim_camera_post_mediaserver \
     libshim_cutils \
-    libshim_gps \
     libshim_ril \
     libshim_sensormanager \
     libshim_sound_trigger \
