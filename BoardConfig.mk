@@ -155,8 +155,8 @@ include device/qcom/sepolicy/sepolicy.mk
 
 # Vendor Init
 TARGET_UNIFIED_DEVICE := true
-TARGET_INIT_VENDOR_LIB := libinit_kiwi
-TARGET_LIBINIT_DEFINES_FILE := $(LOCAL_PATH)/init/init_kiwi.c
+TARGET_INIT_VENDOR_LIB := libinit_msm
+TARGET_LIBINIT_DEFINES_FILE := $(LOCAL_PATH)/init/init_rio.cpp
 
 # Vold
 TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/msm_hsusb/gadget/lun%d/file
