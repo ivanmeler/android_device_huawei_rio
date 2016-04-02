@@ -17,7 +17,7 @@ persist.radio.rat_on=combine
 ril.subscription.types=NV,RUIM
 DEVICE_PROVISIONED=1
 ro.telephony.default_network=9,9
-
+ro.telephony.call_ring.multiple=false
 persist.radio.force_nw_search=1
 ro.config.eons_always_ap=false
 persist.radio.msgtunnel.start=false
@@ -162,3 +162,6 @@ persist.sys.isUsbOtgEnabled=true
 
 # NFC
 ro.nfc.port="I2C"
+
+# WiFi
+wifi.interface=wlan0
