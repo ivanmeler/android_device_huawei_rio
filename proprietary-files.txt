@@ -1498,7 +1498,7 @@ vendor/lib/libSHIMDivxDrm.so
 
 # Perf
 bin/msm_irqbalance
-bin/perfd
+vendor/bin/perfd
 vendor/etc/msm_irqbalance.conf
 vendor/lib/libqti-perfd-client.so
 vendor/lib64/libqti-perfd-client.so
@@ -1607,7 +1607,7 @@ vendor/lib64/libcalmodule_akm.so
 vendor/lib64/libcalmodule_common.so
 
 # Thermal
-bin/thermal-engine
+vendor/bin/thermal-engine
 vendor/lib64/libthermalclient.so
 vendor/lib64/libthermalioctl.so
 vendor/lib/libthermalclient.so
