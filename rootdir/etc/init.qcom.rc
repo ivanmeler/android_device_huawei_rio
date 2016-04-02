@@ -167,6 +167,23 @@ on boot
     # an ack packet comes out of order
     write /proc/sys/net/netfilter/nf_conntrack_tcp_be_liberal 1
 
+    # AKM E-compass akm09911
+    chown system compass /sys/class/compass/akm09911/enable_acc
+    chown system compass /sys/class/compass/akm09911/enable_mag
+    chown system compass /sys/class/compass/akm09911/enable_fusion
+    chown system compass /sys/class/compass/akm09911/delay_acc
+    chown system compass /sys/class/compass/akm09911/delay_mag
+    chown system compass /sys/class/compass/akm09911/delay_fusion
+    chown system compass /sys/class/compass/akm09911/accel
+
+    chmod 0660 /sys/class/compass/akm09911/enable_acc
+    chmod 0660 /sys/class/compass/akm09911/enable_mag
+    chmod 0660 /sys/class/compass/akm09911/enable_fusion
+    chmod 0660 /sys/class/compass/akm09911/delay_acc
+    chmod 0660 /sys/class/compass/akm09911/delay_mag
+    chmod 0660 /sys/class/compass/akm09911/delay_fusion
+    chmod 0660 /sys/class/compass/akm09911/accel
+
     # NFC local data and nfcee xml storage
     mkdir /data/nfc 0770 nfc nfc
     mkdir /data/nfc/param 0770 nfc nfc
