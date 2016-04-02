@@ -21,6 +21,33 @@ $(call inherit-product-if-exists, vendor/huawei/rio/rio-vendor.mk)
 # Overlay
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 
+# Media configuration
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/prebuilts/media_codecs.xml:system/etc/media_codecs.xml \
+    $(LOCAL_PATH)/prebuilts/media_codecs_performance.xml:system/etc/media_codecs_performance.xml \
+    $(LOCAL_PATH)/prebuilts/media_profiles.xml:system/etc/media_profiles.xml \
+    $(LOCAL_PATH)/prebuilts/sound_trigger_mixer_paths.xml:system/etc/sound_trigger_mixer_paths.xml \
+    $(LOCAL_PATH)/prebuilts/sound_trigger_platform_info.xml:system/etc/sound_trigger_platform_info.xml
+
+PRODUCT_COPY_FILES += \
+    frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
+    frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
+    frameworks/av/media/libstagefright/data/media_codecs_google_video_le.xml:system/etc/media_codecs_google_video_le.xml
+
+PRODUCT_PACKAGES += \
+    media_codecs_ffmpeg.xml
+
+# Audio configuration file
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/prebuilts/aanc_tuning_mixer.txt:system/etc/aanc_tuning_mixer.txt \
+    $(LOCAL_PATH)/prebuilts/audio_policy.conf:system/etc/audio_policy.conf \
+    $(LOCAL_PATH)/prebuilts/audio_effects.conf:system/vendor/etc/audio_effects.conf \
+    $(LOCAL_PATH)/prebuilts/mixer_paths_skuk.xml:system/etc/mixer_paths_skuk.xml
+
+# Thermal engine
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/prebuilts/thermal-engine.conf:system/etc/thermal-engine.conf
+
 # Permissions
 PRODUCT_COPY_FILES += \
     external/ant-wireless/antradio-library/com.dsi.ant.antradio_library.xml:system/etc/permissions/com.dsi.ant.antradio_library.xml \
@@ -29,7 +56,7 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml \
     frameworks/native/data/etc/android.hardware.camera.flash-autofocus.xml:system/etc/permissions/android.hardware.camera.flash-autofocus.xml \
     frameworks/native/data/etc/android.hardware.camera.front.xml:system/etc/permissions/android.hardware.camera.front.xml \
-    frameworks/native/data/etc/android.hardware.ethernet.xml:system/etc/permissions/android.hardware.ethernet.xml \
+    frameworks/native/data/etc/android.software.midi.xml:system/etc/permissions/android.software.midi.xml \
     frameworks/native/data/etc/android.hardware.location.gps.xml:system/etc/permissions/android.hardware.location.gps.xml \
     frameworks/native/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml \
     frameworks/native/data/etc/android.hardware.telephony.cdma.xml:system/etc/permissions/android.hardware.telephony.cdma.xml \
@@ -40,9 +67,11 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
     frameworks/native/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml \
     frameworks/native/data/etc/android.hardware.sensor.accelerometer.xml:system/etc/permissions/android.hardware.sensor.accelerometer.xml \
+    frameworks/native/data/etc/android.hardware.sensor.compass.xml:system/etc/permissions/android.hardware.sensor.compass.xml \
     frameworks/native/data/etc/android.hardware.sensor.gyroscope.xml:system/etc/permissions/android.hardware.sensor.gyroscope.xml \
     frameworks/native/data/etc/android.hardware.sensor.light.xml:system/etc/permissions/android.hardware.sensor.light.xml \
     frameworks/native/data/etc/android.hardware.sensor.proximity.xml:system/etc/permissions/android.hardware.sensor.proximity.xml \
+    frameworks/native/data/etc/android.hardware.opengles.aep.xml:system/etc/permissions/android.hardware.opengles.aep.xml \
     frameworks/native/data/etc/android.software.app_widgets.xml:system/etc/permissions/android.software.app_widgets.xml \
     frameworks/native/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml
 
@@ -50,28 +79,17 @@ PRODUCT_COPY_FILES += \
 PRODUCT_AAPT_CONFIG := normal
 PRODUCT_AAPT_PREF_CONFIG := xxhdpi
 
-$(call inherit-product, frameworks/native/build/phone-hdpi-2048-dalvik-heap.mk)
-$(call inherit-product, frameworks/native/build/phone-xxhdpi-2048-hwui-memory.mk)
-
 # Audio
 PRODUCT_PACKAGES += \
     audiod \
     audio.a2dp.default \
-    audio.primary.msm8916 \
-    audio.r_submix.default \
     audio.usb.default \
-    libqcompostprocbundle \
+    audio.r_submix.default \
+    audio.primary.msm8916 \
+    tinymix \
     libqcomvisualizer \
-    libqcomvoiceprocessing \
-    tinymix
-
-# Audio configuration
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/audio/aanc_tuning_mixer.txt:system/etc/aanc_tuning_mixer.txt \
-    $(LOCAL_PATH)/audio/audio_effects.conf:system/vendor/etc/audio_effects.conf \
-    $(LOCAL_PATH)/audio/audio_platform_info.xml:system/etc/audio_platform_info.xml \
-    $(LOCAL_PATH)/audio/audio_policy.conf:system/etc/audio_policy.conf \
-    $(LOCAL_PATH)/audio/mixer_paths.xml:system/etc/mixer_paths_skuk.xml
+    libqcompostprocbundle \
+    libqcomvoiceprocessing
 
 # ANT+ stack
 PRODUCT_PACKAGES += \
@@ -111,15 +129,18 @@ PRODUCT_PACKAGES += \
     libtinyxml \
     memtrack.msm8916
 
-# Filesystem
-PRODUCT_PACKAGES += \
-    e2fsck \
-    make_ext4fs
-
 # FM
 PRODUCT_PACKAGES += \
     FMRadio \
     libfmjni
+
+# KEYPAD
+PRODUCT_PACKAGES += \
+    fingerprint.kl \
+    ft5x06_ts.kl \
+    gpio-keys.kl \
+    synaptics_dsx.kl \
+    synaptics_rmi4_i2c.kl
 
 # GPS
 PRODUCT_PACKAGES += \
@@ -134,18 +155,12 @@ PRODUCT_COPY_FILES += \
 
 # IRSC
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/sec_config:system/etc/sec_config
+    $(LOCAL_PATH)/prebuilts/sec_config:system/etc/sec_config
 
-# Media
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/media_profiles.xml:system/etc/media_profiles.xml \
-    frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
-    frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
-    frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml \
-    $(LOCAL_PATH)/configs/media_codecs.xml:system/etc/media_codecs.xml
-
+# OMX
 PRODUCT_PACKAGES += \
-    libdashplayer \
+    libc2dcolorconvert \
+    libdivxdrmdecrypt \
     libOmxAacEnc \
     libOmxAmrEnc \
     libOmxCore \
@@ -153,11 +168,11 @@ PRODUCT_PACKAGES += \
     libOmxQcelp13Enc \
     libOmxVdec \
     libOmxVenc \
-    libstagefrighthw \
-    qcmediaplayer
+    libstagefrighthw
 
-PRODUCT_BOOT_JARS += \
-    qcmediaplayer
+# mm-dash
+PRODUCT_PACKAGES += \
+    libextmedia_jni
 
 # Power HAL
 PRODUCT_PACKAGES += \
@@ -191,14 +206,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/dsi_config.xml:system/etc/data/dsi_config.xml \
     $(LOCAL_PATH)/configs/netmgr_config.xml:system/etc/data/netmgr_config.xml \
     $(LOCAL_PATH)/configs/qmi_config.xml:system/etc/data/qmi_config.xml
-
-# Sensors
-PRODUCT_PACKAGES += \
-    sensors.msm8916
-
-# Thermal
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/thermal-engine.conf:system/etc/thermal-engine.conf
 
 # NFC
 PRODUCT_PACKAGES += \
@@ -257,3 +264,6 @@ PRODUCT_COPY_FILES += \
 ifneq ($(QCPATH),)
 PRODUCT_BOOT_JARS += WfdCommon
 endif
+
+$(call inherit-product, frameworks/native/build/phone-xxhdpi-2048-dalvik-heap.mk)
+$(call inherit-product, frameworks/native/build/phone-xxhdpi-2048-hwui-memory.mk)
