@@ -144,7 +144,7 @@ TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/rootdir/etc/fstab.qcom
 
 # RIL
 COMMON_GLOBAL_CFLAGS += -DDISABLE_ASHMEM_TRACKING
-BOARD_RIL_CLASS := ../../../device/huawei/kiwi/ril
+BOARD_RIL_CLASS := ../../../device/huawei/rio/ril
 PROTOBUF_SUPPORTED := true
 TARGET_RIL_VARIANT := proprietary
 
