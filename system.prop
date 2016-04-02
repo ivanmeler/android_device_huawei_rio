@@ -159,3 +159,6 @@ qemu.hw.mainkeys=0
 ro.qcom.ad.sensortype=2
 ro.vendor.extension_library=libqti-perfd-client.so
 persist.sys.isUsbOtgEnabled=true
+
+# NFC
+ro.nfc.port="I2C"

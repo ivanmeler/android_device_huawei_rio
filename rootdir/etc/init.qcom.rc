@@ -40,6 +40,9 @@ on init
     symlink /sdcard /mnt/sdcard
     symlink /sdcard /storage/sdcard0
 
+    # NFC
+    symlink /dev/pn544 /dev/pn54x
+
 on early-boot
     # set RLIMIT_MEMLOCK to 64MB
     setrlimit 8 67108864 67108864
@@ -87,6 +90,10 @@ on boot
     chmod 2770 /dev/socket/qmux_bluetooth
     mkdir /dev/socket/qmux_gps 0770 gps gps
     chmod 2770 /dev/socket/qmux_gps
+
+    # NFC
+    mkdir /dev/socket/qmux_nfc 0770 nfc nfc
+    chmod 2770 /dev/socket/qmux_nfc
 
     #Create NETMGR daemon socket area
     mkdir /dev/socket/netmgr 0750 radio radio
@@ -164,10 +171,6 @@ on boot
     mkdir /data/nfc 0770 nfc nfc
     mkdir /data/nfc/param 0770 nfc nfc
    
-    setprop ro.nfc.port "I2C"
-    chmod 0660 /dev/pn544
-    chown nfc nfc /dev/pn544
-
     chown nfc nfc /sys/nfc/nfc_fwupdate
     chmod 0664 /sys/nfc/nfc_fwupdate
     chown nfc nfc /sys/nfc/nxp_config_name
