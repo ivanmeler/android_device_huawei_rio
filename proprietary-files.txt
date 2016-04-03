@@ -301,6 +301,10 @@ etc/data/qmi_config.xml
 vendor/etc/pdc_RIO_for_nfc.txt
 vendor/firmware/libpn547_fw.so
 
+# DS2
+etc/srs/dts.lic
+etc/srs/srs_processing.cfg
+
 # OTHER FIRMWARE
 # not needed?
 etc/firmware/a225p5_pm4.fw
