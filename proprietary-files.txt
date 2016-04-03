@@ -317,28 +317,16 @@ etc/firmware/ale-HB3742A0EBC+_SDI_SWD.fw
 etc/firmware/Alice_fw.bin
 etc/firmware/athena_boe_fw.img
 etc/firmware/athena_jdi_fw.img
-etc/firmware/c8818_lensone_fw.img
-etc/firmware/c8818_ofilm_fw.img
-etc/firmware/c8818_truly_fw.img
-etc/firmware/cherry_gis_fw.img
-etc/firmware/cherry_ofilm_fw.img
-etc/firmware/cherry_yassy_fw.img
 etc/firmware/ATH_miniBoot.bin
 etc/firmware/ATH_TBM_Latour2.bin
 etc/firmware/g620A_eely_fw.img
 etc/firmware/g620A_ofilm_fw.img
 etc/firmware/ice40.bin
-etc/firmware/kiw-HB396481EBC_ATL_SCUD.fw
-etc/firmware/kiw-HB396481EBC_SONY_SWD.fw
 etc/firmware/Kiwi_fw.bin
 etc/firmware/leia_pfp_470.fw
 etc/firmware/leia_pm4_470.fw
-etc/firmware/shine_lensone_fw.img
-etc/firmware/shine_ofilm_fw.img
-etc/firmware/shine_truly_fw.img
 etc/firmware/Rio_fw.bin
 etc/firmware/RIO_miniBoot.bin
 etc/firmware/RIO_TBM_Latour2.bin
-etc/firmware/T2A_fw.bin
 # note: etc/firmware/wlan has symlinks I'm ignoring for now
 # note: etc/firmware/wcd9306 has symlinks I'm ignoring for now
