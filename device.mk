@@ -108,13 +108,10 @@ PRODUCT_PACKAGES += \
 
 # Compatibility
 PRODUCT_PACKAGES += \
-    libboringssl-compat \
-    libshim_camera_post_mediaserver \
     libshim_cutils \
     libshim_ril \
     libshim_sensormanager \
-    libshim_sound_trigger \
-    libstlport
+    libshim_sound_trigger
 
 # Display
 PRODUCT_PACKAGES += \
