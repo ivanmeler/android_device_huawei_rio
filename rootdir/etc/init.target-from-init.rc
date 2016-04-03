@@ -1,6 +1,9 @@
 on early-init
     setprop persist.service.hbd.enable true
 
+on init
+    mkdir /cust
+
 # Create cgroup mount point for freezer
     mkdir /dev/frz
     mount cgroup none /dev/frz freezer
@@ -182,26 +185,6 @@ service powerlogd /system/bin/powerlogd
     socket powerlogdr seqpacket 0600 system system
     socket powerlogdw dgram 0220 system system
 
-service ddrtest /system/bin/do_ddrtest
-    user root
-    disabled
-    oneshot
-
-service stop_ddrtest /system/bin/do_ddrtest
-    user root
-    disabled
-    oneshot
-
-on property:debug.rt.ddr.test=1
-    stop ddrtest
-    start ddrtest
-on property:debug.rt.ddr.test=2
-    start ddrtest
-on property:debug.rt.ddr.test=3
-    start ddrtest
-on property:debug.rt.ddr.test=4
-    start stop_ddrtest
-
 service oeminfo_server /system/bin/oeminfo_server
     class core
     user root
@@ -230,32 +213,10 @@ service chargemonitor /system/bin/chargemonitor
     user system
     group system
 
-service wifi_aging /system/xbin/wifi_aging
-    user root
-    disabled
-    oneshot
-
-service wifi_power_off /system/xbin/wifi_power_off
-    user root
-    disabled
-    oneshot
-
 service wlan_detect /system/bin/wlan_detect
     class main
     user root
     group root
-    oneshot
-
-service bt_aging /system/xbin/bt_aging
-    user root
-    group bluetooth net_bt_admin system
-    disabled
-    oneshot
-
-service bt_power_off /system/xbin/bt_power_off
-    user root
-    group bluetooth net_bt_admin system
-    disabled
     oneshot
 
 service huawei_version /sbin/huawei_version
@@ -323,12 +284,11 @@ service hwpged /system/bin/hwpged
 
 on property:persist.sys.hlcharging=true
     write /sys/class/power_supply/battery/device/not_limit_chrg_flag 1
-mkdir system/etc/tp_test_parameters
+    mkdir system/etc/tp_test_parameters
 
 service systeminfo /system/bin/systeminfo
     class main
     user root
-    #seclabel u:r:systeminfo:s0
     oneshot    
 
 service fingerprintd  /system/bin/fingerprintd
