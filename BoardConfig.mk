@@ -121,6 +121,9 @@ BOARD_PERSISTIMAGE_PARTITION_SIZE := 67108864
 
 # Power
 TARGET_POWERHAL_VARIANT := qcom
+BOARD_POWER_CUSTOM_BOARD_LIB := libpower_rio
+
+# Tap2Wake
 TARGET_TAP_TO_WAKE_NODE := /sys/touch_screen/easy_wakeup_gesture
 
 # Properties
