@@ -189,7 +189,7 @@ service oeminfo_server /system/bin/oeminfo_server
     class core
     user root
 
-service rmt_oeminfo /sbin/rmt_oeminfo
+service rmt_oeminfo /system/bin/rmt_oeminfo
     class core
     user root
 
@@ -199,7 +199,7 @@ service teecd /system/bin/teecd
     group system
     seclabel u:r:tee:s0
 
-service libqmi_oem_main /sbin/libqmi_oem_main
+service libqmi_oem_main /system/bin/libqmi_oem_main
     class main
 
 service chargelog  /sbin/chargelog.sh 2 51200

@@ -240,18 +240,10 @@ vendor/lib64/libsystem_health_mon.so
 vendor/lib64/libxml.so
 vendor/lib/lib-imsdpl.so
 
-# Ramdisk
-/sbin/chargelog.sh
-/sbin/e2fsck_s
-/sbin/fsck_msdos_s
-/sbin/hdbd
-/sbin/huawei_mmc_monitor
-/sbin/huawei_version
-/sbin/hw_scsi_switch
-/sbin/libqmi_oem_main
-/sbin/rmt_oeminfo
-/sbin/rmt_storage
-/sbin/usb_update
+# Huawei proprietary blobs
+bin/libqmi_oem_main
+bin/rmt_oeminfo
+bin/rmt_storage
 
 # Sensors
 bin/oeminfo_server
