@@ -37,7 +37,7 @@ on early-init
     mkdir /log 0770 system log
 
 on fs
-    export LD_SHIM_LIBS /system/lib64/libcutils.so|libshim_cutils.so:/system/lib/libcutils.so|libshim_cutils.so:/system/lib64/libril.so|libshim_ril.so:/system/lib64/hw/sensors.msm8916.so|libshim_sensormanager.so:/system/bin/mm-pp-daemon|libshim_sensormanager.so
+    export LD_SHIM_LIBS /system/lib64/libcutils.so|libshim_cutils.so:/system/lib/libcutils.so|libshim_cutils.so:/system/lib64/libril.so|libshim_ril.so:/system/lib64/hw/sensors.msm8916.so|libshim_sensormanager.so:/system/bin/mm-pp-daemon|libshim_sensormanager.so:/system/lib/hw/camera.msm8916.so|libshim_sensormanager.so:/system/lib/hw/camera.msm8916.so|libshim_cutils.so:/system/vendor/lib/libmmqjpeg_codec.so|libboringssl-compat.so:/system/lib/libcamera_hwaaf.so|libshim_cutils.so:/system/lib/libcamera_hwaaf.so|libshim_sensormanager.so:/system/lib/libcamera_post_mediaserver.so|libshim_media.so
 
     wait /dev/block/bootdevice
     mount_all fstab.qcom
@@ -74,6 +74,7 @@ service qcamerasvr /system/bin/mm-qcamera-daemon
     class late_start
     user camera
     group camera system inet input graphics
+    setenv LD_PRELOAD /vendor/lib/libqcamerasvr-c++.so
 
 # Allow usb charging to be disabled peristently
 on property:persist.usb.chgdisabled=1

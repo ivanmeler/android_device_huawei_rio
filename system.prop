@@ -138,3 +138,34 @@ ro.disableWifiApFirmwareReload=true
 
 #property to enable DS2 dap
 audio.dolby.ds2.enabled=true
+
+# Camera
+persist.hw_camera.video_sta=true
+ro.build.hide.pic_size_match=4160x3120;4208x2368;3104x3104;3264x2448;3264x1836
+ro.build.hide.pic_size_replace=3264x2448;3264x1836;2448x2448;2592x1952;2592x1458
+ro.config.camera_target_track=true
+ro.config.hw_auto_scene=true
+ro.config.hw_burst_snapshot=true
+ro.config.hw_camera_bestShot=true
+ro.config.hw_camera_blureffect=false
+ro.config.hw_camera_davinci=true
+ro.config.hw_camera_docbeauty=true
+ro.config.hw_camera_hdr=true
+ro.config.hw_camera_makeup=true
+ro.config.hw_camera_mfd=true
+ro.config.hw_camera_nicefood=true
+ro.config.hw_camera_omron=true
+ro.config.hw_camera_refocus=true
+ro.config.hw_camera_smartae=true
+ro.config.hw_camera_zsl=true
+ro.config.hw_dts=true
+ro.config.hw_lte_support=true
+ro.config.hw_manual_focus=true
+ro.config.hw_photo_beauty=true
+ro.config.hw_video_beauty=true
+ro.config.small.previewpos=left
+ro.config.speed_control_enable=true
+persist.camera.hal.debug.mask=0
+persist.camera.cpp.duplication=false
+ro.config.hw_face_detection=true
+ro.camera.flipsensor.enable=true

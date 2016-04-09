@@ -106,12 +106,21 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     charger_res_images
 
-# Compatibility
+# Camera & Compatibility 
 PRODUCT_PACKAGES += \
+    libboringssl-compat \
+    libshim_sensormanager \
     libshim_cutils \
     libshim_ril \
-    libshim_sensormanager \
-    libshim_sound_trigger
+    libshim_media \
+    libstlport \
+    libcurl
+
+PRODUCT_PACKAGES += \
+    Snap
+
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+    camera2.portability.force_api=1
 
 # Display
 PRODUCT_PACKAGES += \
