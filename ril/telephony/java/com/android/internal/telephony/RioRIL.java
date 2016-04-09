@@ -27,7 +27,7 @@ import android.os.Parcel;
 import android.telephony.Rlog;
 
 /**
- * RIL customization for kiwi devices
+ * RIL customization adapted from kiwi devices
  *
  * {@hide}
  */
@@ -59,7 +59,7 @@ public class RioRIL extends RIL {
     protected void
     send(RILRequest rr) {
         if (rr.mRequest >= 132) {
-            Rlog.i(RILJ_LOG_TAG, "KiwiRil: Unsupported request " + rr.mRequest);
+            Rlog.i(RILJ_LOG_TAG, "RioRil: Unsupported request " + rr.mRequest);
             rr.onError(REQUEST_NOT_SUPPORTED, null);
             rr.release();
         } else {
