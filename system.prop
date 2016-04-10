@@ -168,4 +168,4 @@ ro.config.speed_control_enable=true
 persist.camera.hal.debug.mask=0
 persist.camera.cpp.duplication=false
 ro.config.hw_face_detection=true
-ro.camera.flipsensor.enable=true
+#ro.camera.flipsensor.enable=true
