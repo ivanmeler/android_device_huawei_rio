@@ -42,7 +42,7 @@ on init
     # Set permissions for persist partition
     mkdir /persist 0771 system system
     mkdir /cust
-    symlink /sdcard /mnt/sdcard
+
     symlink /sdcard /storage/sdcard0
 
     # NFC
