@@ -15,7 +15,11 @@ on enable-low-power
     # HMP Task packing settings for 8939, 8929
     write /proc/sys/kernel/sched_small_task 20
 
-    start lp-helper
+    write /sys/class/devfreq/qcom,cpubw.*/governor "bw_hwmon"
+    write /sys/class/devfreq/qcom,cpubw.*/bw_hwmon/io_percent 20
+    write /sys/class/devfreq/qcom,gpubw.*/governor "bw_hwmon"
+    write /sys/class/devfreq/qcom,gpubw.*/bw_hwmon/io_percent 40
+    write /sys/class/devfreq/qcom,mincpubw.*/governor "cpufreq"
 
     # disable thermal core_control to update interactive gov settings
     write /sys/module/msm_thermal/core_control/enabled 0
@@ -28,7 +32,7 @@ on enable-low-power
     write /sys/devices/system/cpu/cpu0/cpufreq/interactive/timer_rate 20000
     write /sys/devices/system/cpu/cpu0/cpufreq/interactive/hispeed_freq 1113600
     write /sys/devices/system/cpu/cpu0/cpufreq/interactive/io_is_busy 0
-    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/target_loads "960000:85 1113600:90 1344000:80"
+    write /sys/devices/system/cpu/cpu0/cpufreq/interactive/target_loads "85 960000:85 1113600:90 1344000:80"
     write /sys/devices/system/cpu/cpu0/cpufreq/interactive/min_sample_time 50000
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 533333
 
@@ -104,8 +108,3 @@ on property:sys.boot_completed=1
 
 on property:init.svc.recovery=running
     trigger enable-low-power
-
-service lp-helper /init.qcom.power.sh
-    # seclabel qti_init_shell:s0
-    oneshot
-    disabled
