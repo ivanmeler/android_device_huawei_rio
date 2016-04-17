@@ -41,7 +41,7 @@ class Fpc1020Sensor {
 
         Fpc1020Sensor(AcquiredCb acquiredCb, EnrollmentProgressCb enrollmentCb,
                 AuthenticateResultCb authenticateCb, ErrorCb errorCb, void *cbData) :
-            mQseecom("fingerprints", 512),
+            mQseecom("fingerpr", 512),
             mFpcFd(-1),
             mCancelledDueToTimeout(false),
             mAcquiredCb(acquiredCb),
@@ -75,7 +75,7 @@ class Fpc1020Sensor {
     private:
         static const unsigned int EnrollmentStepCount = 10;
         static const uint32_t MetadataFileVersion = 1;
-        static constexpr const char * MetadataFileName = "/data/misc/fp/metadata";
+        static constexpr const char * MetadataFileName = "/data/fingerprint/metadata";
 
     private:
         bool isIdle() {
