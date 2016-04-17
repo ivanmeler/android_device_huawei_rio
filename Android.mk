@@ -23,8 +23,8 @@ include $(CLEAR_VARS)
 FP_IMAGES := \
     fingerpr.b00 fingerpr.b01 fingerpr.b02 fingerpr.b03 fingerpr.mdt
 
-FP_SYMLINKS := $(addprefix $(TARGET_OUT_ETC)/firmware/,$(notdir $(KM_IMAGES)))
-$(KM_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
+FP_SYMLINKS := $(addprefix $(TARGET_OUT_ETC)/firmware/,$(notdir $(FP_IMAGES)))
+$(FP_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
 	@echo "Fingerprint firmware link: $@"
 	@mkdir -p $(dir $@)
 	@rm -rf $@
