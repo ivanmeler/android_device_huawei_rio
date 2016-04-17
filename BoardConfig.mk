@@ -17,6 +17,9 @@ LOCAL_PATH := device/huawei/rio
 
 TARGET_SPECIFIC_HEADER_PATH := $(LOCAL_PATH)/include
 
+# Assertions
+TARGET_BOARD_INFO_FILE ?= device/huawei/rio/board-info.txt
+
 # Architecture
 TARGET_ARCH := arm64
 TARGET_ARCH_VARIANT := armv8-a
