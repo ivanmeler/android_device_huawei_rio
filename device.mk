@@ -192,7 +192,6 @@ PRODUCT_PACKAGES += \
     init.qcom.syspart_fixup.sh \
     init.qcom.usb.rc \
     init.qcom.usb.sh \
-    init.startoff_usbcharger.rc \
     init.target-from-init.rc \
     init.target.rc \
     init.usb.sh \
