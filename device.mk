@@ -143,6 +143,10 @@ PRODUCT_PACKAGES += \
     synaptics_dsx.kl \
     synaptics_rmi4_i2c.kl
 
+# Keystore
+PRODUCT_PACKAGES += \
+    keystore.msm8916
+
 # GPS
 PRODUCT_PACKAGES += \
     gps.msm8916
