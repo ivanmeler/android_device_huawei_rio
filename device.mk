@@ -152,6 +152,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     keystore.msm8916
 
+# HW disk encryption
+PRODUCT_PACKAGES += \
+    libcryptfs_hw
+
 # GPS
 PRODUCT_PACKAGES += \
     gps.msm8916
