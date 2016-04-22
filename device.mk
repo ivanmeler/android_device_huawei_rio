@@ -143,6 +143,11 @@ PRODUCT_PACKAGES += \
     synaptics_dsx.kl \
     synaptics_rmi4_i2c.kl
 
+# IPv6
+PRODUCT_PACKAGES += \
+    ebtables \
+    ethertypes
+
 # Keystore
 PRODUCT_PACKAGES += \
     keystore.msm8916
