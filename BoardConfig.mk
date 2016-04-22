@@ -154,6 +154,9 @@ TARGET_HW_DISK_ENCRYPTION := true
 # Keymaster
 TARGET_KEYMASTER_WAIT_FOR_QSEE := true
 
+# Video
+TARGET_HAVE_SIGNED_VENUS_FW := true
+
 # Recovery
 TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/rootdir/etc/fstab.qcom
 
