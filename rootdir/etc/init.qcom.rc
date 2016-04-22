@@ -26,11 +26,15 @@
 #
 
 import init.qcom.usb.rc
-import init.target.rc
 
 on early-init
-    write /sys/devices/system/cpu/cpu2/online 1
+    mkdir /firmware 0771 system system
+    mkdir /system 0777 root root
+    symlink /data/tombstones /tombstones
+    mkdir /log 0770 system log
 
+    write /sys/devices/system/cpu/cpu2/online 1
+    setprop persist.service.hbd.enable true
     #Allow subsystems to be restarted instead of crashing the system
     write /sys/bus/msm_subsys/devices/subsys0/restart_level related
     write /sys/bus/msm_subsys/devices/subsys1/restart_level related
@@ -39,12 +43,53 @@ on early-init
 on init
     # Set permissions for persist partition
     mkdir /persist 0771 system system
-
+    mkdir /cust
     symlink /sdcard /mnt/sdcard
     symlink /sdcard /storage/sdcard0
 
     # NFC
     symlink /dev/pn544 /dev/pn54x
+
+# Create cgroup mount point for freezer
+    mkdir /dev/frz
+    mount cgroup none /dev/frz freezer
+
+# Create cgroup for pids
+    mkdir /sys/fs/cgroup/pids 0750 root system
+    mount cgroup none /sys/fs/cgroup/pids pids
+    mkdir /sys/fs/cgroup/pids/unconfirm_app 0750 root system
+    chown root system /sys/fs/cgroup/pids/unconfirm_app/cgroup.procs
+    chmod 0660 /sys/fs/cgroup/pids/unconfirm_app/cgroup.procs
+    chown root system /sys/fs/cgroup/pids/unconfirm_app/tasks
+    chmod 0660 /sys/fs/cgroup/pids/unconfirm_app/tasks
+    chown root system /sys/fs/cgroup/pids/unconfirm_app/pids.group_limit
+    chmod 0660 /sys/fs/cgroup/pids/unconfirm_app/pids.group_limit
+    chown root system /sys/fs/cgroup/pids/unconfirm_app/cgroup.event_control
+    chmod 0220 /sys/fs/cgroup/pids/unconfirm_app/cgroup.event_control
+
+    chown system system /sys/module/mdss_dsi/parameters/dsi_status_disable
+
+    chown root system /dev/block/mmcblk0p8
+    chmod 0660 /dev/block/mmcblk0p8
+
+on fs
+    export LD_SHIM_LIBS /system/lib64/libcutils.so|libshim_cutils.so:/system/lib/libcutils.so|libshim_cutils.so:/system/lib64/libril.so|libshim_ril.so:/system/lib64/hw/sensors.msm8916.so|libshim_sensormanager.so:/system/bin/mm-pp-daemon|libshim_sensormanager.so:/system/lib/hw/camera.msm8916.so|libshim_sensormanager.so:/system/lib/hw/camera.msm8916.so|libshim_cutils.so:/system/vendor/lib/libmmqjpeg_codec.so|libboringssl-compat.so:/system/lib/libcamera_hwaaf.so|libshim_cutils.so:/system/lib/libcamera_hwaaf.so|libshim_sensormanager.so:/system/lib/libcamera_post_mediaserver.so|libshim_media.so
+
+    wait /dev/block/bootdevice
+    mount_all fstab.qcom
+
+    # Keeping following partitions outside fstab file. As user may not have
+    # these partition flashed on the device. Failure to mount any partition in fstab file
+    # results in failure to launch late-start class.
+
+    mkdir /persist/data 0700 system system
+    restorecon_recursive /persist
+
+    wait /dev/block/bootdevice/by-name/modem
+    mount vfat /dev/block/bootdevice/by-name/modem /firmware ro context=u:object_r:firmware_file:s0,shortname=lower,uid=1000,gid=1000,dmask=222,fmask=333
+    write /sys/kernel/boot_adsp/boot 1
+    mkdir /log/sdlog 0775 system system
+    write /log/sdlog/sd_err.log 0
 
 on early-boot
     # set RLIMIT_MEMLOCK to 64MB
@@ -57,6 +102,18 @@ on early-boot
     write /sys/kernel/boot_adsp/boot 1
 
 on boot
+    start rmt_storage
+
+    # access permission for secure touch
+    chmod 0660 /sys/devices/soc.0/78b9000.i2c/i2c-5/5-0020/secure_touch_enable
+    chmod 0440 /sys/devices/soc.0/78b9000.i2c/i2c-5/5-0020/secure_touch
+    chmod 0660 /sys/devices/soc.0/78b9000.i2c/i2c-5/5-0070/secure_touch_enable
+    chmod 0440 /sys/devices/soc.0/78b9000.i2c/i2c-5/5-0070/secure_touch
+    chown system drmrpc /sys/devices/soc.0/78b9000.i2c/i2c-5/5-0020/secure_touch_enable
+    chown system drmrpc /sys/devices/soc.0/78b9000.i2c/i2c-5/5-0020/secure_touch
+    chown system drmrpc /sys/devices/soc.0/78b9000.i2c/i2c-5/5-0070/secure_touch_enable
+    chown system drmrpc /sys/devices/soc.0/78b9000.i2c/i2c-5/5-0070/secure_touch
+
     chmod 0660 /dev/bluetooth
     chown bluetooth bluetooth /dev/bluetooth
     chown bluetooth bluetooth /sys/module/bluetooth_power/parameters/power
@@ -198,6 +255,15 @@ on boot
 
 # msm specific files that need to be created on /data
 on post-fs-data
+    mkdir /data/tombstones 0771 system system
+    mkdir /tombstones/modem 0771 system system
+    mkdir /tombstones/lpass 0771 system system
+    mkdir /tombstones/wcnss 0771 system system
+    mkdir /tombstones/dsps 0771 system system
+    mkdir /persist/data/sfs 0700 system system
+    mkdir /persist/data/tz 0700 system system
+    mkdir /data/misc/dts 0770 media audio
+
     # Create directory for TZ Apps
     mkdir /data/misc/qsee 0770 system system
 
@@ -308,6 +374,205 @@ on post-fs-data
     chmod 0644 /sys/class/timed_output/vibrator/vtg_level
     chmod 0644 /sys/class/timed_output/vibrator/vtg_max
     chmod 0644 /sys/class/timed_output/vibrator/vtg_min
+
+    # Create log dir to collect logs.
+    mkdir /data/log 0751 system system
+    mkdir /data/log/fac_log 0755 system system
+    mkdir /data/log/android_logs 0755 system system
+    mkdir /data/log/tp_cap 0755 system system
+    chown system system /data/log/tp_cap
+    mkdir /data/log/sleeplog 0755 system system
+    mkdir /data/log/sleeplog/powerlog 0755 system system
+
+    mkdir /data/misc/wifi/load 0775 system system
+    mkdir /data/misc/dts 0770 media media
+    symlink /system/etc/srs/srs_processing.cfg /data/misc/dts/srs_processing.cfg 2>/data/log/dts-log
+
+    mkdir /data/drm/rights 0770 drm drm
+    mkdir /data/drm/widevine 0770 drm drm
+
+    mkdir /data/midi
+    chmod 0770 /data/midi
+    chown media audio /data/midi
+
+    chown system system /sys/devices/12c.hw-dev-detect/dev_flag
+    chown system system /sys/touch_screen/touch_mmi_test
+    chown system system /sys/touch_screen/touch_calibration
+    chown system system /sys/touch_screen/synaptics_mmi_test_result
+    chown system system /sys/touch_screen/synaptics_mmi_test
+    chown system system /sys/touch_screen/holster_touch_window
+    chown system system /sys/bus/ttsp4/devices/main_ttsp_core.cyttsp4_i2c_adapter/signal_disparity
+    chown system system /sys/bus/ttsp4/devices/main_ttsp_core.cyttsp4_i2c_adapter/finger_threshold 
+    chown system system /sys/touch_screen/glove_func/signal_disparity
+    chown system system /sys/touch_screen/glove_func/holster_sensitivity
+    chown system system /sys/touch_screen/glove_func/finger_threshold 
+    chown system system /sys/touch_screen/easy_wakeup_gesture
+    chown system system /sys/touch_screen/easy_wakeup_supported_gestures
+    chown system system /sys/touch_screen/easy_wakeup_position
+    chown system system /sys/touch_screen/openshort
+
+    chown system system /sys/touch_screen/cyttsp5/command
+    chown system system /sys/touch_screen/cyttsp5/status
+    chown system system /sys/touch_screen/cyttsp5/response
+    chown system system /sys/touch_screen/touch_mmi_test/calibrate_idacs
+    chown system system /sys/touch_screen/touch_mmi_test/disable_single_tx
+    chown system system /sys/touch_screen/touch_mmi_test/enable_single_tx
+    chown system system /sys/touch_screen/touch_mmi_test/get_hid_desc
+    chown system system /sys/touch_screen/touch_mmi_test/get_sys_info
+    chown system system /sys/touch_screen/touch_mmi_test/panel_scan_button
+    chown system system /sys/touch_screen/touch_mmi_test/panel_scan_mut_raw
+    chown system system /sys/touch_screen/touch_mmi_test/panel_scan_self_raw
+    chown system system /sys/touch_screen/touch_mmi_test/read_data_block_row
+    chown system system /sys/touch_screen/touch_mmi_test/resume_scan
+    chown system system /sys/touch_screen/touch_mmi_test/retrieve_data_structure
+    chown system system /sys/touch_screen/touch_mmi_test/short_test
+    chown system system /sys/touch_screen/touch_mmi_test/suspend_scan
+    chown system system /sys/touch_screen/touch_mmi_test/command
+    chown system system /sys/touch_screen/touch_mmi_test/status
+    chown system system /sys/touch_screen/touch_mmi_test/response
+
+    restorecon /sys/class/leds/lcd-backlight/brightness
+    restorecon /sys/class/power_supply/battery/charging_enabled
+    restorecon /sys/class/graphics/fb0/inversion_mode
+    restorecon /sys/class/leds/green/brightness
+    restorecon /sys/class/leds/red/brightness
+    restorecon /sys/class/leds/blue/brightness
+    restorecon /sys/class/hw_power/charger/charge_data/enable_charger
+
+    chown system system /sys/devices/platform/fingerprint/diag/result
+    chown system system /sys/devices/platform/fingerprint/diag/navigation_enable
+    chown system system /sys/devices/platform/fingerprint/diag/wakeup_enable
+    chown system system /sys/devices/platform/fingerprint/diag/chip_id
+    chown system system /sys/devices/platform/fingerprint/diag/selftest
+    chown system system /sys/devices/platform/fingerprint/diag/fingerdetect
+    chown system system /sys/devices/platform/fingerprint/diag/spi_ctl
+    chown system system /sys/devices/platform/fingerprint/setup/adc_gain
+    chown system system /sys/devices/platform/fingerprint/setup/adc_shift
+    chown system system /sys/devices/platform/fingerprint/setup/capture_mode
+    chown system system /sys/devices/platform/fingerprint/setup/capture_count
+    chown system system /sys/devices/platform/fingerprint/setup/capture_col_groups
+    chown system system /sys/devices/platform/fingerprint/setup/capture_col_start
+    chown system system /sys/devices/platform/fingerprint/setup/capture_row_count
+    chown system system /sys/devices/platform/fingerprint/setup/capture_row_start
+    chown system system /sys/devices/platform/fingerprint/setup/capture_settings_mux
+    chown system system /sys/devices/platform/fingerprint/setup/pxl_ctrl
+    chown system system /sys/devices/platform/fingerprint/fingerprint_chip_info
+
+    chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
+    chmod 0660 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
+
+    chown root system /sys/class/power_supply/battery/charging_enabled
+    chown root system /sys/module/qpnp_linear_charger/parameters/charge_no_limit
+    chmod 0664 /sys/class/power_supply/battery/charging_enabled
+    chown root system /sys/class/hw_power/charger/charge_data/enable_charger
+    chmod 0664 /sys/class/hw_power/charger/charge_data/enable_charger
+    chown root system /sys/class/hw_power/charger/charge_data/iin_runningtest
+    chmod 0664 /sys/class/hw_power/charger/charge_data/iin_runningtest
+    chown system system /sys/class/power_supply/battery/factory_diag
+    chown system system /sys/class/power_supply/battery/hot_current_limit
+    restorecon /sys/class/power_supply/battery/hot_current_limit
+    chown system system /sys/class/power_supply/battery/input_current_max
+
+    chown system system /sys/devices/8789.huawei_hall_sensor/enable_hall_sensor
+    chown system system /sys/devices/8789.huawei_hall_sensor/camera_overturn_num
+    chown system system /sys/devices/8789.huawei_hall_sensor/get_camera_status
+    chown system system /sys/devices/8789.huawei_hall_sensor/mmi_camera_hall_status
+    chown root system /sys/devices/soc0/huawei_product
+
+    chown system system /sys/class/graphics/fb0/mipi_crc
+    chown system system /sys/class/graphics/fb0/inversion_mode
+    chown system system /sys/class/graphics/fb0/panel_status
+    chown system system /sys/class/graphics/fb0/lcd_checksum
+
+    chown system system /sys/class/graphics/fb0/lcd_comform_mode
+    chown system system /sys/class/graphics/fb0/lcd_support_mode
+
+    chown system system /sys/bus/i2c/devices/0-002c/adux1050_calib_target
+    chown system system /sys/bus/i2c/devices/0-002c/adux1050_calibration
+    chown system system /sys/bus/i2c/devices/0-002c/adux1050_device_name
+    chown system system /sys/bus/i2c/devices/0-002c/adux1050_enable
+    chown system system /sys/bus/i2c/devices/0-002c/adux1050_force_calib
+    chown system system /sys/bus/i2c/devices/0-002c/adux1050_reg_read
+    chown system system /sys/bus/i2c/devices/0-002c/adux1050_reg_write
+    chown system system /sys/bus/i2c/devices/0-002c/adux1050_status
+    chown system system /sys/bus/i2c/devices/0-002c/adux1050_prox_status
+    chown system system /sys/bus/i2c/devices/0-002c/adux1050_cap_value
+    chown system system /sys/bus/i2c/devices/0-002c/adux1050_sw_reset
+    chown system system /sys/bus/i2c/devices/0-002c/adux1050_threshold
+    chown system system /sys/bus/i2c/devices/0-002c/adux1050_update_calib
+    chown system system /sys/bus/i2c/devices/0-002c/adux1050_update_config
+    chown system system /sys/bus/i2c/devices/0-002c/adux1050_vendor
+
+    mkdir /data/log/sar_cap
+    chown system system /data/log/sar_cap
+    chown system system /sys/bus/i2c/devices/0-001e/ps_calibration
+    chown system system /sys/bus/i2c/devices/0-001e/txc_pa2240_calibration
+    chown system system /sys/bus/i2c/devices/0-001e/txc_pa2240_calibration_result
+    chown system system /sys/bus/i2c/devices/0-001e/dump_reg
+    chown system system /sys/bus/i2c/devices/0-001e/pdata
+    chown system system /sys/bus/i2c/devices/0-0038/module_tpcolor
+    chown system system /sys/bus/i2c/devices/0-0052/module_tpcolor
+    chown media media /sys/bus/platform/drivers/qcom,ois/0.qcom,ois/ois_pixel
+
+# start service here
+
+#start camera server as daemon
+service qcamerasvr /system/bin/mm-qcamera-daemon
+    class late_start
+    user camera
+    group camera system inet input graphics
+    setenv LD_PRELOAD /vendor/lib/libqcamerasvr-c++.so
+
+# Allow usb charging to be disabled peristently
+on property:persist.usb.chgdisabled=1
+    write /sys/class/power_supply/battery/charging_enabled 0
+
+on property:persist.usb.chgdisabled=0
+    write /sys/class/power_supply/battery/charging_enabled 1
+
+service qrngd /system/bin/qrngd -f
+   class main
+   user root
+   group root
+
+service qrngp /system/bin/qrngp -f
+   class main
+   user root
+   group root
+   oneshot
+   disabled
+
+on property:sys.boot_completed=1
+   start qrngp
+
+service qseecomd /system/bin/qseecomd
+   class core
+   user root
+   group root
+
+service perfd /system/vendor/bin/perfd
+   class main
+   user root
+   group root
+   disabled
+
+service thermal-engine /system/vendor/bin/thermal-engine
+   class main
+   user root
+   group root
+   socket thermal-send-client stream 0666 system system
+   socket thermal-recv-client stream 0660 system system
+   socket thermal-recv-passive-client stream 0666 system system
+
+service time_daemon /system/bin/time_daemon
+   class late_start
+   user root
+   group root
+
+service audiod /system/bin/audiod
+   class late_start
+   user system
+   group system
 
 service qcomsysd /system/bin/qcom-system-daemon
     class main
@@ -654,17 +919,6 @@ service loc_launcher /system/bin/loc_launcher
     class late_start
     group gps inet net_raw qcom_diag net_admin wifi
 
-service fm_dl /system/bin/sh /system/etc/init.qcom.fm.sh
-    class late_start
-    user root
-    group system
-    disabled
-    oneshot
-
-on property:crypto.driver.load=1
-     insmod /system/lib/modules/qce.ko
-     insmod /system/lib/modules/qcedev.ko
-
 service drmdiag /system/bin/drmdiagapp
     class late_start
      user root
@@ -676,21 +930,6 @@ on property:drmdiag.load=1
 
 on property:drmdiag.load=0
     stop drmdiag
-
-service qcom-post-boot /system/bin/sh /system/etc/init.qcom.post_boot.sh
-    class late_start
-    user root
-    disabled
-    oneshot
-
-service wifi-sdio-on /system/bin/sh /system/etc/init.qcom.sdio.sh
-    class late_start
-    group wifi inet
-    disabled
-    oneshot
-
-on property:sys.boot_completed=1
-    start qcom-post-boot
 
 service atfwd /system/bin/ATFWD-daemon
     class late_start
@@ -725,11 +964,6 @@ on property:ro.data.large_tcp_window_size=true
     # Adjust socket buffer to enlarge TCP receive window for high bandwidth (e.g. DO-RevB)
     write /proc/sys/net/ipv4/tcp_adv_win_scale  2
 
-service battery_monitor /system/bin/battery_monitor
-    user system
-    group system
-    disabled
-
 service ril-daemon2 /system/bin/rild -c 2
     class main
     socket rild2 stream 660 root radio
@@ -745,24 +979,6 @@ service ril-daemon3 /system/bin/rild -c 3
     user root
     disabled
     group radio cache inet misc audio sdcard_r sdcard_rw diag qcom_diag log
-
-service usb_uicc_enable /system/bin/sh /system/etc/init.qcom.uicc.sh
-    class late_start
-    user root
-    disabled
-    oneshot
-
-service usb_uicc_daemon /system/bin/usb_uicc_client
-    class main
-    user system
-    group system log net_raw
-    oneshot
-
-on property:sys.usb_uicc.enabled=1
-    start usb_uicc_enable
-
-on property:sys.usb_uicc.enabled=0
-    start usb_uicc_enable
 
 service profiler_daemon /system/bin/profiler_daemon
     class late_start
@@ -781,34 +997,6 @@ service ssr_diag /system/bin/ssr_diag
     group system
     disabled
 
-# Define fastmmi
-service fastmmi /system/bin/mmi
-    user root
-    group root
-    disabled
-
-service fastmmisrv /system/bin/sh /init.qcom.factory.sh
-    user root
-    disabled
-    oneshot
-
-on mmi
-    start fastmmisrv
-
-on ffbm
-    trigger early-fs
-    trigger fs
-    trigger post-fs
-    trigger post-fs-data
-
-    # Load properties from /system/ + /factory after fs mount. Place
-    # this in another action so that the load will be scheduled after the prior
-    # issued fs triggers have completed.
-    trigger load_all_props_action
-
-    trigger early-boot
-    trigger mmi
-
 service hvdcp /system/bin/hvdcp
     class core
     user root
@@ -820,11 +1008,6 @@ on property:persist.usb.hvdcp.detect=true
 on property:persist.usb.hvdcp.detect=false
     stop hvdcp
 
-service charger_monitor /system/bin/charger_monitor
-    user root
-    group root
-    disabled
-
 service qbcharger /charger -m 1
     disabled
     oneshot
@@ -835,33 +1018,8 @@ on property:sys.qbcharger.enable=true
 on property:sys.qbcharger.enable=false
     stop qbcharger
 
-service diag_mdlog_start /system/bin/diag_mdlog
-    class late_start
-    user shell
-    group system qcom_diag sdcard_rw sdcard_r media_rw
-    disabled
-    oneshot
-
-service diag_mdlog_stop /system/bin/diag_mdlog -k
-    class late_start
-    user shell
-    group system qcom_diag sdcard_rw sdcard_r media_rw
-    disabled
-    oneshot
-
 service vm_bms /system/bin/vm_bms
     class core
-
-service power_engine /system/bin/power_engine
-    user root
-    group root
-    class late_init
-    disabled
-
-on property:sys.power_ctrl=1
-    start power_engine
-on property:sys.power_ctrl=0
-    stop power_engine
 
 service wfdservice /system/bin/wfdservice
     class main
@@ -876,3 +1034,138 @@ service preparesdservice /system/bin/vdc volume storagetosd
 
 on property:persist.sys.primarysd=*
    start preparesdservice
+
+on property:ro.build.hide="true"
+       write /proc/sys/kernel/hide_info 1
+on property:ro.build.hide="false"
+       write /proc/sys/kernel/hide_info 0
+
+service oeminfo_server /system/bin/oeminfo_server
+    class core
+    user root
+
+service rmt_oeminfo /system/bin/rmt_oeminfo
+    class core
+    user root
+
+service teecd /system/bin/teecd
+    class core
+    user system
+    group system
+    seclabel u:r:tee:s0
+
+service libqmi_oem_main /system/bin/libqmi_oem_main
+    class main
+
+service wlan_detect /system/bin/wlan_detect
+    class main
+    user root
+    group root
+    oneshot
+
+on property:persist.sys.hlcharging=true
+    write /sys/class/power_supply/battery/device/not_limit_chrg_flag 1
+    mkdir system/etc/tp_test_parameters
+
+service systeminfo /system/bin/systeminfo
+    class main
+    user root
+    oneshot    
+
+service fingerprintd  /system/bin/fingerprintd
+    class late_start
+    user system
+    group system input
+
+service ppd /system/bin/mm-pp-daemon
+    class late_start
+    disabled
+    user system
+    socket pps stream 0660 system system
+    group system graphics
+
+on property:init.svc.surfaceflinger=stopped
+    stop ppd
+
+on property:init.svc.surfaceflinger=running
+    start ppd
+
+service wcnss-service /system/bin/wcnss_service
+    class main
+    user system
+    group system wifi radio
+    oneshot
+
+service imsqmidaemon /system/bin/imsqmidaemon
+    class main
+    user system
+    socket ims_qmid stream 0660 system radio
+    group radio net_raw log qcom_diag
+
+service imsdatadaemon /system/bin/imsdatadaemon
+    class main
+    user system
+    socket ims_datad stream 0660 system radio
+    group system wifi radio inet net_raw log qcom_diag net_admin
+    disabled
+
+on property:sys.ims.QMI_DAEMON_STATUS=1
+    start imsdatadaemon
+
+service ims_rtp_daemon /system/bin/ims_rtp_daemon
+   class main
+   user system
+   socket ims_rtpd stream 0660 system radio
+   group radio net_raw diag qcom_diag log
+   disabled
+
+service imscmservice /system/bin/imscmservice
+   class main
+   user system
+   group radio net_raw diag qcom_diag log
+   disabled
+
+on property:sys.ims.DATA_DAEMON_STATUS=1
+    start ims_rtp_daemon
+    start imscmservice
+
+on property:hw.accel.calib="true"
+    chmod 0664 /dev/input/event0
+    chmod 0664 /dev/input/event1
+    chmod 0664 /dev/input/event2
+    chmod 0664 /dev/input/event3
+    chmod 0664 /dev/input/event4
+    chmod 0664 /dev/input/event5
+    chmod 0664 /dev/input/event6
+    chmod 0664 /dev/input/event7
+    chmod 0664 /dev/input/event8
+    chmod 0664 /dev/input/event9
+    chmod 0664 /dev/input/event10
+    chmod 0664 /dev/input/event11
+    chmod 0664 /dev/input/event12
+    chmod 0664 /dev/input/event13
+    chmod 0664 /dev/input/event14
+    chmod 0664 /dev/input/event15
+    chmod 0664 /dev/input/event16
+    chmod 0664 /dev/input/event17
+    chmod 0664 /dev/input/event18
+    chmod 0664 /dev/input/event19
+    chmod 0664 /dev/input/event20
+
+on charger-fs
+    mount ext4 /dev/block/bootdevice/by-name/userdata /data rw
+    mkdir /dev/usb-ffs 0770 shell shell
+    mkdir /dev/usb-ffs/adb 0770 shell shell
+    mount functionfs adb /dev/usb-ffs/adb uid=2000,gid=2000
+    write /sys/class/android_usb/android0/f_ffs/aliases adb
+    mount vfat /dev/block/bootdevice/by-name/log /log uid=1000,gid=1007
+
+on charger
+    wait /dev/block/bootdevice/by-name/system
+    mount ext4 /dev/block/bootdevice/by-name/system /system ro barrier=1
+    chown root system /sys/class/power_supply/bms/current_now
+    chown root system /sys/class/power_supply/bms/voltage_ocv
+    chmod 0664 /sys/class/power_supply/bms/current_now
+    chmod 0664 /sys/class/power_supply/bms/voltage_ocv
+    start vm_bms
+    load_all_props
