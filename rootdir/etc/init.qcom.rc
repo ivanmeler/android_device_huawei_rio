@@ -205,6 +205,12 @@ on boot
     # an ack packet comes out of order
     write /proc/sys/net/netfilter/nf_conntrack_tcp_be_liberal 1
 
+    # vm_bms permissions
+    chown root system /sys/class/power_supply/bms/current_now
+    chown root system /sys/class/power_supply/bms/voltage_ocv
+    chmod 0664 /sys/class/power_supply/bms/current_now
+    chmod 0664 /sys/class/power_supply/bms/voltage_ocv
+
     # AKM E-compass akm09911
     chown system compass /sys/class/compass/akm09911/enable_acc
     chown system compass /sys/class/compass/akm09911/enable_mag
@@ -1021,6 +1027,7 @@ on property:sys.qbcharger.enable=false
 
 service vm_bms /system/bin/vm_bms
     class core
+    oneshot
 
 service wfdservice /system/bin/wfdservice
     class main
