@@ -15,11 +15,7 @@ on enable-low-power
     # HMP Task packing settings for 8939, 8929
     write /proc/sys/kernel/sched_small_task 20
 
-    write /sys/class/devfreq/qcom,cpubw.*/governor "bw_hwmon"
-    write /sys/class/devfreq/qcom,cpubw.*/bw_hwmon/io_percent 20
-    write /sys/class/devfreq/qcom,gpubw.*/governor "bw_hwmon"
-    write /sys/class/devfreq/qcom,gpubw.*/bw_hwmon/io_percent 40
-    write /sys/class/devfreq/qcom,mincpubw.*/governor "cpufreq"
+    start lp-helper
 
     # disable thermal core_control to update interactive gov settings
     write /sys/module/msm_thermal/core_control/enabled 0
@@ -111,3 +107,7 @@ on property:init.svc.recovery=running
 
 on property:dev.bootcomplete=1
     setprop sys.io.scheduler bfq
+
+service lp-helper /init.qcom.power.sh
+    oneshot
+    disabled
