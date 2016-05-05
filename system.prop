@@ -5,6 +5,109 @@ ro.sys.fw.dex2oat_thread_count=4
 ro.config.max_starting_bg=8
 ro.sys.fw.use_trim_settings=true
 
+# Audio
+af.fast_track_multiplier=1
+audio_hal.period_size=192
+ro.qc.sdk.audio.fluencetype=fluence
+persist.audio.fluence.voicecall=true
+persist.audio.fluence.voicerec=false
+persist.audio.fluence.speaker=true
+ro.qc.sdk.audio.ssr=false
+tunnel.audio.encode = false
+use.voice.path.for.pcm.voip=true
+voice.playback.conc.disabled=false
+voice.record.conc.disabled=false
+voice.voip.conc.disabled=true
+
+audio.offload.buffer.size.kb=64
+audio.offload.min.duration.secs=30
+av.offload.enable=true
+audio.offload.pcm.enable=false
+audio.offload.disable=1
+audio.offload.gapless.enabled=true
+
+# Camera
+persist.hw_camera.video_sta=true
+ro.build.hide.pic_size_match=4160x3120;4208x2368;3104x3104;3264x2448;3264x1836
+ro.build.hide.pic_size_replace=3264x2448;3264x1836;2448x2448;2592x1952;2592x1458
+ro.config.camera_target_track=true
+ro.config.hw_auto_scene=true
+ro.config.hw_burst_snapshot=true
+ro.config.hw_camera_bestShot=true
+ro.config.hw_camera_blureffect=false
+ro.config.hw_camera_davinci=true
+ro.config.hw_camera_docbeauty=true
+ro.config.hw_camera_hdr=true
+ro.config.hw_camera_makeup=true
+ro.config.hw_camera_mfd=true
+ro.config.hw_camera_nicefood=true
+ro.config.hw_camera_omron=true
+ro.config.hw_camera_refocus=true
+ro.config.hw_camera_smartae=true
+ro.config.hw_camera_zsl=true
+ro.config.hw_dts=true
+ro.config.hw_lte_support=true
+ro.config.hw_manual_focus=true
+ro.config.hw_photo_beauty=true
+ro.config.hw_video_beauty=true
+ro.config.small.previewpos=left
+ro.config.speed_control_enable=true
+persist.camera.hal.debug.mask=0
+persist.camera.cpp.duplication=false
+ro.config.hw_face_detection=true
+#ro.camera.flipsensor.enable=true
+
+# Display
+debug.sf.hw=0
+debug.egl.hw=0
+persist.hwc.mdpcomp.enable=true
+debug.mdpcomp.logs=0
+dalvik.vm.heapsize=512m
+dalvik.vm.zygotemaxfailedboots=5
+persist.demo.hdmirotationlock=false
+debug.mdpcomp.idletime=600
+debug.enable.sglscale=1
+debug.cpurend.vsync=false
+ro.opengles.version=196609
+ro.qualcomm.cabl=0
+
+ro.qcom.ad=1
+ro.qcom.ad.calib.data=/system/etc/calib_rio.cfg
+
+# DOLBY
+audio.dolby.ds2.enabled=true
+
+# GPS
+persist.gps.qc_nlp_in_use=0
+ro.gps.agps_provider=1
+ro.qc.sdk.izat.premium.enabled=0
+ro.qc.sdk.izat.service_mask=0x0
+
+# Media
+media.stagefright.enable-player=true
+media.stagefright.enable-http=true
+media.stagefright.enable-aac=true
+media.stagefright.enable-qcp=true
+media.stagefright.enable-fma2dp=true
+media.stagefright.enable-scan=true
+mm.enable.smoothstreaming=true
+mmp.enable.3g2=true
+media.aac_51_output_enabled=true
+
+# Net
+persist.data.netmgrd.qos.enable=true
+persist.timed.enable=true
+
+# NFC
+ro.nfc.port="I2C"
+
+# Other
+dev.pm.dyn_samplingrate=1
+ro.sf.lcd_density=480
+qemu.hw.mainkeys=0
+ro.qcom.ad.sensortype=2
+ro.vendor.extension_library=libqti-perfd-client.so
+
 # Radio
 ro.telephony.ril.config=simactivation,sim2gsmonly
 persist.radio.multisim.config=dsds
@@ -66,111 +169,6 @@ persist.radio.use_nv_force=false
 
 ro.telephony.ril_class=RioRIL
 
-# Display
-debug.sf.hw=0
-debug.egl.hw=0
-persist.hwc.mdpcomp.enable=true
-debug.mdpcomp.logs=0
-dalvik.vm.heapsize=512m
-dalvik.vm.zygotemaxfailedboots=5
-persist.demo.hdmirotationlock=false
-debug.mdpcomp.idletime=600
-debug.enable.sglscale=1
-# disable vsync for cpu render apps
-debug.cpurend.vsync=false
-ro.opengles.version=196609
-# System property for cabl
-ro.qualcomm.cabl=0
-
-ro.qcom.ad=1
-ro.qcom.ad.calib.data=/system/etc/calib_rio.cfg
-
-# GPS
-persist.gps.qc_nlp_in_use=0
-ro.gps.agps_provider=1
-ro.qc.sdk.izat.premium.enabled=0
-ro.qc.sdk.izat.service_mask=0x0
-
-# Media
-media.stagefright.enable-player=true
-media.stagefright.enable-http=true
-media.stagefright.enable-aac=true
-media.stagefright.enable-qcp=true
-media.stagefright.enable-fma2dp=true
-media.stagefright.enable-scan=true
-media.msm8939hw=0
-media.msm8929hw=0
-mm.enable.smoothstreaming=true
-mmp.enable.3g2=true
-media.aac_51_output_enabled=true
-ro.qc.sdk.audio.ssr=false
-
-ro.qc.sdk.audio.fluencetype=fluence
-persist.audio.fluence.voicecall=true
-persist.audio.fluence.voicerec=false
-persist.audio.fluence.speaker=true
-
-tunnel.audio.encode = false
-audio.offload.buffer.size.kb=64
-audio.offload.min.duration.secs=30
-av.offload.enable=true
-use.voice.path.for.pcm.voip=true
-audio.offload.pcm.enable=false
-audio.offload.disable=1
-ro.fm.transmitter=false
-audio.offload.gapless.enabled=true
-voice.playback.conc.disabled=false
-voice.record.conc.disabled=false
-voice.voip.conc.disabled=true
-
-# Net
-persist.data.netmgrd.qos.enable=true
-persist.timed.enable=true
-
-# Other
-dev.pm.dyn_samplingrate=1
-ro.sf.lcd_density=480
-qemu.hw.mainkeys=0
-ro.qcom.ad.sensortype=2
-ro.vendor.extension_library=libqti-perfd-client.so
-
-# NFC
-ro.nfc.port="I2C"
-
 # WiFi
 wifi.interface=wlan0
 ro.disableWifiApFirmwareReload=true
-
-#property to enable DS2 dap
-audio.dolby.ds2.enabled=true
-
-# Camera
-persist.hw_camera.video_sta=true
-ro.build.hide.pic_size_match=4160x3120;4208x2368;3104x3104;3264x2448;3264x1836
-ro.build.hide.pic_size_replace=3264x2448;3264x1836;2448x2448;2592x1952;2592x1458
-ro.config.camera_target_track=true
-ro.config.hw_auto_scene=true
-ro.config.hw_burst_snapshot=true
-ro.config.hw_camera_bestShot=true
-ro.config.hw_camera_blureffect=false
-ro.config.hw_camera_davinci=true
-ro.config.hw_camera_docbeauty=true
-ro.config.hw_camera_hdr=true
-ro.config.hw_camera_makeup=true
-ro.config.hw_camera_mfd=true
-ro.config.hw_camera_nicefood=true
-ro.config.hw_camera_omron=true
-ro.config.hw_camera_refocus=true
-ro.config.hw_camera_smartae=true
-ro.config.hw_camera_zsl=true
-ro.config.hw_dts=true
-ro.config.hw_lte_support=true
-ro.config.hw_manual_focus=true
-ro.config.hw_photo_beauty=true
-ro.config.hw_video_beauty=true
-ro.config.small.previewpos=left
-ro.config.speed_control_enable=true
-persist.camera.hal.debug.mask=0
-persist.camera.cpp.duplication=false
-ro.config.hw_face_detection=true
-#ro.camera.flipsensor.enable=true
