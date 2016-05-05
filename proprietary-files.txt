@@ -291,6 +291,8 @@ vendor/firmware/libpn547_fw.so
 # DS2
 etc/srs/dts.lic
 etc/srs/srs_processing.cfg
+vendor/lib/libhwdaphal.so
+vendor/lib64/libhwdaphal.so
 
 # OTHER FIRMWARE
 # not needed?
