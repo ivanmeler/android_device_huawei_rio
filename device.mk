@@ -113,14 +113,18 @@ PRODUCT_PACKAGES += \
     libshim_cutils \
     libshim_ril \
     libshim_media \
-    libstlport \
-    libcurl
+    libstlport
 
 PRODUCT_PACKAGES += \
     Snap
 
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     camera2.portability.force_api=1
+
+# Curl
+PRODUCT_PACKAGES += \
+    libcurl \
+    curl 
 
 # Display
 PRODUCT_PACKAGES += \
