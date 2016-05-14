@@ -76,12 +76,11 @@ on init
 on fs
     export LD_SHIM_LIBS /system/lib64/libcutils.so|libshim_cutils.so:/system/lib/libcutils.so|libshim_cutils.so:/system/lib/hw/camera.msm8916.so|libshim_cutils.so:/system/lib/libcamera_hwaaf.so|libshim_cutils.so:/system/lib64/libdmd.so|libshim_cutils.so
 
+    wait /dev/block/bootdevice/by-name/oeminfo
+    start oeminfo_nvm
+
     wait /dev/block/bootdevice
     mount_all fstab.qcom
-
-    swapon_all fstab.qcom
-    write /proc/sys/vm/swappiness 100
-    write /proc/sys/vm/page-cluster 0
 
     # Keeping following partitions outside fstab file. As user may not have
     # these partition flashed on the device. Failure to mount any partition in fstab file
@@ -277,6 +276,7 @@ on post-fs-data
 
     mkdir /data/media 0770 media_rw media_rw
     chown media_rw media_rw /data/media
+
     mkdir /data/misc/ipa 0700 net_admin net_admin
 
     mkdir /data/misc/bluetooth 0770 bluetooth bluetooth
@@ -527,7 +527,6 @@ service qcamerasvr /system/bin/mm-qcamera-daemon
     class late_start
     user camera
     group camera system inet input graphics
-    setenv LD_PRELOAD /vendor/lib/libqcamerasvr-c++.so
 
 # Allow usb charging to be disabled peristently
 on property:persist.usb.chgdisabled=1
@@ -568,16 +567,8 @@ service audiod /system/bin/audiod
     user system
     group system
 
-service qcomsysd /system/bin/qcom-system-daemon
-    class main
-    user root
-    group root qcom_diag
-
 on property:sys.boot_completed=1
     write /dev/kmsg "Boot completed "
-
-on property:persist.radio.atfwd.start=false
-    stop atfwd
 
 # corefile limit and ETB enabling
 on property:persist.debug.trace=1
@@ -649,18 +640,6 @@ service rfs_access /system/bin/rfs_access
     user root
     group system net_raw
 
-on property:wc_transport.start_hci=true
-    start start_hci_filter
-
-on property:wc_transport.start_hci=false
-    stop start_hci_filter
-
-service start_hci_filter /system/bin/wcnss_filter
-    class late_start
-    user root
-    group bluetooth qcom_diag
-    disabled
-
 service config_bt_addr /system/bin/btnvtool -O
     class core
     user bluetooth
@@ -692,18 +671,6 @@ service btsnoop /system/bin/btsnoop
     disabled
     oneshot
 
-service bridgemgrd /system/bin/bridgemgrd
-    class late_start
-    user radio
-    group radio qcom_diag
-    disabled
-
-service qmiproxy /system/bin/qmiproxy
-    class main
-    user radio
-    group radio qcom_diag
-    disabled
-
 # QMUX must be in multiple groups to support external process connections
 service qmuxd /system/bin/qmuxd
     class main
@@ -715,25 +682,6 @@ service netmgrd /system/bin/netmgrd
     class main
     disabled
 
-service ipacm-diag /system/bin/ipacm-diag
-    class main
-    user system
-    socket ipacm_log_file dgram 660 system net_admin
-    group net_admin qcom_diag
-    disabled
-
-service ipacm /system/bin/ipacm
-    class main
-    user net_admin
-    group net_admin inet
-    disabled
-
-service sensors /system/bin/sensors.qcom
-    class late_start
-    user root
-    group root
-    disabled
-
 on property:ro.use_data_netmgrd=false
     # netmgr not supported on specific target
     stop netmgrd
@@ -742,24 +690,6 @@ on property:ro.use_data_netmgrd=false
 # but only if ro.data.large_tcp_window_size property is set.
 on property:ro.data.large_tcp_window_size=true
     write /proc/sys/net/ipv4/tcp_adv_win_scale  2
-
-service amp_init /system/bin/amploader -i
-    class late_start
-    user root
-    disabled
-    oneshot
-
-service amp_load /system/bin/amploader -l 7000
-    class late_start
-    user root
-    disabled
-    oneshot
-
-service amp_unload /system/bin/amploader -u
-    class late_start
-    user root
-    disabled
-    oneshot
 
 service p2p_supplicant /system/bin/wpa_supplicant \
     -iwlan0 -Dnl80211 -c/data/misc/wifi/wpa_supplicant.conf \
@@ -841,42 +771,12 @@ service dhcpcd_bnep4 /system/bin/dhcpcd -BKLG
     disabled
     oneshot
 
-service loc_launcher /system/bin/loc_launcher
-    #loc_launcher will start as root and set its uid to gps
-    class late_start
-    group gps inet net_raw qcom_diag net_admin wifi
-
-service drmdiag /system/bin/drmdiagapp
-    class late_start
-     user root
-     disabled
-     oneshot
-
-on property:drmdiag.load=1
-    start drmdiag
-
-on property:drmdiag.load=0
-    stop drmdiag
-
-service atfwd /system/bin/ATFWD-daemon
-    class late_start
-    user system
-    group system radio
-
 service hostapd /system/bin/hostapd /data/hostapd/hostapd.conf
     class late_start
     user root
     group root
     oneshot
     disabled
-
-service ims_regmanager /system/bin/exe-ims-regmanagerprocessnative
-    class late_start
-    group net_bt_admin inet radio wifi
-    disabled
-
-on property:persist.ims.regmanager.mode=1
-    start ims_regmanager
 
 on property:ro.data.large_tcp_window_size=true
     # Adjust socket buffer to enlarge TCP receive window for high bandwidth (e.g. DO-RevB)
@@ -898,33 +798,10 @@ service ril-daemon3 /system/bin/rild -c 3
     disabled
     group radio cache inet misc audio sdcard_r sdcard_rw diag qcom_diag log
 
-service profiler_daemon /system/bin/profiler_daemon
-    class late_start
-    user root
-    group root
-    disabled
-
 service charger /charger
     class charger
     group graphics
     seclabel u:r:healthd:s0
-
-service ssr_diag /system/bin/ssr_diag
-    class late_start
-    user system
-    group system
-    disabled
-
-service hvdcp /system/bin/hvdcp
-    class core
-    user root
-    disabled
-
-on property:persist.usb.hvdcp.detect=true
-    start hvdcp
-
-on property:persist.usb.hvdcp.detect=false
-    stop hvdcp
 
 service qbcharger /charger -m 1
     disabled
@@ -940,11 +817,6 @@ service vm_bms /system/bin/vm_bms
     class core
     oneshot
 
-service wfdservice /system/bin/wfdservice
-    class main
-    user system
-    group graphics audio camera inet net_bt net_bt_admin net_bt_stack drmrpc bluetooth media_rw media
-
 # set primary sd directory
 service preparesdservice /system/bin/vdc volume storagetosd
     class main
@@ -953,48 +825,6 @@ service preparesdservice /system/bin/vdc volume storagetosd
 
 on property:persist.sys.primarysd=*
    start preparesdservice
-
-on property:ro.build.hide="true"
-       write /proc/sys/kernel/hide_info 1
-on property:ro.build.hide="false"
-       write /proc/sys/kernel/hide_info 0
-
-service oeminfo_server /system/bin/oeminfo_server
-    class core
-    user root
-
-service rmt_oeminfo /system/bin/rmt_oeminfo
-    class core
-    user root
-
-service teecd /system/bin/teecd
-    class core
-    user system
-    group system
-    seclabel u:r:tee:s0
-
-service libqmi_oem_main /system/bin/libqmi_oem_main
-    class main
-
-service wlan_detect /system/bin/wlan_detect
-    class main
-    user root
-    group root
-    oneshot
-
-on property:persist.sys.hlcharging=true
-    write /sys/class/power_supply/battery/device/not_limit_chrg_flag 1
-    mkdir system/etc/tp_test_parameters
-
-service systeminfo /system/bin/systeminfo
-    class main
-    user root
-    oneshot    
-
-service fingerprintd  /system/bin/fingerprintd
-    class late_start
-    user system
-    group system input
 
 service ppd /system/bin/mm-pp-daemon
     class late_start
@@ -1020,33 +850,6 @@ service imsqmidaemon /system/bin/imsqmidaemon
     user system
     socket ims_qmid stream 0660 system radio
     group radio net_raw log qcom_diag
-
-service imsdatadaemon /system/bin/imsdatadaemon
-    class main
-    user system
-    socket ims_datad stream 0660 system radio
-    group system wifi radio inet net_raw log qcom_diag net_admin
-    disabled
-
-on property:sys.ims.QMI_DAEMON_STATUS=1
-    start imsdatadaemon
-
-service ims_rtp_daemon /system/bin/ims_rtp_daemon
-    class main
-    user system
-    socket ims_rtpd stream 0660 system radio
-    group radio net_raw diag qcom_diag log
-    disabled
-
-service imscmservice /system/bin/imscmservice
-    class main
-    user system
-    group radio net_raw diag qcom_diag log
-    disabled
-
-on property:sys.ims.DATA_DAEMON_STATUS=1
-    start ims_rtp_daemon
-    start imscmservice
 
 on property:hw.accel.calib="true"
     chmod 0664 /dev/input/event0
@@ -1088,3 +891,27 @@ on charger
     chmod 0664 /sys/class/power_supply/bms/voltage_ocv
     start vm_bms
     load_all_props
+
+# Huawei services
+
+service fingerprintd  /system/bin/fingerprintd
+    class late_start
+    user system
+    group system input
+
+service libqmi_oem_main /system/bin/libqmi_oem_main
+    class main
+
+service oeminfo_nvm /system/bin/oeminfo_nvm_server
+    critical
+    ioprio rt 4
+
+service rmt_oeminfo /system/bin/rmt_oeminfo
+    class core
+    user root
+
+service teecd /system/bin/teecd
+    class core
+    user system
+    group system
+    seclabel u:r:tee:s0
