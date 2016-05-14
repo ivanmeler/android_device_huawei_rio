@@ -261,6 +261,10 @@ vendor/lib64/libcalmodule_gyroscope.so
 lib/hw/lights.msm8916.so
 lib64/hw/lights.msm8916.so
 
+# Teecd
+bin/teecd
+lib64/libteec.so
+
 # Thermal
 vendor/bin/thermal-engine
 vendor/lib64/libthermalclient.so
