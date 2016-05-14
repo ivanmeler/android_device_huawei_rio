@@ -221,10 +221,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilts/fingerprint.idc:system/usr/idc/fingerprint.idc
 
-PRODUCT_PACKAGES += \
-    fingerprint.msm8916 \
-    fingerprintd
-
 # NFC
 PRODUCT_PACKAGES += \
     libnfc-nci \
