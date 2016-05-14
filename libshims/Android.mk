@@ -1,4 +1,4 @@
-# Copyright (C) 2015 The CyanogenMod Project
+# Copyright (C) 2016 The CyanogenMod Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -20,23 +20,4 @@ LOCAL_MODULE := libshim_cutils
 LOCAL_MODULE_TAGS := optional
 include $(BUILD_SHARED_LIBRARY)
 
-include $(CLEAR_VARS)
-LOCAL_SRC_FILES := ril.c
-LOCAL_SHARED_LIBRARIES := libbinder
-LOCAL_MODULE := libshim_ril
-LOCAL_MODULE_TAGS := optional
-LOCAL_MULTILIB := 64
-include $(BUILD_SHARED_LIBRARY)
 
-include $(CLEAR_VARS)
-LOCAL_SRC_FILES := gui/SensorManager.cpp
-LOCAL_SHARED_LIBRARIES := liblog libcutils libhardware libui libgui libbinder libutils libsync
-LOCAL_MODULE := libshim_sensormanager
-LOCAL_MODULE_CLASS := SHARED_LIBRARIES
-include $(BUILD_SHARED_LIBRARY)
-
-include $(CLEAR_VARS)
-LOCAL_SRC_FILES := hw_exif.c
-LOCAL_MODULE := libshim_media
-LOCAL_MODULE_TAGS := optional
-include $(BUILD_SHARED_LIBRARY)

@@ -108,12 +108,7 @@ PRODUCT_PACKAGES += \
 
 # Camera & Compatibility 
 PRODUCT_PACKAGES += \
-    libboringssl-compat \
-    libshim_sensormanager \
-    libshim_cutils \
-    libshim_ril \
-    libshim_media \
-    libstlport
+    libshim_cutils
 
 PRODUCT_PACKAGES += \
     Snap

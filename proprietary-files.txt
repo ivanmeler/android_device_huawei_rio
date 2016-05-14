@@ -61,6 +61,7 @@ bin/fingerprintd
 lib64/hw/fingerprint.msm8916.so
 lib64/hw/fingerprintd.ex.so
 lib64/lib_fpc_tac_shared.so
+lib/lib_fpc_tac_shared.so
 lib64/libservices.huawei.so
 
 # GPS
@@ -248,10 +249,9 @@ bin/rmt_oeminfo
 bin/rmt_storage
 
 # Sensors
-bin/oeminfo_server
 lib64/hw/sensors.msm8916.so
-lib/libdmd_report.so
-lib64/libdmd_report.so
+lib/libdmd.so
+lib64/libdmd.so
 vendor/etc/calmodule.cfg
 vendor/lib64/libcalmodule_akm.so
 vendor/lib64/libcalmodule_common.so
