@@ -59,7 +59,7 @@ on enable-low-power
     write /proc/sys/kernel/sched_downmigrate 60
 
     # Enable cluster plug now and allow the powerhal to control it
-    chown system system /sys/module/cluster_plug/parameters/low_power_mode
+    chown root system /sys/module/cluster_plug/parameters/low_power_mode
     write /sys/module/cluster_plug/parameters/active 1
 
     # bring all CPUs online
