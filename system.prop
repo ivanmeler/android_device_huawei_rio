@@ -165,8 +165,6 @@ ro.config.launcher_matchcard=1
 ro.hwpp_sig_stability_switch=true
 persist.radio.use_nv_force=false
 
-ro.telephony.ril_class=RioRIL
-
 # WiFi
 wifi.interface=wlan0
 ro.disableWifiApFirmwareReload=true

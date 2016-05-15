@@ -255,9 +255,25 @@ on boot
     # Allow access for CCID command/response timeout configuration
     chown system system /sys/module/ccid_bridge/parameters/bulk_msg_timeout
 
+    # Mark the copy complete flag to not completed
+    write /data/misc/radio/copy_complete 0
+    chown radio radio /data/misc/radio/copy_complete
+    chmod 0660 /data/misc/radio/copy_complete
+
+    # camera sockets
+    mkdir /data/misc/camera 0770 camera camera
+
+    # setup trace dir
+    mkdir /cache/trace 0777 root shell
+    chown root shell /cache/trace
+    chmod 0777 /cache/trace
+
+    # Flash storage isn't a good entropy source, and only causes locking
+    # overhead in the kernel. Turn it off.
+    write /sys/block/mmcblk0/queue/add_random 0
+
 # msm specific files that need to be created on /data
 on post-fs-data
-    mkdir /data/tombstones 0771 system system
     mkdir /tombstones/modem 0771 system system
     mkdir /tombstones/lpass 0771 system system
     mkdir /tombstones/wcnss 0771 system system
@@ -269,10 +285,8 @@ on post-fs-data
     # Create directory for TZ Apps
     mkdir /data/misc/qsee 0770 system system
 
+    mkdir /data/fdAlbum 0770 camera camera
     mkdir /data/misc/camera 0770 camera camera
-
-    mkdir /data/media 0770 media_rw media_rw
-    chown media_rw media_rw /data/media
 
     mkdir /data/misc/ipa 0700 net_admin net_admin
 
@@ -301,6 +315,7 @@ on post-fs-data
 
     # Create directory used by audio subsystem
     mkdir /data/misc/audio 0770 audio audio
+    restorecon_recursive /data/misc/audio
 
     # Create directory used by the DASH client
     mkdir /data/misc/dash 0770 media audio
@@ -349,6 +364,7 @@ on post-fs-data
 
     # Create /data/time folder for time-services
     mkdir /data/time/ 0700 system system
+    restorecon_recursive /data/time
 
     mkdir /data/audio/ 0770 media audio
 
@@ -481,6 +497,9 @@ on post-fs-data
     chown system system /sys/devices/8789.huawei_hall_sensor/get_camera_status
     chown system system /sys/devices/8789.huawei_hall_sensor/mmi_camera_hall_status
     chown root system /sys/devices/soc0/huawei_product
+
+    chown system graphics /sys/class/graphics/fb0/idle_notify
+    chmod 0664 /sys/class/graphics/fb0/idle_notify
 
     chown system system /sys/class/graphics/fb0/mipi_crc
     chown system system /sys/class/graphics/fb0/inversion_mode
@@ -902,6 +921,10 @@ service libqmi_oem_main /system/bin/libqmi_oem_main
 service oeminfo_nvm /system/bin/oeminfo_nvm_server
     critical
     ioprio rt 4
+
+service oem_sar_main /system/bin/oem_sar_main
+    class core
+    user root
 
 service rmt_oeminfo /system/bin/rmt_oeminfo
     class core

@@ -116,10 +116,22 @@ PRODUCT_PACKAGES += \
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     camera2.portability.force_api=1
 
+# Connectivity Engine support
+PRODUCT_PACKAGES += \
+    libcnefeatureconfig \
+    libxml2
+
 # Curl
 PRODUCT_PACKAGES += \
     libcurl \
-    curl 
+    curl
+
+# dataservices
+PRODUCT_PACKAGES += \
+    librmnetctl \
+    rmnetcli \
+    sockev \
+    datatop
 
 # Display
 PRODUCT_PACKAGES += \
@@ -149,7 +161,8 @@ PRODUCT_PACKAGES += \
 # IPv6
 PRODUCT_PACKAGES += \
     ebtables \
-    ethertypes
+    ethertypes \
+    libebtc
 
 # Keystore
 PRODUCT_PACKAGES += \
