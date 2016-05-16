@@ -42,6 +42,33 @@ lib64/libbtaddr.so
 lib64/libbtpower.so
 vendor/lib64/libbtnv.so
 
+# Data
+etc/data/dsi_config.xml
+etc/data/netmgr_config.xml
+etc/data/qmi_config.xml
+
+# Dolby
+etc/srs/dts.lic
+etc/srs/srs_processing.cfg
+vendor/lib/libhwdaphal.so
+vendor/lib64/libhwdaphal.so
+
+ DPM
+bin/dpmd
+etc/dpm/dpm.conf
+etc/dpm/nsrm/NsrmConfiguration.xml
+etc/permissions/dpmapi.xml
+-framework/com.qti.dpmframework.jar
+-framework/dpmapi.jar
+vendor/lib/libdpmctmgr.so
+vendor/lib/libdpmfdmgr.so
+vendor/lib/libdpmframework.so
+vendor/lib/libdpmnsrm.so
+vendor/lib64/libdpmctmgr.so
+vendor/lib64/libdpmfdmgr.so
+vendor/lib64/libdpmframework.so
+vendor/lib64/libdpmnsrm.so
+
 # DRM
 bin/qseecomd
 lib/libdrmdecrypt.so
@@ -140,6 +167,15 @@ vendor/lib/libscale.so
 etc/firmware/a420_pfp.fw
 etc/firmware/a420_pm4.fw
 
+# Huawei proprietary blobs
+bin/libqmi_oem_main
+bin/rmt_oeminfo
+bin/rmt_storage
+
+# Lights
+lib/hw/lights.msm8916.so
+lib64/hw/lights.msm8916.so
+
 # Media
 vendor/lib/libDivxDrm.so
 vendor/lib/libExtendedExtractor.so
@@ -151,6 +187,14 @@ vendor/lib/libOmxAacDec.so
 vendor/lib/libOmxEvrcDec.so
 vendor/lib/libOmxQcelp13Dec.so
 vendor/lib/libSHIMDivxDrm.so
+
+# Network
+vendor/lib/libconnctrl.so
+vendor/lib64/libconnctrl.so
+
+# NFC
+vendor/etc/pdc_RIO_for_nfc.txt
+vendor/firmware/libpn547_fw.so
 
 # Perf
 vendor/bin/perfd
@@ -230,7 +274,6 @@ lib64/libril.so
 lib64/librilutils.so
 lib64/librmnetctl.so
 lib64/libsecure_boot_keybox.so
-vendor/lib/libmdmdetect.so
 vendor/lib64/libcneapiclient.so
 vendor/lib64/libconfigdb.so
 vendor/lib64/lib-imsdpl.so
@@ -242,27 +285,20 @@ vendor/lib64/libril-qcril-hook-oem.so
 vendor/lib64/libsystem_health_mon.so
 vendor/lib64/libxml.so
 vendor/lib/lib-imsdpl.so
-
-# Huawei proprietary blobs
-bin/libqmi_oem_main
-bin/rmt_oeminfo
-bin/rmt_storage
+vendor/lib/libmdmdetect.so
 
 # Sensors
 lib64/hw/sensors.msm8916.so
-lib/libdmd.so
 lib64/libdmd.so
+lib/libdmd.so
 vendor/etc/calmodule.cfg
 vendor/lib64/libcalmodule_akm.so
 vendor/lib64/libcalmodule_common.so
 vendor/lib64/libcalmodule_gyroscope.so
 
-# Lights
-lib/hw/lights.msm8916.so
-lib64/hw/lights.msm8916.so
-
 # Teecd
 bin/teecd
+lib/libteec.so
 lib64/libteec.so
 
 # Thermal
@@ -278,6 +314,7 @@ bin/time_daemon
 -vendor/lib/libtime_genoff.so
 vendor/lib64/libTimeService.so
 vendor/lib/libTimeService.so
+
 # Signed Venus (media) firmware
 etc/firmware/venus.b00
 etc/firmware/venus.b01
@@ -289,21 +326,6 @@ etc/firmware/venus.mdt
 
 # Rio Calibrations
 etc/calib_rio.cfg
-
-# Data
-etc/data/dsi_config.xml
-etc/data/netmgr_config.xml
-etc/data/qmi_config.xml
-
-# NFC
-vendor/etc/pdc_RIO_for_nfc.txt
-vendor/firmware/libpn547_fw.so
-
-# DS2
-etc/srs/dts.lic
-etc/srs/srs_processing.cfg
-vendor/lib/libhwdaphal.so
-vendor/lib64/libhwdaphal.so
 
 # OTHER FIRMWARE
 # not needed?
