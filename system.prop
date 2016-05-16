@@ -77,6 +77,11 @@ ro.qcom.ad.calib.data=/system/etc/calib_rio.cfg
 # DOLBY
 audio.dolby.ds2.enabled=true
 
+# Data Power Manager (DPM)
+persist.dpm.feature=7
+persist.env.fastdorm.enabled=true
+persist.sys.dpmd.nsrm=3
+
 # GPS
 persist.gps.qc_nlp_in_use=0
 ro.gps.agps_provider=1
