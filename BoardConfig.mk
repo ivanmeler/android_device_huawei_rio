@@ -15,10 +15,7 @@
 
 LOCAL_PATH := device/huawei/rio
 
-TARGET_SPECIFIC_HEADER_PATH := $(LOCAL_PATH)/include
-
-# Assertions
-#TARGET_BOARD_INFO_FILE ?= device/huawei/rio/board-info.txt
+TARGET_LDPRELOAD := libNimsWrap.so
 
 # Architecture
 TARGET_ARCH := arm64
@@ -68,6 +65,7 @@ AUDIO_FEATURE_ENABLED_KPI_OPTIMIZE := true
 AUDIO_FEATURE_ENABLED_NEW_SAMPLE_RATE := true
 AUDIO_FEATURE_LOW_LATENCY_PRIMARY := true
 BOARD_USES_ALSA_AUDIO := true
+BOARD_SUPPORTS_SOUND_TRIGGER := true
 COMMON_GLOBAL_CFLAGS += -DHUAWEI_SOUND_PARAM_PATH=\"/system/etc/sound_param/rio_l010203\"
 
 # Bluetooth
