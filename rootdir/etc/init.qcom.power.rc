@@ -60,6 +60,7 @@ on enable-low-power
 
     # Enable cluster plug now and allow the powerhal to control it
     chown root system /sys/module/cluster_plug/parameters/low_power_mode
+    chmod 0666 /sys/module/cluster_plug/parameters/low_power_mode
     write /sys/module/cluster_plug/parameters/active 1
 
     # bring all CPUs online
