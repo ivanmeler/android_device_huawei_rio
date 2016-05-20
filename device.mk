@@ -156,7 +156,8 @@ PRODUCT_PACKAGES += \
     ft5x06_ts.kl \
     gpio-keys.kl \
     synaptics_dsx.kl \
-    synaptics_rmi4_i2c.kl
+    synaptics_rmi4_i2c.kl \
+    usbaudio.kl
 
 # IPv6
 PRODUCT_PACKAGES += \

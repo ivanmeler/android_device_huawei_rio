@@ -61,8 +61,8 @@ void init_msm_properties(unsigned long msm_id, unsigned long msm_ver, char *boar
         property_set("ro.product.model", "HUAWEI RIO-L01");
         property_set("ro.product.device", "hwRIO-L01");
         property_set("ro.build.product", "RIO-L01");
-        property_set("ro.build.description", "RIO-L01-user 5.0 GRJ90 C432B140 release-keys");
-        property_set("ro.build.fingerprint", "HUAWEI/RIO-L01/hwRIO-L01:5.1/HuaweiRIO-L01/C432B140:user/release-keys");
+        property_set("ro.build.description", "RIO-L01-user 6.0.1 GRJ90 C432B340 release-keys");
+        property_set("ro.build.fingerprint", "HUAWEI/RIO-L01/hwRIO-L01:6.0.1/HuaweiRIO-L01/C432B340:user/release-keys");
     }
     else if (strstr(model, "RIO-L02") != NULL) {
         property_set("ro.product.model", "HUAWEI RIO-L02");
