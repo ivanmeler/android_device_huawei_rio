@@ -79,8 +79,6 @@ audio.dolby.ds2.enabled=true
 
 # Data Power Manager (DPM)
 persist.dpm.feature=7
-persist.env.fastdorm.enabled=true
-persist.sys.dpmd.nsrm=3
 
 # GPS
 persist.gps.qc_nlp_in_use=0
