@@ -221,10 +221,6 @@ PRODUCT_PACKAGES += \
     init.qcom.usb.sh \
     ueventd.qcom.rc
 
-# RIL
-PRODUCT_PACKAGES += \
-    libxml2
-
 # Fingerprint sensor
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.fingerprint.xml:system/etc/permissions/android.hardware.fingerprint.xml
