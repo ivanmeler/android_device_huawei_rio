@@ -1270,19 +1270,19 @@ etc/permissions/com.quicinc.cne.xml
 -framework/com.quicinc.cne.jar
 -framework/com.quicinc.wbc.jar
 -framework/com.quicinc.wbcservice.jar
-vendor/lib/libNimsWrap.so
 vendor/lib/libcne.so
 vendor/lib/libcneapiclient.so
 vendor/lib/libcneconn.so
 vendor/lib/libcneqmiutils.so
+vendor/lib/libNimsWrap.so
 vendor/lib/libvendorconn.so
 vendor/lib/libwqe.so
 vendor/lib/libxml.so
-vendor/lib64/libNimsWrap.so
 vendor/lib64/libcne.so
 vendor/lib64/libcneapiclient.so
 vendor/lib64/libcneconn.so
 vendor/lib64/libcneqmiutils.so
+vendor/lib64/libNimsWrap.so
 vendor/lib64/libvendorconn.so
 vendor/lib64/libwqe.so
 vendor/lib64/libxml.so
@@ -1430,8 +1430,8 @@ lib64/hw/lights.msm8916.so
 # Media
 vendor/lib/libDivxDrm.so
 vendor/lib/libI420colorconvert.so
-vendor/lib/libmmosal.so
 vendor/lib/libmm-color-convertor.so
+vendor/lib/libmmosal.so
 vendor/lib/libOmxAacDec.so
 vendor/lib/libOmxEvrcDec.so
 vendor/lib/libOmxQcelp13Dec.so
@@ -1442,6 +1442,7 @@ vendor/lib/libconnctrl.so
 vendor/lib64/libconnctrl.so
 
 # NFC
+etc/firmware/nfc_test.bin
 vendor/etc/pdc_RIO_for_nfc.txt
 vendor/firmware/libpn547_fw.so
 
@@ -1536,9 +1537,10 @@ vendor/lib/lib-imsdpl.so
 vendor/lib/libmdmdetect.so
 
 # Sensors
+lib/hw/sensors.msm8916.so
 lib64/hw/sensors.msm8916.so
-lib64/libdmd.so
 lib/libdmd.so
+lib64/libdmd.so
 vendor/etc/calmodule.cfg
 vendor/lib64/libcalmodule_akm.so
 vendor/lib64/libcalmodule_common.so
@@ -1616,7 +1618,6 @@ etc/firmware/kiw-HB396481EBC_SONY_SWD.fw
 etc/firmware/Kiwi_fw.bin
 etc/firmware/leia_pfp_470.fw
 etc/firmware/leia_pm4_470.fw
-etc/firmware/nfc_test.bin
 etc/firmware/Rio_fw.bin
 etc/firmware/shine_lensone_fw.img
 etc/firmware/shine_ofilm_fw.img
