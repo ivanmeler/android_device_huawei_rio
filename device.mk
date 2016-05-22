@@ -141,6 +141,11 @@ PRODUCT_PACKAGES += \
     libtinyxml \
     memtrack.msm8916
 
+PRODUCT_PACKAGES += \
+    pp_calib_data_BOE_OTM1901A_5P5_1080PXA_VIDEO.xml \
+    pp_calib_data_CMI_NT35532_5P5_1080PXA_VIDEO.xml \
+    pp_calib_data_TIANMA_NT35596_5P5_1080PXA_VIDEO.xml
+
 # FM
 PRODUCT_PACKAGES += \
     FMRadio \
