@@ -34,22 +34,17 @@
 #include "log.h"
 #include "util.h"
 
-#include "init_msm.h"
+#include "init_msm8916.h"
 
-void init_msm_properties(unsigned long msm_id, unsigned long msm_ver, char *board_type)
+void init_target_properties()
 {
     char platform[PROP_VALUE_MAX];
     char model[110];
     FILE* fp;
     int rc;
-    char variant[PROP_VALUE_MAX];
-
-    UNUSED(msm_id);
-    UNUSED(msm_ver);
-    UNUSED(board_type);
 
     rc = property_get("ro.board.platform", platform);
-    if (!rc || !ISMATCH(platform, ANDROID_TARGET))
+    if (!rc || strncmp(platform, "msm8916", PROP_VALUE_MAX))
         return;
 
     fp = fopen("/proc/app_info", "rb");
