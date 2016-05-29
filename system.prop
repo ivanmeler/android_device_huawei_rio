@@ -12,7 +12,7 @@ audio_hal.period_size=192
 ro.qc.sdk.audio.fluencetype=fluence
 persist.audio.fluence.voicecall=true
 persist.audio.fluence.voicerec=false
-persist.audio.fluence.speaker=true
+persist.audio.fluence.speaker=false
 
 ro.qc.sdk.audio.ssr=false
 tunnel.audio.encode = false
@@ -61,6 +61,9 @@ persist.camera.cpp.duplication=false
 ro.config.hw_face_detection=true
 #ro.camera.flipsensor.enable=true
 
+# CNE
+persist.cne.feature=0
+
 # Display
 debug.sf.hw=0
 debug.egl.hw=0
@@ -77,12 +80,6 @@ ro.qualcomm.cabl=0
 
 ro.qcom.ad=1
 ro.qcom.ad.calib.data=/system/etc/calib_rio.cfg
-
-# DOLBY
-audio.dolby.ds2.enabled=true
-
-# Data Power Manager (DPM)
-persist.dpm.feature=7
 
 # DRM
 drm.service.enabled=true

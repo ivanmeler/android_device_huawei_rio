@@ -55,11 +55,10 @@ lib/libcamera_ipp_algo_dflash.so
 lib/libcamera_post_mediaserver.so
 lib/libcamera_wrapper_algo_omron_makeup.so
 lib/libchromatix_imx135_liveshot.so
-lib/libcamera_sr.so
 lib/libDocBeauty.so
 lib/libFaceBeautyMeiwo.so
 lib/libFaceBeautyMeiwoJNI.so
-lib/libFNVfbEngineLib.so
+lib/libFaceDetection.so
 lib/libhdr.so
 lib/libmmcamera_interface.so
 lib/libmmjpeg_interface.so
@@ -76,6 +75,9 @@ lib/libqomx_core.so
 lib/libRefocusContrastPosition.so
 lib/libSFBE.so
 lib/libSmartAE.so
+lib/libTHImageOCR.so
+lib/libtrack.so
+lib/libtwocr32.so
 lib64/lib_camera_hall_overturn.so
 lib64/libCameraHwExtend.so
 lib64/libchromatix_imx135_liveshot.so
@@ -1260,60 +1262,6 @@ etc/firmware/cpp_firmware_v1_4_0.fw
 etc/firmware/RIO_miniBoot.bin
 etc/firmware/RIO_TBM_Latour2.bin
 
-# CNE
-bin/cnd
-etc/cne/andsfCne.xml
-etc/cne/SwimConfig.xml
-etc/permissions/cneapiclient.xml
-etc/permissions/com.quicinc.cne.xml
--framework/cneapiclient.jar
--framework/com.quicinc.cne.jar
--framework/com.quicinc.wbc.jar
--framework/com.quicinc.wbcservice.jar
-vendor/lib/libcne.so
-vendor/lib/libcneapiclient.so
-vendor/lib/libcneconn.so
-vendor/lib/libcneqmiutils.so
-vendor/lib/libNimsWrap.so
-vendor/lib/libvendorconn.so
-vendor/lib/libwqe.so
-vendor/lib/libxml.so
-vendor/lib64/libcne.so
-vendor/lib64/libcneapiclient.so
-vendor/lib64/libcneconn.so
-vendor/lib64/libcneqmiutils.so
-vendor/lib64/libNimsWrap.so
-vendor/lib64/libvendorconn.so
-vendor/lib64/libwqe.so
-vendor/lib64/libxml.so
-
-# Data
-etc/data/dsi_config.xml
-etc/data/netmgr_config.xml
-etc/data/qmi_config.xml
-
-# Dolby
-etc/srs/dts.lic
-etc/srs/srs_processing.cfg
-vendor/lib/libhwdaphal.so
-vendor/lib64/libhwdaphal.so
-
- DPM
-bin/dpmd
-etc/dpm/dpm.conf
-etc/dpm/nsrm/NsrmConfiguration.xml
-etc/permissions/dpmapi.xml
--framework/com.qti.dpmframework.jar
--framework/dpmapi.jar
-vendor/lib/libdpmctmgr.so
-vendor/lib/libdpmfdmgr.so
-vendor/lib/libdpmframework.so
-vendor/lib/libdpmnsrm.so
-vendor/lib64/libdpmctmgr.so
-vendor/lib64/libdpmfdmgr.so
-vendor/lib64/libdpmframework.so
-vendor/lib64/libdpmnsrm.so
-
 # DRM
 bin/qseecomd
 lib/libdrmdecrypt.so
@@ -1330,6 +1278,7 @@ vendor/lib/mediadrm/libwvdrmengine.so
 
 # Fingerprint
 bin/fingerprintd
+bin/fingerprint_log
 lib64/hw/fingerprint.msm8916.so
 lib64/hw/fingerprintd.ex.so
 lib64/lib_fpc_tac_shared.so
@@ -1340,7 +1289,7 @@ lib/lib_fpc_tac_shared.so
 lib/libservices.huawei.so
 
 # Gatekeeper
-vendor/lib64/hw/gatekeeper.msm8916.so
+vendor/lib64/hw/gatekeeper.msm8916.so:lib64/hw/gatekeeper.msm8916.so
 
 # GPS
 -lib64/libloc_api_v02.so
@@ -1373,7 +1322,8 @@ vendor/lib64/egl/libRBEGL_adreno.so
 vendor/lib64/egl/libRBGLESv1_CM_adreno.so
 vendor/lib64/egl/libRBGLESv2_adreno.so
 vendor/lib64/libadreno_utils.so
-vendor/lib64/libbccQTI.so
+vendor/lib64/libc2d30-a4xx.so
+vendor/lib64/libC2D2.so
 vendor/lib64/libCB.so
 vendor/lib64/libgsl.so
 vendor/lib64/libllvm-glnext.so
@@ -1382,7 +1332,6 @@ vendor/lib64/libOpenCL.so
 vendor/lib64/librs_adreno.so
 vendor/lib64/librs_adreno_sha1.so
 vendor/lib64/libRSDriver_adreno.so
-vendor/lib64/libsc-a2xx.so
 vendor/lib64/libsc-a3xx.so
 vendor/lib64/libscale.so
 vendor/lib/egl/eglsubAndroid.so
@@ -1399,8 +1348,6 @@ vendor/lib/egl/libRBEGL_adreno.so
 vendor/lib/egl/libRBGLESv1_CM_adreno.so
 vendor/lib/egl/libRBGLESv2_adreno.so
 vendor/lib/libadreno_utils.so
-vendor/lib/libbccQTI.so
-vendor/lib/libc2d30-a3xx.so
 vendor/lib/libc2d30-a4xx.so
 vendor/lib/libC2D2.so
 vendor/lib/libCB.so
@@ -1408,7 +1355,9 @@ vendor/lib/libgsl.so
 vendor/lib/libllvm-glnext.so
 vendor/lib/libllvm-qcom.so
 vendor/lib/libOpenCL.so
-vendor/lib/libsc-a2xx.so
+vendor/lib/librs_adreno.so
+vendor/lib/librs_adreno_sha1.so
+vendor/lib/libRSDriver_adreno.so
 vendor/lib/libsc-a3xx.so
 vendor/lib/libscale.so
 
@@ -1418,24 +1367,26 @@ etc/firmware/a420_pm4.fw
 
 # Huawei proprietary blobs
 bin/libqmi_oem_main
+bin/oeminfo_nvm_server
 bin/rmt_oeminfo
+bin/test_diag
 
 # Keystore
-vendor/lib64/hw/keystore.msm8916.so
+vendor/lib64/hw/keystore.msm8916.so:lib64/hw/keystore.msm8916.so
 
 # Lights
 lib/hw/lights.msm8916.so
 lib64/hw/lights.msm8916.so
 
 # Media
-vendor/lib/libDivxDrm.so
+lib/libOmxVdecHevc.so
+vendor/lib/libHevcSwDecoder.so
 vendor/lib/libI420colorconvert.so
 vendor/lib/libmm-color-convertor.so
 vendor/lib/libmmosal.so
 vendor/lib/libOmxAacDec.so
 vendor/lib/libOmxEvrcDec.so
 vendor/lib/libOmxQcelp13Dec.so
-vendor/lib/libSHIMDivxDrm.so
 
 # Network
 vendor/lib/libconnctrl.so
@@ -1448,7 +1399,9 @@ vendor/firmware/libpn547_fw.so
 
 # Perf
 vendor/bin/perfd
+vendor/lib/libqti-iop-client.so
 vendor/lib/libqti-perfd-client.so
+vendor/lib64/libqti-iop-client.so
 vendor/lib64/libqti-perfd-client.so
 
 # Postprocessing
@@ -1471,11 +1424,11 @@ vendor/lib64/libdsi_netctrl.so
 vendor/lib64/libdsutils.so
 vendor/lib64/libidl.so
 vendor/lib64/libqcci_legacy.so
+vendor/lib64/libqc-opt.so
 vendor/lib64/libqdi.so
 vendor/lib64/libqdp.so
 vendor/lib64/libqmi.so
 vendor/lib64/libqmi_cci.so
-vendor/lib64/libqmi_client_helper.so
 vendor/lib64/libqmi_client_qmux.so
 vendor/lib64/libqmi_common_so.so
 vendor/lib64/libqmi_csi.so
@@ -1487,11 +1440,11 @@ vendor/lib/libdsi_netctrl.so
 vendor/lib/libdsutils.so
 vendor/lib/libidl.so
 vendor/lib/libqcci_legacy.so
+vendor/lib/libqc-opt.so
 vendor/lib/libqdi.so
 vendor/lib/libqdp.so
 vendor/lib/libqmi.so
 vendor/lib/libqmi_cci.so
-vendor/lib/libqmi_client_helper.so
 vendor/lib/libqmi_client_qmux.so
 vendor/lib/libqmi_common_so.so
 vendor/lib/libqmi_csi.so
@@ -1501,30 +1454,31 @@ vendor/lib/libsmemlog.so
 
 # Radio
 -app/qcrilmsgtunnel/qcrilmsgtunnel.apk
+-app/shutdownlistener/shutdownlistener.apk
 bin/imsqmidaemon
 bin/netmgrd
 bin/qmuxd
 bin/radish
 bin/rfs_access
 bin/rmt_storage
+etc/data/dsi_config.xml
+etc/data/netmgr_config.xml
+etc/data/qmi_config.xml
 etc/permissions/qcnvitems.xml
 etc/permissions/qcrilhook.xml
 -framework/qcnvitems.jar
 -framework/qcrilhook.jar
 lib/libhuawei_secure.so
-lib/lib_nve_operation.so
 lib/liboeminfo.so
-lib/lib_oeminfo_interface.so
 lib/libqmi_nv_api.so
 lib/libqmi_oem_api.so
 lib/libsecure_boot_keybox.so
 lib64/libhuawei_secure.so
-lib64/lib_nve_operation.so
 lib64/liboeminfo.so
-lib64/lib_oeminfo_interface.so
 lib64/libqmi_nv_api.so
 lib64/libqmi_oem_api.so
 lib64/libsecure_boot_keybox.so
+vendor/lib64/libcneapiclient.so
 vendor/lib64/libconfigdb.so
 vendor/lib64/lib-imsdpl.so
 vendor/lib64/libmdmdetect.so
@@ -1533,6 +1487,7 @@ vendor/lib64/libperipheral_client.so
 vendor/lib64/libril-qc-qmi-1.so
 vendor/lib64/libril-qcril-hook-oem.so
 vendor/lib64/libsystem_health_mon.so
+vendor/lib64/libxml.so
 vendor/lib/lib-imsdpl.so
 vendor/lib/libmdmdetect.so
 

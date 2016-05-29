@@ -129,9 +129,7 @@ PRODUCT_PACKAGES += \
 # dataservices
 PRODUCT_PACKAGES += \
     librmnetctl \
-    rmnetcli \
-    sockev \
-    datatop
+    rmnetcli
 
 # Display
 PRODUCT_PACKAGES += \
@@ -170,14 +168,6 @@ PRODUCT_PACKAGES += \
     ethertypes \
     libebtc
 
-# Keystore
-PRODUCT_PACKAGES += \
-    keystore.msm8916
-
-# HW disk encryption
-PRODUCT_PACKAGES += \
-    libcryptfs_hw
-
 # GPS
 PRODUCT_PACKAGES += \
     gps.msm8916
@@ -206,7 +196,8 @@ PRODUCT_PACKAGES += \
 
 # Power HAL
 PRODUCT_PACKAGES += \
-    power.msm8916
+    power.msm8916 \
+    libqti-iop-client
 
 # Ramdisk
 PRODUCT_PACKAGES += \
@@ -279,11 +270,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/wifi/WCNSS_cfg.dat:system/etc/firmware/wlan/prima/WCNSS_cfg.dat \
     $(LOCAL_PATH)/wifi/WCNSS_wlan_dictionary.dat:system/etc/wifi/WCNSS_wlan_dictionary.dat \
     $(LOCAL_PATH)/wifi/WCNSS_qcom_wlan_nv.bin:system/etc/firmware/wlan/prima/WCNSS_qcom_wlan_nv.bin
-
-# WiFi Display
-ifneq ($(QCPATH),)
-PRODUCT_BOOT_JARS += WfdCommon
-endif
 
 $(call inherit-product, frameworks/native/build/phone-xxhdpi-2048-dalvik-heap.mk)
 $(call inherit-product, frameworks/native/build/phone-xxhdpi-2048-hwui-memory.mk)

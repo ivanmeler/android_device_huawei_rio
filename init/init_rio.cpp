@@ -25,9 +25,9 @@
    IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
+#include <cstdlib>
+#include <fstream>
+#include <string>
 
 #include "vendor_init.h"
 #include "property_service.h"
@@ -39,47 +39,48 @@
 void init_target_properties()
 {
     char platform[PROP_VALUE_MAX];
-    char model[110];
-    FILE* fp;
+    std::ifstream fin;
+    std::string buf;
     int rc;
 
     rc = property_get("ro.board.platform", platform);
     if (!rc || strncmp(platform, "msm8916", PROP_VALUE_MAX))
         return;
 
-    fp = fopen("/proc/app_info", "rb");
-    while (fgets(model, 100, fp))
-        if (strstr(model, "huawei_fac_product_name") != NULL)
+    fin.open("/proc/app_info");
+    while (getline(fin, buf))
+        if (buf.find("huawei_fac_product_name") != std::string::npos)
             break;
+    fin.close();
 
-    if (strstr(model, "RIO-L01") != NULL) {
+    if (buf.find("RIO-L01") != std::string::npos) {
         property_set("ro.product.model", "HUAWEI RIO-L01");
         property_set("ro.product.device", "hwRIO-L01");
         property_set("ro.build.product", "RIO-L01");
         property_set("ro.build.description", "RIO-L01-user 6.0.1 GRJ90 C432B340 release-keys");
         property_set("ro.build.fingerprint", "HUAWEI/RIO-L01/hwRIO-L01:6.0.1/HuaweiRIO-L01/C432B340:user/release-keys");
     }
-    else if (strstr(model, "RIO-L02") != NULL) {
+    else if (buf.find("RIO-L02") != std::string::npos) {
         property_set("ro.product.model", "HUAWEI RIO-L02");
         property_set("ro.product.device", "hwRIO-L02");
         property_set("ro.build.product", "RIO-L02");
     }
-    else if (strstr(model, "RIO-L03") != NULL) {
+    else if (buf.find("RIO-L03") != std::string::npos) {
         property_set("ro.product.model", "HUAWEI RIO-L03");
         property_set("ro.product.device", "hwRIO-L03");
         property_set("ro.build.product", "RIO-L03");
     }
-    else if (strstr(model, "RIO-AL00") != NULL) {
+    else if (buf.find("RIO-AL00") != std::string::npos) {
         property_set("ro.product.model", "HUAWEI RIO-AL00");
         property_set("ro.product.device", "hwRIO-AL00");
         property_set("ro.build.product", "RIO-AL00");
     }
-    else if (strstr(model, "RIO-CL00") != NULL) {
+    else if (buf.find("RIO-CL00") != std::string::npos) {
         property_set("ro.product.model", "HUAWEI RIO-CL00");
         property_set("ro.product.device", "hwRIO-CL00");
         property_set("ro.build.product", "RIO-CL00");
     }
-    else if (strstr(model, "RIO-TL00") != NULL) {
+    else if (buf.find("RIO-TL00") != std::string::npos) {
         property_set("ro.product.model", "HUAWEI RIO-TL00");
         property_set("ro.product.device", "hwRIO-TL00");
         property_set("ro.build.product", "RIO-TL00");

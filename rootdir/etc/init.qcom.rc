@@ -84,7 +84,7 @@ on fs
     restorecon_recursive /persist
 
     wait /dev/block/bootdevice/by-name/modem
-    mount vfat /dev/block/bootdevice/by-name/modem /firmware ro context=u:object_r:firmware_file:s0,shortname=lower,uid=1000,gid=1000,dmask=222,fmask=333
+    mount vfat /dev/block/bootdevice/by-name/modem /firmware ro context=u:object_r:firmware_file:s0,shortname=lower,uid=1000,gid=1000,dmask=227,fmask=337
     write /sys/kernel/boot_adsp/boot 1
     mkdir /log/sdlog 0775 system system
     write /log/sdlog/sd_err.log 0
@@ -324,20 +324,32 @@ on post-fs-data
     mkdir /data/misc/display 0770 system graphics
     mkdir /persist/display 0770 system graphics
 
+    # Graphics node permissions
+    chown system graphics /sys/class/graphics/fb0/dynamic_fps
+    chown system graphics /sys/class/graphics/fb0/idle_time
+    chown system graphics /sys/class/graphics/fb0/mode
+    chown system graphics /sys/class/graphics/fb0/modes
+
+    chmod 0664 /sys/class/graphics/fb0/dynamic_fps
+    chmod 0664 /sys/class/graphics/fb0/idle_time
+    chmod 0664 /sys/class/graphics/fb0/mode
+    chmod 0664 /sys/class/graphics/fb0/modes
+
     # Mounting of persist is moved to 'on emmc-fs' and 'on fs' sections
     # We chown/chmod /persist again so because mount is run as root + defaults
     chown system system /persist
     chmod 0771 /persist
-    chmod 0664 /sys/devices/platform/msm_sdcc.1/polling
-    chmod 0664 /sys/devices/platform/msm_sdcc.2/polling
-    chmod 0664 /sys/devices/platform/msm_sdcc.3/polling
-    chmod 0664 /sys/devices/platform/msm_sdcc.4/polling
 
     # Chown polling nodes as needed from UI running on system server
     chown system system /sys/devices/platform/msm_sdcc.1/polling
     chown system system /sys/devices/platform/msm_sdcc.2/polling
     chown system system /sys/devices/platform/msm_sdcc.3/polling
     chown system system /sys/devices/platform/msm_sdcc.4/polling
+
+    chmod 0664 /sys/devices/platform/msm_sdcc.1/polling
+    chmod 0664 /sys/devices/platform/msm_sdcc.2/polling
+    chmod 0664 /sys/devices/platform/msm_sdcc.3/polling
+    chmod 0664 /sys/devices/platform/msm_sdcc.4/polling
 
     #Create the symlink to qcn wpa_supplicant folder for ar6000 wpa_supplicant
     mkdir /data/system 0775 system system
@@ -830,8 +842,9 @@ on property:sys.qbcharger.enable=false
     stop qbcharger
 
 service vm_bms /system/bin/vm_bms
-    class core
-    oneshot
+    class main
+    user root
+    group root
 
 # set primary sd directory
 service preparesdservice /system/bin/vdc volume storagetosd
@@ -914,6 +927,12 @@ service fingerprintd  /system/bin/fingerprintd
     user system
     group system input
 
+service fingerprint_log  /system/bin/fingerprint_log
+    class main
+    user system
+    group system system 
+    oneshot
+
 service libqmi_oem_main /system/bin/libqmi_oem_main
     class main
 
@@ -930,3 +949,7 @@ service teecd /system/bin/teecd
     user system
     group system
     seclabel u:r:tee:s0
+
+service test_diag /system/bin/test_diag
+    user root
+    seclabel u:r:diag:s0
