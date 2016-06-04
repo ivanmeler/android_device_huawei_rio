@@ -35,9 +35,6 @@ TARGET_BOARD_PLATFORM := msm8916
 # ANT+
 BOARD_ANT_WIRELESS_DEVICE := "vfs-prerelease"
 
-# Assert
-TARGET_OTA_ASSERT_DEVICE := RIO-L01,hwRIO-L01,RIO-L02,hwRIO-L02,RIO-L03,hwRIO-L03,RIO-AL00,hwRIO-AL00,RIO-CL00,hwRIO-CL00,RIO-TL00,hwRIO-TL00
-
 # Audio
 USE_CUSTOM_AUDIO_POLICY := 1
 AUDIO_FEATURE_ENABLED_KPI_OPTIMIZE := true
@@ -104,7 +101,7 @@ TARGET_NO_RPC := true
 TARGET_PLATFORM_DEVICE_BASE := /devices/soc.0/
 
 # Kernel
-BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom msm_rtb.filter=0x237 ehci-hcd.park=3 androidboot.bootdevice=7824900.sdhci lpm_levels.sleep_disabled=1 androidboot.selinux=permissive
+BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom msm_rtb.filter=0x237 ehci-hcd.park=3 androidboot.bootdevice=7824900.sdhci lpm_levels.sleep_disabled=1 earlyprintk
 BOARD_DTBTOOL_ARGS := -2
 BOARD_KERNEL_BASE := 0x80000000
 BOARD_KERNEL_PAGESIZE := 2048
@@ -173,6 +170,9 @@ TARGET_RIL_VARIANT := proprietary
 
 # SELinux
 include device/qcom/sepolicy/sepolicy.mk
+
+BOARD_SEPOLICY_DIRS += \
+    device/huawei/rio/sepolicy
 
 # Vendor Init
 TARGET_UNIFIED_DEVICE := true

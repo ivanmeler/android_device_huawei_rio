@@ -932,20 +932,23 @@ service fingerprintd  /system/bin/fingerprintd
 service signinfolistener /system/bin/signinfolistener
     class core
     user system
+    seclabel u:r:signinfolistener:s0
 
 service teecd /system/bin/teecd
     class core
     user system
     group system
-    seclabel u:r:tee:s0
+
 # End Fingerprint sensor servivces
 
 service libqmi_oem_main /system/bin/libqmi_oem_main
     class main
+    seclabel u:r:libqmi_oem_main:s0
 
 service rmt_oeminfo /system/bin/rmt_oeminfo
     class core
     user root
+    seclabel u:r:oeminfo:s0
 
 service hwnffserver /system/bin/hwnffserver
     class core
