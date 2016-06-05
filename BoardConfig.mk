@@ -121,6 +121,8 @@ TARGET_USES_UNCOMPRESSED_KERNEL := true
 TARGET_KERNEL_SOURCE := kernel/huawei/msm8939
 TARGET_KERNEL_CONFIG := cm_rio_defconfig
 
+ENABLE_CPUSETS := true
+
 # Keymaster
 TARGET_KEYMASTER_WAIT_FOR_QSEE := true
 
