@@ -1288,7 +1288,7 @@ lib/lib_fpc_tac_shared.so
 lib/libservices.huawei.so
 
 # Gatekeeper
-vendor/lib64/hw/gatekeeper.msm8916.so:lib64/hw/gatekeeper.msm8916.so
+vendor/lib64/hw/gatekeeper.msm8916.so
 
 # GPS
 -lib64/libloc_api_v02.so
@@ -1371,7 +1371,7 @@ bin/rmt_oeminfo
 bin/test_diag
 
 # Keystore
-vendor/lib64/hw/keystore.msm8916.so:lib64/hw/keystore.msm8916.so
+vendor/lib64/hw/keystore.msm8916.so
 
 # Lights
 lib/hw/lights.msm8916.so

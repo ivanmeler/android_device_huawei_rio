@@ -160,6 +160,14 @@ PRODUCT_PACKAGES += \
     synaptics_rmi4_i2c.kl \
     usbaudio.kl
 
+# Keystore
+PRODUCT_PACKAGES += \
+    keystore.msm8916
+
+# HW disk encryption
+PRODUCT_PACKAGES += \
+    libcryptfs_hw
+
 # IPv6
 PRODUCT_PACKAGES += \
     ebtables \
@@ -194,8 +202,7 @@ PRODUCT_PACKAGES += \
 
 # Power HAL
 PRODUCT_PACKAGES += \
-    power.msm8916 \
-    libqti-iop-client
+    power.msm8916
 
 # Ramdisk
 PRODUCT_PACKAGES += \
