@@ -1277,7 +1277,6 @@ vendor/lib/mediadrm/libwvdrmengine.so
 
 # Fingerprint
 bin/fingerprintd
-bin/fingerprint_log
 lib64/hw/fingerprint.msm8916.so
 lib64/hw/fingerprintd.ex.so
 lib64/lib_fpc_tac_shared.so
@@ -1367,6 +1366,7 @@ etc/firmware/a420_pfp.fw
 etc/firmware/a420_pm4.fw
 
 # Huawei proprietary blobs
+bin/huawei_version
 bin/libqmi_oem_main
 bin/oeminfo_nvm_server
 bin/rmt_oeminfo
@@ -1400,9 +1400,7 @@ vendor/firmware/libpn547_fw.so
 
 # Perf
 vendor/bin/perfd
-vendor/lib/libqti-iop-client.so
 vendor/lib/libqti-perfd-client.so
-vendor/lib64/libqti-iop-client.so
 vendor/lib64/libqti-perfd-client.so
 
 # Postprocessing
@@ -1425,7 +1423,6 @@ vendor/lib64/libdsi_netctrl.so
 vendor/lib64/libdsutils.so
 vendor/lib64/libidl.so
 vendor/lib64/libqcci_legacy.so
-vendor/lib64/libqc-opt.so
 vendor/lib64/libqdi.so
 vendor/lib64/libqdp.so
 vendor/lib64/libqmi.so
@@ -1441,7 +1438,6 @@ vendor/lib/libdsi_netctrl.so
 vendor/lib/libdsutils.so
 vendor/lib/libidl.so
 vendor/lib/libqcci_legacy.so
-vendor/lib/libqc-opt.so
 vendor/lib/libqdi.so
 vendor/lib/libqdp.so
 vendor/lib/libqmi.so

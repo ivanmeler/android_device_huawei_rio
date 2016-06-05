@@ -926,10 +926,9 @@ service fingerprintd  /system/bin/fingerprintd
     user system
     group system input
 
-service fingerprint_log  /system/bin/fingerprint_log
-    class main
-    user system
-    group system system 
+service huawei_version /system/bin/huawei_version
+    class core
+    user root
     oneshot
 
 service libqmi_oem_main /system/bin/libqmi_oem_main
