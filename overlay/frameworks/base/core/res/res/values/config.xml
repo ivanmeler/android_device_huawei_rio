@@ -38,7 +38,7 @@
     <string-array translatable="false" name="networkAttributes">
         <item>"wifi,1,1,1,-1,true"</item>
         <item>"mobile,0,0,0,-1,true"</item>
-        <item>"mobile_mms,2,0,2,60000,true"</item>
+        <item>"mobile_mms,2,0,4,60000,true"</item>
         <item>"mobile_supl,3,0,2,60000,true"</item>
         <item>"mobile_dun,4,0,2,60000,true"</item>
         <item>"mobile_hipri,5,0,3,60000,true"</item>
@@ -125,6 +125,13 @@
 
     <!-- Boolean indicating if current platform supports BLE peripheral mode -->
     <bool name="config_bluetooth_le_peripheral_mode_supported">true</bool>
+
+    <!-- MMS user agent string -->
+    <string name="config_mms_user_agent" translatable="false">Android-Mms/2.0</string>
+
+    <!-- MMS user agent prolfile url -->
+    <string name="config_mms_user_agent_profile_url" translatable="false"
+            >http://www.google.com/oha/rdf/ua-profile-kila.xml</string>
 
     <!-- Configure mobile tcp buffer sizes in the form:
          rat-name:rmem_min,rmem_def,rmem_max,wmem_min,wmem_def,wmem_max
@@ -297,12 +304,15 @@
     <!-- The RadioAccessFamilies supported by the device. + Empty is
          viewed as "all".  Only used on devices which + don't support
          RIL_REQUEST_GET_RADIO_CAPABILITY + format is UMTS|LTE|... -->
-    <string translatable="false" name="config_radio_access_family">GPRS|EDGE|UMTS|HSDPA|HSUPA|HSPA|LTE|HSPAP|GSM|TD_SCDMA|WCDMA</string>
+    <string translatable="false" name="config_radio_access_family">GPRS|EDGE|UMTS|HSDPA|HSUPA|HSPA|LTE|HSPAP|GSM||CDMA|EVDO|HS|TD_SCDMA|WCDMA</string>
 
     <!-- Indicate whether closing the lid causes the device to go to sleep and opening
          it causes the device to wake up.
          The default is false. -->
     <bool name="config_lidControlsSleep">true</bool>
+
+    <!--  Define Google play service package for FRP-->
+    <string name="config_persistentDataPackageName" translatable="false">com.google.android.gms</string>
 
     <!-- Enable doze mode -->
     <string name="config_dozeComponent">com.android.systemui/com.android.systemui.doze.DozeService</string>
@@ -311,13 +321,25 @@
     <integer name="config_screenBrightnessDoze">17</integer>
     <bool name="config_powerDecoupleInteractiveModeFromDisplay">true</bool>
 
-    <!-- Set this to true to enable the platform's auto-power-save modes like doze and
-         app standby.  These are not enabled by default because they require a standard
-         cloud-to-device messaging service for apps to interact correctly with the modes
-         (such as to be able to deliver an instant message to the device even when it is
-         dozing).  This should be enabled if you have such services and expect apps to
-         correctly use them when installed on your device.  Otherwise, keep this disabled
-         so that applications can still use their own mechanisms. -->
-    <bool name="config_enableAutoPowerModes">true</bool>
+    <!-- If this is true, the screen will fade off. -->
+    <bool name="config_animateScreenLights">true</bool>
+
+    <!-- Values for GPS configuration -->
+    <string-array translatable="false" name="config_gpsParameters">
+        <item>SUPL_HOST=supl.google.com</item>
+        <item>SUPL_PORT=7275</item>
+        <item>XTRA_SERVER_1=http://xtrapath1.izatcloud.net/xtra2.bin</item>
+        <item>XTRA_SERVER_2=http://xtrapath2.izatcloud.net/xtra2.bin</item>
+        <item>XTRA_SERVER_3=http://xtrapath3.izatcloud.net/xtra2.bin</item>
+        <item>NTP_SERVER=north-america.pool.ntp.org</item>
+        <item>SUPL_MODE=1</item>
+        <item>SUPL_VER=0x20000</item>
+        <item>LPP_PROFILE=0</item>
+        <item>NMEA_PROVIDER=0</item>
+        <item>A_GLONASS_POS_PROTOCOL_SELECT=0</item>
+        <item>ERR_ESTIMATE=0</item>
+        <item>INTERMEDIATE_POS=0</item>
+        <item>SUPL_ES=0</item>
+    </string-array>
 
 </resources>
