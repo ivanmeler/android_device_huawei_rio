@@ -139,7 +139,6 @@ ro.config.nostore_nw_sel_mode=false
 ro.multi.rild=true
 telephony.lteOnCdmaDevice=1
 persist.data.qmi.adb_logmask=0
-persist.cne.feature=0
 persist.data.ds_fmc_app.mode=0
 persist.omh.enabled=0
 ro.config.hw_fast_dormancy=true
