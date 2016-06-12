@@ -55,10 +55,8 @@ void init_target_properties()
     fin.close();
 
     rc = property_get("ro.boot.hwsim", platform);
-    if (!strncmp(platform, "double", PROP_VALUE_MAX))
-	boll = true;
-    else
-	boll = false;    
+    if (!rc)
+        return;
 
     if (buf.find("RIO-L01") != std::string::npos) {
         property_set("ro.product.model", "HUAWEI RIO-L01");
@@ -66,78 +64,39 @@ void init_target_properties()
         property_set("ro.build.product", "RIO-L01");
         property_set("ro.build.description", "RIO-L01-user 6.0.1 GRJ90 C432B340 release-keys");
         property_set("ro.build.fingerprint", "HUAWEI/RIO-L01/hwRIO-L01:6.0.1/HuaweiRIO-L01/C432B340:user/release-keys");
-	if (boll) {
-		property_set("persist.radio.multisim.config", "dsds");
-		property_set("ro.telephony.ril.config", "simactivation,sim2gsmonly");
-		property_set("ro.telephony.default_network", "9,9");
-	} else {
-		property_set("ro.telephony.ril.config", "simactivation");
-		property_set("ro.telephony.default_network", "9");
-	}
     }
     else if (buf.find("RIO-L02") != std::string::npos) {
         property_set("ro.product.model", "HUAWEI RIO-L02");
         property_set("ro.product.device", "hwRIO-L02");
         property_set("ro.build.product", "RIO-L02");
-	if (boll) {
-		property_set("persist.radio.multisim.config", "dsds");
-		property_set("ro.telephony.ril.config", "simactivation,sim2gsmonly");
-		property_set("ro.telephony.default_network", "9,9");
-	} else {
-		property_set("ro.telephony.ril.config", "simactivation");
-		property_set("ro.telephony.default_network", "9");
-	}
     }
     else if (buf.find("RIO-L03") != std::string::npos) {
         property_set("ro.product.model", "HUAWEI RIO-L03");
         property_set("ro.product.device", "hwRIO-L03");
         property_set("ro.build.product", "RIO-L03");
-	if (boll) {
-		property_set("persist.radio.multisim.config", "dsds");
-		property_set("ro.telephony.ril.config", "simactivation,sim2gsmonly");
-		property_set("ro.telephony.default_network", "9,9");
-	} else {
-		property_set("ro.telephony.ril.config", "simactivation");
-		property_set("ro.telephony.default_network", "9");
-	}
     }
     else if (buf.find("RIO-AL00") != std::string::npos) {
         property_set("ro.product.model", "HUAWEI RIO-AL00");
         property_set("ro.product.device", "hwRIO-AL00");
         property_set("ro.build.product", "RIO-AL00");
-	if (boll) {
-		property_set("persist.radio.multisim.config", "dsds");
-		property_set("ro.telephony.ril.config", "simactivation,sim2gsmonly");
-		property_set("ro.telephony.default_network", "9,9");
-	} else {
-		property_set("ro.telephony.ril.config", "simactivation");
-		property_set("ro.telephony.default_network", "9");
-	}
     }
     else if (buf.find("RIO-CL00") != std::string::npos) {
         property_set("ro.product.model", "HUAWEI RIO-CL00");
         property_set("ro.product.device", "hwRIO-CL00");
         property_set("ro.build.product", "RIO-CL00");
-	if (boll) {
-		property_set("persist.radio.multisim.config", "dsds");
-		property_set("ro.telephony.ril.config", "simactivation,sim2gsmonly");
-		property_set("ro.telephony.default_network", "9,9");
-	} else {
-		property_set("ro.telephony.ril.config", "simactivation");
-		property_set("ro.telephony.default_network", "9");
-	}
     }
     else if (buf.find("RIO-TL00") != std::string::npos) {
         property_set("ro.product.model", "HUAWEI RIO-TL00");
         property_set("ro.product.device", "hwRIO-TL00");
         property_set("ro.build.product", "RIO-TL00");
-	if (boll) {
-		property_set("persist.radio.multisim.config", "dsds");
-		property_set("ro.telephony.ril.config", "simactivation,sim2gsmonly");
-		property_set("ro.telephony.default_network", "9,9");
-	} else {
-		property_set("ro.telephony.ril.config", "simactivation");
-		property_set("ro.telephony.default_network", "9");
-	}
+    }
+
+    if (!strncmp(platform, "double", PROP_VALUE_MAX)) {
+	property_set("persist.radio.multisim.config", "dsds");
+	property_set("ro.telephony.ril.config", "simactivation,sim2gsmonly");
+	property_set("ro.telephony.default_network", "9,9");
+    } else {
+	property_set("ro.telephony.ril.config", "simactivation");
+	property_set("ro.telephony.default_network", "9");
     }
 }
