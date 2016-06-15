@@ -470,6 +470,7 @@ on post-fs-data
     restorecon /sys/class/leds/blue/brightness
     restorecon /sys/class/hw_power/charger/charge_data/enable_charger
 
+    # Fingerprint sensor
     chown system system /sys/devices/platform/fingerprint/diag/result
     chown system system /sys/devices/platform/fingerprint/diag/navigation_enable
     chown system system /sys/devices/platform/fingerprint/diag/wakeup_enable
@@ -948,10 +949,22 @@ on charger
 
 # Huawei services
 
+# Fingerprint sensor servivces
 service fingerprintd  /system/bin/fingerprintd
     class late_start
     user system
     group input
+
+service signinfolistener /system/bin/signinfolistener
+    class core
+    user system
+
+service teecd /system/bin/teecd
+    class core
+    user system
+    group system
+    seclabel u:r:tee:s0
+# End Fingerprint sensor servivces
 
 service libqmi_oem_main /system/bin/libqmi_oem_main
     class main
@@ -963,12 +976,6 @@ service oeminfo_nvm /system/bin/oeminfo_nvm_server
 service rmt_oeminfo /system/bin/rmt_oeminfo
     class core
     user root
-
-service teecd /system/bin/teecd
-    class core
-    user system
-    group system
-    seclabel u:r:tee:s0
 
 service test_diag /system/bin/test_diag
     user root

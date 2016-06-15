@@ -142,6 +142,16 @@ PRODUCT_PACKAGES += \
     pp_calib_data_CMI_NT35532_5P5_1080PXA_VIDEO.xml \
     pp_calib_data_TIANMA_NT35596_5P5_1080PXA_VIDEO.xml
 
+# Fingerprint sensor
+PRODUCT_COPY_FILES += \
+    frameworks/native/data/etc/android.hardware.fingerprint.xml:system/etc/permissions/android.hardware.fingerprint.xml
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/prebuilts/fingerprint.idc:system/usr/idc/fingerprint.idc
+
+PRODUCT_PACKAGES += \
+    fingerprint.kl \
+
 # FM
 PRODUCT_PACKAGES += \
     FMRadio \
@@ -153,7 +163,6 @@ PRODUCT_PACKAGES += \
 
 # KEYPAD
 PRODUCT_PACKAGES += \
-    fingerprint.kl \
     ft5x06_ts.kl \
     gpio-keys.kl \
     synaptics_dsx.kl \
@@ -215,13 +224,6 @@ PRODUCT_PACKAGES += \
     init.qcom.usb.rc \
     init.qcom.usb.sh \
     ueventd.qcom.rc
-
-# Fingerprint sensor
-PRODUCT_COPY_FILES += \
-    frameworks/native/data/etc/android.hardware.fingerprint.xml:system/etc/permissions/android.hardware.fingerprint.xml
-
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/prebuilts/fingerprint.idc:system/usr/idc/fingerprint.idc
 
 # NFC
 PRODUCT_PACKAGES += \

@@ -1277,14 +1277,13 @@ vendor/lib/mediadrm/libwvdrmengine.so
 
 # Fingerprint
 bin/fingerprintd
+bin/teecd
+sbin/signinfolistener:bin/signinfolistener
 lib64/hw/fingerprint.msm8916.so
 lib64/hw/fingerprintd.ex.so
 lib64/lib_fpc_tac_shared.so
 lib64/libservices.huawei.so
-lib/hw/fingerprint.msm8916.so
-lib/hw/fingerprintd.ex.so
-lib/lib_fpc_tac_shared.so
-lib/libservices.huawei.so
+lib64/libteec.so
 
 # Gatekeeper
 vendor/lib64/hw/gatekeeper.msm8916.so
@@ -1525,11 +1524,6 @@ vendor/lib64/libcalmodule_gyroscope.so
 vendor/lib/libcalmodule_akm.so
 vendor/lib/libcalmodule_common.so
 vendor/lib/libcalmodule_gyroscope.so
-
-# Teecd
-bin/teecd
-lib/libteec.so
-lib64/libteec.so
 
 # Thermal
 vendor/bin/thermal-engine
