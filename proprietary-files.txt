@@ -1366,11 +1366,11 @@ etc/firmware/a420_pfp.fw
 etc/firmware/a420_pm4.fw
 
 # Huawei proprietary blobs
-bin/libqmi_oem_main
-bin/oeminfo_nvm_server
+sbin/libqmi_oem_main:bin/libqmi_oem_main
+sbin/oeminfo_nvm_server:bin/oeminfo_nvm_server
 bin/oem_sar_main
-bin/rmt_oeminfo
-bin/test_diag
+sbin/rmt_oeminfo:bin/rmt_oeminfo
+sbin/test_diag:bin/test_diag
 
 # IMS
 bin/imscmservice
@@ -1480,7 +1480,7 @@ bin/netmgrd
 bin/qmuxd
 bin/radish
 bin/rfs_access
-bin/rmt_storage
+sbin/rmt_storage:bin/rmt_storage
 etc/data/dsi_config.xml
 etc/data/netmgr_config.xml
 etc/data/qmi_config.xml
