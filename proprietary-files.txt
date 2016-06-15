@@ -1277,8 +1277,8 @@ vendor/lib/mediadrm/libwvdrmengine.so
 
 # Fingerprint
 bin/fingerprintd
-bin/teecd
 sbin/signinfolistener:bin/signinfolistener
+bin/teecd
 lib64/hw/fingerprint.msm8916.so
 lib64/hw/fingerprintd.ex.so
 lib64/lib_fpc_tac_shared.so
