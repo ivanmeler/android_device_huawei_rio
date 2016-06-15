@@ -1421,10 +1421,10 @@ vendor/firmware/libpn547_fw.so
 
 # Perf
 vendor/bin/perfd
-vendor/lib/libqti-perfd-client.so
 vendor/lib/libqti-perfd-client.so:vendor/lib/libqti-iop-client.so
-vendor/lib64/libqti-perfd-client.so
+vendor/lib/libqti-perfd-client.so
 vendor/lib64/libqti-perfd-client.so:vendor/lib64/libqti-iop-client.so
+vendor/lib64/libqti-perfd-client.so
 
 # Postprocessing
 bin/mm-pp-daemon
