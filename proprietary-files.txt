@@ -1379,7 +1379,6 @@ bin/ims_rtp_daemon
 lib64/libcrypto2.so
 vendor/lib64/lib-dplmedia.so
 vendor/lib64/lib-imsdpl.so
-vendor/lib64/lib-imscamera.so
 vendor/lib64/lib-imsqimf.so
 vendor/lib64/lib-imsrcscm.so
 vendor/lib64/lib-imsrcscmclient.so
