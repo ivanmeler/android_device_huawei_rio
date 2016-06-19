@@ -61,8 +61,9 @@ persist.camera.cpp.duplication=false
 ro.config.hw_face_detection=true
 #ro.camera.flipsensor.enable=true
 
-# CNE
-persist.cne.feature=0
+# CNE/DPM
+persist.cne.feature=1
+persist.dpm.feature=7
 
 # Display
 debug.sf.hw=0
