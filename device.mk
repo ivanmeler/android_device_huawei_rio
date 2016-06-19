@@ -198,6 +198,11 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilts/sec_config:system/etc/sec_config
 
+
+# Keyhandler
+PRODUCT_PACKAGES += \
+    com.cyanogenmod.keyhandler
+
 # OMX
 PRODUCT_PACKAGES += \
     libOmxAacEnc \
