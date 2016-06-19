@@ -1287,6 +1287,7 @@ vendor/lib64/libcneqmiutils.so
 vendor/lib64/libdpmframework.so
 vendor/lib64/libdpmnsrm.so
 vendor/lib64/libNimsWrap.so
+vendor/lib64/libqmi_client_helper.so
 vendor/lib64/libvendorconn.so
 vendor/lib/libcne.so
 vendor/lib/libcneapiclient.so
@@ -1295,6 +1296,7 @@ vendor/lib/libcneqmiutils.so
 vendor/lib/libdpmframework.so
 vendor/lib/libdpmnsrm.so
 vendor/lib/libNimsWrap.so
+vendor/lib/libqmi_client_helper.so
 vendor/lib/libvendorconn.so
 
 # DRM
