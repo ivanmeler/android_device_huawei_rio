@@ -1597,9 +1597,3 @@ etc/firmware/Signedrompatch_v21.bin
 etc/firmware/Signedrompatch_v24.bin
 etc/firmware/Signedrompatch_v30.bin
 etc/firmware/T2A_fw.bin
-
-# WiFi
-bin/ptt_socket_app
-vendor/lib64/liblowi_client.so
-vendor/lib64/liblowi_wifihal.so
-vendor/lib64/libquipc_os_api.so

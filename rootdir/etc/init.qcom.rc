@@ -981,12 +981,6 @@ service test_diag /system/bin/test_diag
     user root
     seclabel u:r:diag:s0
 
-service ptt_socket_app /system/bin/ptt_socket_app -d
-    class main
-    user root
-    group root
-    oneshot
-
 service send_data_srv /system/bin/send_data_srv
     class core
     user system
