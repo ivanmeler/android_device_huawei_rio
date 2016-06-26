@@ -161,7 +161,6 @@ TARGET_RECOVERY_DEVICE_MODULES := libinit_msm8916
 
 # RIL
 TARGET_RIL_VARIANT := caf
-PROTOBUF_SUPPORTED := true
 
 # SELinux
 include device/qcom/sepolicy/sepolicy.mk
