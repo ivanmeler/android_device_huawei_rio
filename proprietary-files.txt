@@ -1434,13 +1434,13 @@ sbin/hwnffserver:bin/hwnffserver
 lib/libhw_hal.so
 -lib/liboeminfo.so
 lib/libqmi_nv_api.so
-lib/libqmi_oem_api.so
+-lib/libqmi_oem_api.so
 lib/libsecure_boot_keybox.so
 -lib64/libhuawei_secure.so
 lib64/libhw_hal.so
 -lib64/liboeminfo.so
 lib64/libqmi_nv_api.so
-lib64/libqmi_oem_api.so
+-lib64/libqmi_oem_api.so
 lib64/libsecure_boot_keybox.so
 
 # Qualcomm framework
