@@ -962,3 +962,7 @@ service ssr_diag /system/bin/ssr_diag
     class late_start
     user system
     group system
+
+service hwnffserver /system/bin/hwnffserver
+    class core
+    oneshot

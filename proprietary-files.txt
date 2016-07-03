@@ -1477,6 +1477,19 @@ vendor/lib/libmm-abl-oem.so
 vendor/lib/libmm-disp-apis.so
 vendor/lib/libmm-qdcm.so
 
+# Qualcomm framework Huawei
+sbin/hwnffserver:bin/hwnffserver
+-lib/libhuawei_secure.so
+-lib/liboeminfo.so
+lib/libqmi_nv_api.so
+lib/libqmi_oem_api.so
+lib/libsecure_boot_keybox.so
+-lib64/libhuawei_secure.so
+-lib64/liboeminfo.so
+lib64/libqmi_nv_api.so
+lib64/libqmi_oem_api.so
+lib64/libsecure_boot_keybox.so
+
 # Qualcomm framework
 bin/irsc_util
 bin/send_data_srv
@@ -1530,16 +1543,6 @@ etc/permissions/qcnvitems.xml
 etc/permissions/qcrilhook.xml
 -framework/qcnvitems.jar
 -framework/qcrilhook.jar
-lib/libhuawei_secure.so
-lib/liboeminfo.so
-lib/libqmi_nv_api.so
-lib/libqmi_oem_api.so
-lib/libsecure_boot_keybox.so
-lib64/libhuawei_secure.so
-lib64/liboeminfo.so
-lib64/libqmi_nv_api.so
-lib64/libqmi_oem_api.so
-lib64/libsecure_boot_keybox.so
 vendor/lib64/libconfigdb.so
 vendor/lib64/libmdmdetect.so
 vendor/lib64/libnetmgr.so
