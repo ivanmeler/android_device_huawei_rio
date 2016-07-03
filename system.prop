@@ -86,6 +86,9 @@ ro.qcom.ad.calib.data=/system/etc/calib_rio.cfg
 # DRM
 drm.service.enabled=true
 
+#Enable Delay service restart
+ro.am.reschedule_service=true
+
 # Factory reset protection
 ro.frp.pst=/dev/block/bootdevice/by-name/config
 
