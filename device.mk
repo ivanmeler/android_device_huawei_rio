@@ -44,6 +44,7 @@ PRODUCT_COPY_FILES += \
 
 # Thermal engine
 PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/prebuilts/thermald.xml:system/etc/thermald.xml \
     $(LOCAL_PATH)/prebuilts/thermal-engine.conf:system/etc/thermal-engine.conf
 
 # Permissions

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ * Copyright (C) 2012 Huawei Inc.
+ * PowerGenie thermal Config
+ *
+ -->
+<thermal version="1">
+ <!-- 
+cpu_sensor
+thresholds       65                     70         75
+thresholds_clr   60                     65         70
+actions          cpu+gpu                cpu        cpu+shutdown
+action_info      1200000+240000         1000000    800000+6000
+ -->
+ <sensor_temp name="cpu" type="0" enable="true">
+    <item>
+        <thresholds>2</thresholds>
+        <thresholds_clr>1</thresholds_clr>
+        <action>
+            <cpu>1497600</cpu>
+            <cpu1>1497600</cpu1>
+            <cpu2>1497600</cpu2>
+            <cpu3>1497600</cpu3>
+            <battery>2000</battery>
+            <call_battery>900</call_battery>
+            <flash>0</flash>
+        </action>
+    </item>
+    <item>
+        <thresholds>44</thresholds>
+        <thresholds_clr>42</thresholds_clr>
+        <action>
+            <cpu>1113600</cpu>
+            <cpu1>1113600</cpu1>
+            <cpu2>1113600</cpu2>
+            <cpu3>1113600</cpu3>
+            <battery>2000</battery>
+            <call_battery>900</call_battery>
+            <flash>0</flash>
+        </action>
+    </item>
+    <item>
+        <thresholds>47</thresholds>
+        <thresholds_clr>45</thresholds_clr>
+        <action>
+            <cpu>1113600</cpu>
+            <cpu1>1113600</cpu1>
+            <cpu2>1113600</cpu2>
+            <cpu3>1113600</cpu3>
+            <battery>900</battery>
+            <call_battery>900</call_battery>
+            <flash>0</flash>
+        </action>
+    </item>
+    <item>
+        <thresholds>58</thresholds>
+        <thresholds_clr>55</thresholds_clr>
+        <action>
+            <cpu>1113600</cpu>
+            <cpu1>1113600</cpu1>
+            <cpu2>1113600</cpu2>
+            <cpu3>1113600</cpu3>
+            <battery>500</battery>
+            <call_battery>900</call_battery>
+            <flash>0</flash>
+        </action>
+    </item>
+    <item>
+        <thresholds>62</thresholds>
+        <thresholds_clr>59</thresholds_clr>
+        <action>
+            <cpu>1113600</cpu>
+            <cpu1>1113600</cpu1>
+            <cpu2>1113600</cpu2>
+            <cpu3>1113600</cpu3>
+            <battery>100</battery>
+            <call_battery>900</call_battery>
+            <flash>1</flash>
+        </action>
+    </item>
+    <item>
+        <thresholds>66</thresholds>
+        <thresholds_clr>63</thresholds_clr>
+        <action>
+            <cpu>1113600</cpu>
+            <cpu1>1113600</cpu1>
+            <cpu2>1113600</cpu2>
+            <cpu3>1113600</cpu3>
+            <battery>100</battery>
+            <call_battery>900</call_battery>
+            <flash>1</flash>
+            <camera>1</camera>
+        </action>
+    </item>
+ </sensor_temp>
+ 
+ <!--warning temperature-->
+ <warning_temperature sensor_type="0">68</warning_temperature>
+
+ <!--action interface-->
+ <action_interface>
+   <action_filenode name="battery">/sys/class/power_supply/battery/hot_current_limit</action_filenode>
+ </action_interface>
+
+</thermal>
