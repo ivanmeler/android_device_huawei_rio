@@ -1427,16 +1427,11 @@ etc/firmware/a420_pm4.fw
 # Huawei proprietary blobs
 sbin/libqmi_oem_main:bin/libqmi_oem_main
 sbin/oeminfo_nvm_server:bin/oeminfo_nvm_server
-bin/oem_sar_main
 sbin/rmt_oeminfo:bin/rmt_oeminfo
 sbin/test_diag:bin/test_diag
 
 # Keystore
 vendor/lib64/hw/keystore.msm8916.so
-
-# Lights
-lib/hw/lights.msm8916.so
-lib64/hw/lights.msm8916.so
 
 # Media
 lib/libOmxVdecHevc.so
@@ -1448,10 +1443,6 @@ vendor/lib/libOmxAacDec.so
 vendor/lib/libOmxEvrcDec.so
 vendor/lib/libOmxQcelp13Dec.so
 
-# Network
-vendor/lib/libconnctrl.so
-vendor/lib64/libconnctrl.so
-
 # NFC
 etc/firmware/nfc_test.bin
 vendor/etc/pdc_RIO_for_nfc.txt
@@ -1459,9 +1450,7 @@ vendor/firmware/libpn547_fw.so
 
 # Perf
 vendor/bin/perfd
-vendor/lib/libqti-perfd-client.so:vendor/lib/libqti-iop-client.so
 vendor/lib/libqti-perfd-client.so
-vendor/lib64/libqti-perfd-client.so:vendor/lib64/libqti-iop-client.so
 vendor/lib64/libqti-perfd-client.so
 
 # Postprocessing
@@ -1494,15 +1483,11 @@ lib64/libsecure_boot_keybox.so
 
 # Qualcomm framework
 bin/irsc_util
-bin/send_data_srv
-bin/ssr_diag
-lib64/libdiag_senddata_api.so
 vendor/lib64/libdiag.so
 vendor/lib64/libdsi_netctrl.so
 vendor/lib64/libdsutils.so
 vendor/lib64/libidl.so
 vendor/lib64/libqcci_legacy.so
-vendor/lib64/libqc-opt.so
 vendor/lib64/libqdi.so
 vendor/lib64/libqdp.so
 vendor/lib64/libqmi.so
@@ -1518,7 +1503,6 @@ vendor/lib/libdsi_netctrl.so
 vendor/lib/libdsutils.so
 vendor/lib/libidl.so
 vendor/lib/libqcci_legacy.so
-vendor/lib/libqc-opt.so
 vendor/lib/libqdi.so
 vendor/lib/libqdp.so
 vendor/lib/libqmi.so
@@ -1531,7 +1515,7 @@ vendor/lib/libqmiservices.so
 vendor/lib/libsmemlog.so
 
 # Radio
--app/qcrilmsgtunnel/qcrilmsgtunnel.apk
+-priv-app/qcrilmsgtunnel/qcrilmsgtunnel.apk
 -app/shutdownlistener/shutdownlistener.apk
 bin/netmgrd
 bin/qmuxd

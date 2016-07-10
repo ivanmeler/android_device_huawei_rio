@@ -952,21 +952,6 @@ service test_diag /system/bin/test_diag
     user root
     seclabel u:r:diag:s0
 
-service send_data_srv /system/bin/send_data_srv
-    class core
-    user system
-    group system
-    oneshot
-
-service oem_sar_main /system/bin/oem_sar_main
-    class core
-    user root
-
-service ssr_diag /system/bin/ssr_diag
-    class late_start
-    user system
-    group system
-
 service hwnffserver /system/bin/hwnffserver
     class core
     oneshot
