@@ -205,6 +205,10 @@ PRODUCT_PACKAGES += \
     CMActions \
     com.cyanogenmod.keyhandler
 
+# Lights
+PRODUCT_PACKAGES += \
+    lights.msm8916
+
 # OMX
 PRODUCT_PACKAGES += \
     libOmxAacEnc \
