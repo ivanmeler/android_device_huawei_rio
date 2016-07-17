@@ -107,6 +107,7 @@ PRODUCT_PACKAGES += \
 
 # Camera & Compatibility 
 PRODUCT_PACKAGES += \
+    libshim_camera \
     libshim_cutils
 
 PRODUCT_PACKAGES += \
