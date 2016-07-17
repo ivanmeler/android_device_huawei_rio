@@ -164,6 +164,7 @@ PRODUCT_PACKAGES += \
 
 # KEYPAD
 PRODUCT_PACKAGES += \
+    cyttsp5_mt.kl \
     ft5x06_ts.kl \
     gpio-keys.kl \
     synaptics_dsx.kl \
