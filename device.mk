@@ -115,20 +115,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     camera2.portability.force_api=1
 
-# Connectivity Engine support
-PRODUCT_PACKAGES += \
-    libcnefeatureconfig \
-    libxml2
-
 # Curl
 PRODUCT_PACKAGES += \
     libcurl \
     curl
-
-# dataservices
-PRODUCT_PACKAGES += \
-    librmnetctl \
-    rmnetcli
 
 # Display
 PRODUCT_PACKAGES += \
@@ -237,6 +227,16 @@ PRODUCT_PACKAGES += \
     init.qcom.usb.rc \
     init.qcom.usb.sh \
     ueventd.qcom.rc
+
+# RIL
+PRODUCT_PACKAGES += \
+    libxml2
+
+PRODUCT_PACKAGES += \
+    hwTelephony-common
+
+PRODUCT_BOOT_JARS := \
+    hwTelephony-common
 
 # NFC
 PRODUCT_PACKAGES += \

@@ -171,6 +171,9 @@ ro.hwpp_sig_stability_switch=true
 persist.radio.use_nv_force=false
 persist.radio.add_power_save=1
 
+persist.radio.modem.cap=77442
+ro.telephony.ril_class=HwQualcommRIL
+
 # WiFi
 wifi.interface=wlan0
 ro.disableWifiApFirmwareReload=true

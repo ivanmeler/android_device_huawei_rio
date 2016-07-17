@@ -155,7 +155,9 @@ TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/rootdir/fstab.qcom
 TARGET_RECOVERY_DEVICE_MODULES := libinit_msm8916
 
 # RIL
-TARGET_RIL_VARIANT := caf
+COMMON_GLOBAL_CFLAGS += -DDISABLE_ASHMEM_TRACKING
+PROTOBUF_SUPPORTED := true
+TARGET_RIL_VARIANT := proprietary
 
 # SELinux
 include device/qcom/sepolicy/sepolicy.mk
