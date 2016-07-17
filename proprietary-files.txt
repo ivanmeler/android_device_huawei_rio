@@ -1286,6 +1286,8 @@ lib64/libservices.huawei.so
 lib64/libteec.so
 
 # Gatekeeper
+bin/gatekeeperd
+lib64/libgatekeeper.so
 vendor/lib64/hw/gatekeeper.msm8916.so
 
 # GPS

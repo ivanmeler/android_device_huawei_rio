@@ -936,3 +936,7 @@ service rmt_oeminfo /system/bin/rmt_oeminfo
 service hwnffserver /system/bin/hwnffserver
     class core
     oneshot
+
+service gatekeeperd /system/bin/gatekeeperd /data/misc/gatekeeper
+    class late_start
+    user system
