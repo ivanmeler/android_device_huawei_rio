@@ -1388,9 +1388,7 @@ etc/firmware/a420_pm4.fw
 
 # Huawei proprietary blobs
 sbin/libqmi_oem_main:bin/libqmi_oem_main
-sbin/oeminfo_nvm_server:bin/oeminfo_nvm_server
 sbin/rmt_oeminfo:bin/rmt_oeminfo
-sbin/test_diag:bin/test_diag
 
 # Keystore
 vendor/lib64/hw/keystore.msm8916.so

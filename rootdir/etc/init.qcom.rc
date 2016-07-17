@@ -95,9 +95,6 @@ on early-boot
     write /sys/kernel/boot_adsp/boot 1
 
 on boot
-    wait /dev/block/bootdevice/by-name/oeminfo
-    start oeminfo_nvm
-
     start rmt_storage
 
     # access permission for secure touch
@@ -932,17 +929,9 @@ service teecd /system/bin/teecd
 service libqmi_oem_main /system/bin/libqmi_oem_main
     class main
 
-service oeminfo_nvm /system/bin/oeminfo_nvm_server
-    critical
-    ioprio rt 4
-
 service rmt_oeminfo /system/bin/rmt_oeminfo
     class core
     user root
-
-service test_diag /system/bin/test_diag
-    user root
-    seclabel u:r:diag:s0
 
 service hwnffserver /system/bin/hwnffserver
     class core
