@@ -178,6 +178,6 @@ Value * VerifyTrustZoneFn(const char *name, State *state, int argc, Expr *argv[]
     return StringValue(strdup("0"));
 }
 
-void Register_librecovery_updater_kiwi() {
-    RegisterFunction("kiwi.verify_trustzone", VerifyTrustZoneFn);
+void Register_librecovery_updater_rio() {
+    RegisterFunction("rio.verify_trustzone", VerifyTrustZoneFn);
 }

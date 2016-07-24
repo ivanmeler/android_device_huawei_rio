@@ -231,7 +231,7 @@ PRODUCT_PACKAGES += \
 
 # Recovery
 PRODUCT_PACKAGES += \
-    librecovery_updater_kiwi
+    librecovery_updater_rio
 
 # RIL
 PRODUCT_PACKAGES += \
