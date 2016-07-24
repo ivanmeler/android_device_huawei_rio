@@ -232,13 +232,9 @@ PRODUCT_PACKAGES += \
 
 # RIL
 PRODUCT_PACKAGES += \
+    libcnefeatureconfig \
+    librmnetctl \
     libxml2
-
-PRODUCT_PACKAGES += \
-    hwTelephony-common
-
-PRODUCT_BOOT_JARS := \
-    hwTelephony-common
 
 # NFC
 PRODUCT_PACKAGES += \

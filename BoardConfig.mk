@@ -15,6 +15,8 @@
 
 LOCAL_PATH := device/huawei/rio
 
+TARGET_SPECIFIC_HEADER_PATH := $(LOCAL_PATH)/include
+
 # Architecture
 TARGET_ARCH := arm64
 TARGET_ARCH_VARIANT := armv8-a
@@ -163,9 +165,8 @@ TARGET_RECOVERY_UPDATER_LIBS := librecovery_updater_rio
 TARGET_RELEASETOOLS_EXTENSIONS := $(LOCAL_PATH)/releasetools
 
 # RIL
-COMMON_GLOBAL_CFLAGS += -DDISABLE_ASHMEM_TRACKING
-PROTOBUF_SUPPORTED := true
-TARGET_RIL_VARIANT := proprietary
+BOARD_RIL_CLASS := ../../../device/huawei/rio/ril
+TARGET_RIL_VARIANT := caf
 
 # SELinux
 include device/qcom/sepolicy/sepolicy.mk

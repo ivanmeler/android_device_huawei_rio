@@ -71,7 +71,7 @@ on init
     chmod 0660 /dev/block/mmcblk0p8
 
 on fs
-    export LD_SHIM_LIBS /system/lib64/libcutils.so|libshim_cutils.so:/system/lib/libcutils.so|libshim_cutils.so:/system/lib/hw/camera.msm8916.so|libshim_cutils.so:/system/lib/libcamera_hwaaf.so|libshim_cutils.so:/system/lib64/libdmd.so|libshim_cutils.so:/system/lib64/libril.so|libshim_ril.so:/system/lib/libcamera_post_mediaserver.so|libshim_camera.so
+    export LD_SHIM_LIBS /system/lib64/libcutils.so|libshim_cutils.so:/system/lib/libcutils.so|libshim_cutils.so:/system/lib/hw/camera.msm8916.so|libshim_cutils.so:/system/lib/libcamera_hwaaf.so|libshim_cutils.so:/system/lib64/libdmd.so|libshim_cutils.so:/system/lib/libcamera_post_mediaserver.so|libshim_camera.so
 
     wait /dev/block/bootdevice
     mount_all fstab.qcom
@@ -866,12 +866,6 @@ service wcnss-service /system/bin/wcnss_service
     user system
     group system wifi radio
     oneshot
-
-service imsqmidaemon /system/bin/imsqmidaemon
-    class main
-    user system
-    socket ims_qmid stream 0660 system radio
-    group radio net_raw log qcom_diag
 
 on property:hw.accel.calib="true"
     chmod 0664 /dev/input/event0
