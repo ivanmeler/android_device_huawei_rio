@@ -71,10 +71,13 @@ BOARD_HAL_STATIC_LIBRARIES := libhealthd.msm8916
 BOARD_HEALTHD_CUSTOM_CHARGER_RES := $(LOCAL_PATH)/charger/images
 
 # CMHW
-BOARD_USES_CYANOGEN_HARDWARE := true
 BOARD_HARDWARE_CLASS := \
     $(LOCAL_PATH)/cmhw \
     hardware/cyanogen/cmhw
+
+# CNE
+BOARD_USES_QCNE := true
+TARGET_LDPRELOAD := libNimsWrap.so
 
 # Crypto
 TARGET_HW_DISK_ENCRYPTION := true

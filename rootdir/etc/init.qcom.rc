@@ -135,19 +135,14 @@ on boot
     chmod 0660 /sys/class/rfkill/rfkill0/device/extldo
 
     #Create QMUX deamon socket area
-    mkdir /dev/socket/qmux_radio 0770 radio radio
-    chmod 2770 /dev/socket/qmux_radio
-    mkdir /dev/socket/qmux_audio 0770 media audio
-    chmod 2770 /dev/socket/qmux_audio
-    mkdir /dev/socket/qmux_bluetooth 0770 bluetooth bluetooth
-    chmod 2770 /dev/socket/qmux_bluetooth
-    mkdir /dev/socket/qmux_gps 0770 gps gps
-    chmod 2770 /dev/socket/qmux_gps
+    mkdir /dev/socket/qmux_radio 2770 radio radio
+    mkdir /dev/socket/qmux_audio 2770 media audio
+    mkdir /dev/socket/qmux_bluetooth 2770 bluetooth bluetooth
+    mkdir /dev/socket/qmux_gps 2770 gps gps
 
     # NFC
-    mkdir /dev/socket/qmux_nfc 0770 nfc nfc
-    chmod 2770 /dev/socket/qmux_nfc
-
+    mkdir /dev/socket/qmux_nfc 2770 nfc nfc
+ 
     #Create NETMGR daemon socket area
     mkdir /dev/socket/netmgr 0750 radio radio
 
@@ -262,8 +257,6 @@ on boot
 
     # setup trace dir
     mkdir /cache/trace 0777 root shell
-    chown root shell /cache/trace
-    chmod 0777 /cache/trace
 
     # Flash storage isn't a good entropy source, and only causes locking
     # overhead in the kernel. Turn it off.
@@ -294,21 +287,16 @@ on post-fs-data
     mkdir /data/misc/wifi/sockets 0770 wifi wifi
     mkdir /data/misc/wifi/wpa_supplicant 0770 wifi wifi
     mkdir /data/misc/dhcp 0770 dhcp dhcp
-    chown dhcp dhcp /data/misc/dhcp
 
     # Create the directories used by CnE subsystem
     mkdir /data/connectivity 0771 system system
-    chown system system /data/connectivity
 
     # Create the directories used by DPM subsystem
     mkdir /data/dpm 0771 system system
-    chown system system /data/dpm
 
     mkdir /data/dpm/fdMgr 0771 system system
-    chown system system /data/dpm/fdMgr
 
     mkdir /data/dpm/nsrm 0771 system system
-    chown system system /data/dpm/nsrm
 
     # Create directory used by audio subsystem
     mkdir /data/misc/audio 0770 audio audio
@@ -361,12 +349,10 @@ on post-fs-data
     mkdir /data/misc/location/gsiff 0770 gps gps
 
     #Create directory from IMS services
-    mkdir /data/shared 0755
-    chown system system /data/shared
+    mkdir /data/shared 0755 system system
 
     #Create directory for FOTA
-    mkdir /data/fota 0771
-    chown system system /data/fota
+    mkdir /data/fota 0771 system system
 
     #Create directory for hostapd
     mkdir /data/hostapd 0770 system wifi
@@ -386,10 +372,8 @@ on post-fs-data
     mkdir /data/camera 0770 media camera
 
     #Create PERFD deamon related dirs
-    mkdir /data/misc/perfd 0755 root system
-    chmod 2755 /data/misc/perfd
-    mkdir /data/system/perfd 0770 root system
-    chmod 2770 /data/system/perfd
+    mkdir /data/misc/perfd 2755 root system
+    mkdir /data/system/perfd 2770 root system
 
     # NFC local data and nfcee xml storage
     mkdir /data/nfc 0770 nfc nfc
@@ -400,7 +384,6 @@ on post-fs-data
     mkdir /data/log/fac_log 0755 system system
     mkdir /data/log/android_logs 0755 system system
     mkdir /data/log/tp_cap 0755 system system
-    chown system system /data/log/tp_cap
     mkdir /data/log/sleeplog 0755 system system
     mkdir /data/log/sleeplog/powerlog 0755 system system
 
@@ -411,9 +394,7 @@ on post-fs-data
     mkdir /data/drm/rights 0770 drm drm
     mkdir /data/drm/widevine 0770 drm drm
 
-    mkdir /data/midi
-    chmod 0770 /data/midi
-    chown media audio /data/midi
+    mkdir /data/midi 0770 media audio
 
     chown system system /sys/devices/12c.hw-dev-detect/dev_flag
     chown system system /sys/touch_screen/touch_mmi_test
@@ -528,8 +509,7 @@ on post-fs-data
     chown system system /sys/bus/i2c/devices/0-002c/adux1050_update_config
     chown system system /sys/bus/i2c/devices/0-002c/adux1050_vendor
 
-    mkdir /data/log/sar_cap
-    chown system system /data/log/sar_cap
+    mkdir /data/log/sar_cap system system
     chown system system /sys/bus/i2c/devices/0-001e/ps_calibration
     chown system system /sys/bus/i2c/devices/0-001e/txc_pa2240_calibration
     chown system system /sys/bus/i2c/devices/0-001e/txc_pa2240_calibration_result
@@ -658,6 +638,14 @@ on property:vold.decrypt=trigger_restart_framework
 
 on property:persist.env.fastdorm.enabled=true
     setprop persist.radio.data_no_toggle 1
+
+service cnd /system/bin/cnd
+    class late_start
+    socket cnd stream 660 root inet
+
+service dpmd /system/bin/dpmd
+    class late_start
+    socket dpmd stream 660 root system
 
 service irsc_util /system/bin/irsc_util "/etc/sec_config"
     class main
@@ -914,27 +902,7 @@ on property:sys.ims.DATA_DAEMON_STATUS=1
     start imscmservice
 
 on property:hw.accel.calib="true"
-    chmod 0664 /dev/input/event0
-    chmod 0664 /dev/input/event1
-    chmod 0664 /dev/input/event2
-    chmod 0664 /dev/input/event3
-    chmod 0664 /dev/input/event4
-    chmod 0664 /dev/input/event5
-    chmod 0664 /dev/input/event6
-    chmod 0664 /dev/input/event7
-    chmod 0664 /dev/input/event8
-    chmod 0664 /dev/input/event9
-    chmod 0664 /dev/input/event10
-    chmod 0664 /dev/input/event11
-    chmod 0664 /dev/input/event12
-    chmod 0664 /dev/input/event13
-    chmod 0664 /dev/input/event14
-    chmod 0664 /dev/input/event15
-    chmod 0664 /dev/input/event16
-    chmod 0664 /dev/input/event17
-    chmod 0664 /dev/input/event18
-    chmod 0664 /dev/input/event19
-    chmod 0664 /dev/input/event20
+    chmod 0664 /dev/input/event*
 
 on charger-fs
     mount ext4 /dev/block/bootdevice/by-name/userdata /data rw
