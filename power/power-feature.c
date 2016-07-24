@@ -17,7 +17,7 @@
 #include <stdlib.h>
 #include <hardware/power.h>
 
-#define LOG_TAG "Kiwi/QCOM PowerHAL"
+#define LOG_TAG "Rio/QCOM PowerHAL"
 #include <utils/Log.h>
 
 #include "power-common.h"
