@@ -54,6 +54,7 @@ lib/libcamera_ipp_algo_dflash.so
 lib/libcamera_post_mediaserver.so
 lib/libcamera_wrapper_algo_omron_makeup.so
 lib/libchromatix_imx135_liveshot.so
+lib/libcutils:lib/libcutill.so
 lib/libDocBeauty.so
 lib/libFaceBeautyMeiwo.so
 lib/libFaceBeautyMeiwoJNI.so
