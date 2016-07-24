@@ -24,7 +24,6 @@ import static com.android.internal.telephony.RILConstants.*;
 import android.content.Context;
 import android.os.Parcel;
 
-import android.telephony.Rlog;
 import android.telephony.SignalStrength;
 
 /**
@@ -35,37 +34,6 @@ import android.telephony.SignalStrength;
 public class HwQualcommRIL extends RIL {
     public HwQualcommRIL(Context context, int networkMode, int cdmaSubscription, Integer instanceId) {
         super(context, networkMode, cdmaSubscription, instanceId);
-    }
-
-    @Override
-    protected Object
-    responseFailCause(Parcel p) {
-        int numInts;
-        int response[];
-
-        numInts = p.readInt();
-        response = new int[numInts];
-        for (int i = 0 ; i < numInts ; i++) {
-            response[i] = p.readInt();
-        }
-        LastCallFailCause failCause = new LastCallFailCause();
-        failCause.causeCode = response[0];
-        if (p.dataAvail() > 0) {
-          failCause.vendorCause = p.readString();
-        }
-        return failCause;
-    }
-
-    @Override
-    protected void
-    send(RILRequest rr) {
-        if (rr.mRequest >= 132) {
-            Rlog.i(RILJ_LOG_TAG, "HwQualcommRil: Unsupported request " + rr.mRequest);
-            rr.onError(REQUEST_NOT_SUPPORTED, null);
-            rr.release();
-        } else {
-            super.send(rr);
-        }
     }
 
     @Override
