@@ -142,6 +142,7 @@ BOARD_PERSISTIMAGE_PARTITION_SIZE := 67108864
 # Power
 TARGET_POWERHAL_VARIANT := qcom
 BOARD_POWER_CUSTOM_BOARD_LIB := libpower_rio
+TARGET_POWER_SET_FEATURE_LIB := libpower_rio
 
 # Properties
 TARGET_SYSTEM_PROP := $(LOCAL_PATH)/system.prop
@@ -168,9 +169,6 @@ TARGET_RIL_VARIANT := proprietary
 
 # SELinux
 include device/qcom/sepolicy/sepolicy.mk
-
-# Tap2Wake
-TARGET_TAP_TO_WAKE_NODE := /sys/touch_screen/easy_wakeup_gesture
 
 # Vendor Init
 TARGET_UNIFIED_DEVICE := true

@@ -5,6 +5,6 @@ include $(CLEAR_VARS)
 LOCAL_MODULE_TAGS := optional
 LOCAL_C_INCLUDES := device/qcom/common/power
 LOCAL_CFLAGS := -Wall -Werror
-LOCAL_SRC_FILES := power-rio.c
+LOCAL_SRC_FILES := power-rio.c power-feature.c
 LOCAL_MODULE := libpower_rio
 include $(BUILD_STATIC_LIBRARY)
