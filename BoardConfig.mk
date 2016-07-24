@@ -163,8 +163,10 @@ TARGET_RECOVERY_UPDATER_LIBS := librecovery_updater_rio
 TARGET_RELEASETOOLS_EXTENSIONS := $(LOCAL_PATH)/releasetools
 
 # RIL
+COMMON_GLOBAL_CFLAGS += -DDISABLE_ASHMEM_TRACKING
 BOARD_RIL_CLASS := ../../../device/huawei/rio/ril
-TARGET_RIL_VARIANT := caf
+PROTOBUF_SUPPORTED := true
+TARGET_RIL_VARIANT := proprietary
 
 # SELinux
 include device/qcom/sepolicy/sepolicy.mk
