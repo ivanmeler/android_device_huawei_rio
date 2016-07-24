@@ -1285,11 +1285,6 @@ lib64/lib_fpc_tac_shared.so
 lib64/libservices.huawei.so
 lib64/libteec.so
 
-# Gatekeeper
-bin/gatekeeperd
-lib64/libgatekeeper.so
-vendor/lib64/hw/gatekeeper.msm8916.so
-
 # GPS
 bin/loc_launcher
 etc/permissions/com.qti.location.sdk.xml
@@ -1391,9 +1386,6 @@ etc/firmware/a420_pm4.fw
 # Huawei proprietary blobs
 sbin/libqmi_oem_main:bin/libqmi_oem_main
 sbin/rmt_oeminfo:bin/rmt_oeminfo
-
-# Keystore
-vendor/lib64/hw/keystore.msm8916.so
 
 # Media
 lib/libOmxVdecHevc.so
