@@ -110,9 +110,6 @@ PRODUCT_PACKAGES += \
     libshim_camera \
     libshim_cutils
 
-PRODUCT_PACKAGES += \
-    Snap
-
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     camera2.portability.force_api=1
 
