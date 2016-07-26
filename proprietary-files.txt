@@ -1317,6 +1317,9 @@ lib64/lib_fpc_tac_shared.so
 lib64/libservices.huawei.so
 lib64/libteec.so
 
+# Gatekeeper
+vendor/lib64/hw/gatekeeper.msm8916.so:lib64/hw/gatekeeper.msm8916.so
+
 # GPS
 bin/loc_launcher
 etc/permissions/com.qti.location.sdk.xml
