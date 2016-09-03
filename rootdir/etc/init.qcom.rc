@@ -89,6 +89,8 @@ on fs
     mkdir /log/sdlog 0775 system system
     write /log/sdlog/sd_err.log 0
 
+    mkdir /data/fpc 0700 system system
+
 on early-boot
     # set RLIMIT_MEMLOCK to 64MB
     setrlimit 8 67108864 67108864
