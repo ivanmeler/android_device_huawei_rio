@@ -1425,6 +1425,7 @@ vendor/lib/libmm-disp-apis.so
 vendor/lib/libmm-qdcm.so
 
 # Qualcomm framework Huawei
+sbin/huawei_version:bin/huawei_version
 sbin/libqmi_oem_main:bin/libqmi_oem_main
 sbin/rmt_oeminfo:bin/rmt_oeminfo
 lib/libhuawei_secure.so

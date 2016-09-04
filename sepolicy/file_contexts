@@ -11,6 +11,7 @@
 /system/bin/huawei_version                                 u:object_r:oeminfo_exec:s0
 /system/bin/rmt_oeminfo                                    u:object_r:oeminfo_exec:s0
 /system/bin/libqmi_oem_main                                u:object_r:libqmi_oem_main_exec:s0
+/system/bin/signinfolistener				   u:object_r:signinfolistener_exec:s0
 /sys/touch_screen/easy_wakeup_gesture                      u:object_r:gesture_sysfs:s0
 /sys/devices/platform/fingerprint(/.*)?                    u:object_r:fingerprint_sysfs:s0
 /data/fpc(/.*)?                                            u:object_r:fingerprintd_data_file:s0

@@ -916,3 +916,9 @@ service rmt_oeminfo /system/bin/rmt_oeminfo
     class core
     user root
     seclabel u:r:oeminfo:s0
+
+service huawei_version /sbin/huawei_version
+    class core
+    user root
+    oneshot
+    seclabel u:r:oeminfo:s0
