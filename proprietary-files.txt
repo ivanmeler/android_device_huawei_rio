@@ -1401,6 +1401,8 @@ vendor/lib/libOmxQcelp13Dec.so
 
 # NFC
 etc/firmware/nfc_test.bin
+etc/permissions/com.gsma.services.nfc.xml
+framework/com.gsma.services.nfc.jar
 vendor/etc/pdc_RIO_for_nfc.txt
 vendor/firmware/libpn547_fw.so
 
