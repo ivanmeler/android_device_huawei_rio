@@ -178,6 +178,9 @@ persist.radio.add_power_save=1
 persist.radio.modem.cap=77442
 ro.telephony.ril_class=HwQualcommRIL
 
+# Storage
+ro.sys.sdcardfs=true
+
 # WiFi
 wifi.interface=wlan0
 ro.disableWifiApFirmwareReload=true
