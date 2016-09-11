@@ -33,6 +33,8 @@ import android.telephony.SignalStrength;
  * {@hide}
  */
 public class HwQualcommRIL extends RIL {
+    private final boolean DBG = false;
+
     public HwQualcommRIL(Context context, int networkMode, int cdmaSubscription, Integer instanceId) {
         super(context, networkMode, cdmaSubscription, instanceId);
     }
@@ -86,12 +88,25 @@ public class HwQualcommRIL extends RIL {
         int lteRssnr = p.readInt();
         int lteCqi = p.readInt();
 
-        return new SignalStrength(
+        if (gsmSignalStrength != -1) {
+            if (DBG) {
+                Rlog.i(RILJ_LOG_TAG, "HwQualcommRil: original gsmSignalStrength: " + gsmSignalStrength);
+            }
+            gsmSignalStrength = -(gsmSignalStrength - 113) / 2;
+        }
+
+        SignalStrength ss = new SignalStrength(
                         wcdmaRscp <= 0 ? gsmSignalStrength : wcdmaRscp,
                         gsmBitErrorRate,
                         cdmaDbm, cdmaEcio,
                         evdoDbm, evdoEcio, evdoSnr,
                         lteSignalStrength, lteRsrp, lteRsrq, lteRssnr, lteCqi,
                         wcdmaRscp, true);
+
+        if (DBG) {
+            Rlog.i(RILJ_LOG_TAG, "HwQualcommRil: " + ss.toString() + " " + gsmSignalStrength);
+        }
+
+        return ss;
     }
 }
