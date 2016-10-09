@@ -112,6 +112,6 @@ on property:init.svc.recovery=running
 on property:dev.bootcomplete=1
     setprop sys.io.scheduler bfq
 
-service lp-helper /init.qcom.power.sh
+service lp-helper /system/bin/init.qcom.power.sh
     oneshot
     disabled
