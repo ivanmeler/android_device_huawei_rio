@@ -31,6 +31,7 @@ audio.offload.gapless.enabled=true
 vidc.enc.narrow.searchrange=1
 
 # Camera
+persist.camera.cpp.duplication=false
 persist.camera.hal.debug=0
 ro.config.camera_target_track=true
 ro.config.hw_auto_scene=true
