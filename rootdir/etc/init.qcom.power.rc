@@ -1,9 +1,9 @@
 on early-init
-
-    write /sys/block/mmcblk0/queue/scheduler noop
+    setprop sys.io.scheduler noop
     write /sys/block/mmcblk0/bdi/read_ahead_kb 512
 
 on enable-low-power
+    setprop sys.io.scheduler cfq
 
     write /proc/sys/kernel/sched_boost 1
 
@@ -108,9 +108,6 @@ on property:sys.boot_completed=1
 
 on property:init.svc.recovery=running
     trigger enable-low-power
-
-on property:dev.bootcomplete=1
-    setprop sys.io.scheduler bfq
 
 service lp-helper /system/bin/init.qcom.power.sh
     oneshot
