@@ -71,7 +71,7 @@ on init
     chmod 0660 /dev/block/mmcblk0p8
 
 on fs
-    export LD_SHIM_LIBS /system/lib64/libcutils.so|libshim_cutils.so:/system/lib/libcutils.so|libshim_cutils.so:/system/lib/hw/camera.msm8916.so|libshim_cutils.so:/system/lib/libcamera_hwaaf.so|libshim_cutils.so:/system/lib64/libdmd.so|libshim_cutils.so:/system/lib/libcamera_post_mediaserver.so|libshim_camera.so:/system/lib64/libril.so|libshim_ril.so:/system/vendor/lib64/lib-imsdpl.so|libcrypto2.so
+    export LD_SHIM_LIBS /system/lib64/libcutils.so|libshim_cutils.so:/system/lib/libcutils.so|libshim_cutils.so:/system/lib/hw/camera.msm8916.so|libshim_cutils.so:/system/lib/libcamera_hwaaf.so|libshim_cutils.so:/system/lib64/libdmd.so|libshim_cutils.so:/system/lib/libcamera_post_mediaserver.so|libshim_camera.so:/system/lib64/libril.so|libshim_ril.so:/system/vendor/lib64/lib-imsdpl.so|libcrypto2.so:/system/bin/signinfolistener|libshim_signinfolistener.so
 
     wait /dev/block/bootdevice
     mount_all fstab.qcom

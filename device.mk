@@ -105,7 +105,8 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     camera.msm8916 \
     libshim_camera \
-    libshim_cutils
+    libshim_cutils \
+    libshim_signinfolistener
 
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     camera2.portability.force_api=1
