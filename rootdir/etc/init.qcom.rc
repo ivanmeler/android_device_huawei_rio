@@ -652,7 +652,7 @@ service rmt_storage /system/bin/rmt_storage
 service rfs_access /system/bin/rfs_access
     class core
     user root
-    group system net_raw
+    group system net_raw wakelock
 
 service config_bt_addr /system/bin/btnvtool -O
     class core
@@ -859,6 +859,7 @@ service teecd /system/bin/teecd
 
 service libqmi_oem_main /system/bin/libqmi_oem_main
     class main
+    group wakelock
     seclabel u:r:libqmi_oem_main:s0
 
 service rmt_oeminfo /system/bin/rmt_oeminfo
