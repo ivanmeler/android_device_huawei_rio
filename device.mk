@@ -106,6 +106,7 @@ PRODUCT_PACKAGES += \
     camera.msm8916 \
     libshim_camera \
     libshim_cutils \
+    libshim_exif \
     libshim_signinfolistener
 
 # SNAP Camera
