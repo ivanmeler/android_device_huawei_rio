@@ -38,14 +38,13 @@
 
 void init_target_properties()
 {
-    char platform[PROP_VALUE_MAX];
+    std::string platform;
     std::ifstream fin;
     std::string buf;
-    int rc;
     bool boll;
 
-    rc = property_get("ro.board.platform", platform);
-    if (!rc || strncmp(platform, "msm8916", PROP_VALUE_MAX))
+    platform = property_get("ro.board.platform");
+    if (platform == ANDROID_TARGET)
         return;
 
     fin.open("/proc/app_info");
@@ -54,9 +53,7 @@ void init_target_properties()
             break;
     fin.close();
 
-    rc = property_get("ro.boot.hwsim", platform);
-    if (!rc)
-        return;
+    platform = property_get("ro.boot.hwsim");
 
     if (buf.find("RIO-L01") != std::string::npos) {
         property_set("ro.product.model", "HUAWEI RIO-L01");
@@ -91,7 +88,7 @@ void init_target_properties()
         property_set("ro.build.product", "RIO-TL00");
     }
 
-    if (!strncmp(platform, "double", PROP_VALUE_MAX)) {
+    if (platform == "double") {
 	property_set("persist.radio.multisim.config", "dsds");
 	property_set("ro.telephony.ril.config", "simactivation,sim2gsmonly");
 	property_set("ro.telephony.default_network", "9,9");
