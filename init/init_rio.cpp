@@ -34,9 +34,7 @@
 #include "log.h"
 #include "util.h"
 
-#include "init_msm8916.h"
-
-void init_target_properties()
+void vendor_load_properties()
 {
     std::string platform;
     std::ifstream fin;
