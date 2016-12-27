@@ -646,6 +646,7 @@ service irsc_util /system/bin/irsc_util "/etc/sec_config"
 service rmt_storage /system/bin/rmt_storage
     class core
     user root
+    group wakelock
     disabled
 
 service rfs_access /system/bin/rfs_access
@@ -688,11 +689,12 @@ service btsnoop /system/bin/btsnoop
 service qmuxd /system/bin/qmuxd
     class main
     user root
-    group radio audio bluetooth gps nfc qcom_diag
+    group radio audio bluetooth gps nfc qcom_diag wakelock
     disabled
 
 service netmgrd /system/bin/netmgrd
     class main
+    group wakelock
     disabled
 
 on property:ro.use_data_netmgrd=false
@@ -779,7 +781,7 @@ on property:sys.qbcharger.enable=false
 service vm_bms /system/bin/vm_bms
     class main
     user root
-    group root
+    group root wakelock
 
 # set primary sd directory
 service preparesdservice /system/bin/vdc volume storagetosd
