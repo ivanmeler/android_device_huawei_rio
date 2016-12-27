@@ -406,6 +406,7 @@ on post-fs-data
     chown system system /sys/bus/ttsp4/devices/main_ttsp_core.cyttsp4_i2c_adapter/signal_disparity
     chown system system /sys/bus/ttsp4/devices/main_ttsp_core.cyttsp4_i2c_adapter/finger_threshold 
     chown system system /sys/touch_screen/glove_func/signal_disparity
+    chmod 0664 /sys/touch_screen/glove_func/signal_disparity
     chown system system /sys/touch_screen/glove_func/holster_sensitivity
     chown system system /sys/touch_screen/glove_func/finger_threshold 
     chown system system /sys/touch_screen/easy_wakeup_gesture

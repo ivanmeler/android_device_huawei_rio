@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 The CyanogenMod Project
+ * Copyright (C) 2016 The CyanogenMod Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,8 +16,7 @@
 
 package org.cyanogenmod.hardware;
 
-import java.io.File;
-import org.cyanogenmod.hardware.util.FileUtils;
+import org.cyanogenmod.internal.util.FileUtils;
 
 /**
  * Glove mode / high touch sensitivity
@@ -26,14 +25,17 @@ public class HighTouchSensitivity {
 
     private static String GLOVE_PATH = "/sys/touch_screen/glove_func/signal_disparity";
 
+    private static final String ENABLED = "1";
+    private static final String DISABLED = "0";
+
     /**
      * Whether device supports high touch sensitivity.
      *
      * @return boolean Supported devices must return always true
      */
     public static boolean isSupported() {
-        File f = new File(GLOVE_PATH);
-        return f.exists();
+        return FileUtils.isFileReadable(GLOVE_PATH) &&
+                FileUtils.isFileWritable(GLOVE_PATH);
     }
 
     /**
@@ -43,10 +45,7 @@ public class HighTouchSensitivity {
      * or the operation failed while reading the status; true in any other case.
      */
     public static boolean isEnabled() {
-        int i;
-        i = Integer.parseInt(FileUtils.readOneLine(GLOVE_PATH));
-
-        return i == 1 ? true : false;
+	return ENABLED.equals(FileUtils.readOneLine(GLOVE_PATH));
     }
 
     /**
@@ -57,7 +56,7 @@ public class HighTouchSensitivity {
      * failed; true in any other case.
      */
     public static boolean setEnabled(boolean status) {
-        return FileUtils.writeLine(GLOVE_PATH, String.valueOf(status ? 1 : 0));
+        return FileUtils.writeLine(GLOVE_PATH, status ? ENABLED : DISABLED);
     }
 
 }
