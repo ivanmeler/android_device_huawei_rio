@@ -73,7 +73,7 @@ void vendor_load_properties()
     bool boll;
 
     platform = property_get("ro.board.platform");
-    if (platform == ANDROID_TARGET)
+    if (platform != ANDROID_TARGET)
         return;
 
     init_alarm_boot_properties();
