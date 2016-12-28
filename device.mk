@@ -242,16 +242,14 @@ PRODUCT_PACKAGES += \
 
 # NFC
 PRODUCT_PACKAGES += \
-    nfc_nci.pn54x.default \
     com.android.nfc_extras \
+    nfc_nci.pn54x.default \
     NfcNci \
     Tag
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilts/libnfc-brcm.conf:system/etc/libnfc-brcm.conf \
-    $(LOCAL_PATH)/prebuilts/libnfc-brcm_rio.conf:system/etc/libnfc-brcm_rio.conf \
     $(LOCAL_PATH)/prebuilts/libnfc-nxp.conf:system/etc/libnfc-nxp.conf \
-    $(LOCAL_PATH)/prebuilts/libnfc-nxp_rio.conf:system/etc/libnfc-nxp_rio.conf \
     $(LOCAL_PATH)/prebuilts/nfcee_access.xml:system/etc/nfcee_access.xml
 
 PRODUCT_COPY_FILES += \
