@@ -91,11 +91,6 @@ ro.am.reschedule_service=true
 # Factory reset protection
 ro.frp.pst=/dev/block/bootdevice/by-name/config
 
-# GPS
-persist.gps.qc_nlp_in_use=1
-ro.gps.agps_provider=1
-persist.loc.nlp_name=com.qualcomm.location
-
 # Media
 media.stagefright.enable-player=true
 media.stagefright.enable-http=true
