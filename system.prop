@@ -179,6 +179,9 @@ ro.telephony.ril_class=HwQualcommRIL
 # Storage
 ro.sys.sdcardfs=true
 
+# Tethering
+persist.sys.usb.config.extra=none
+
 # WiFi
 wifi.interface=wlan0
 ro.disableWifiApFirmwareReload=true
