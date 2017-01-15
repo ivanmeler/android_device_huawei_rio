@@ -919,7 +919,6 @@ vendor/lib/drm/libdrmwvmplugin.so
 vendor/lib/mediadrm/libwvdrmengine.so
 
 # Fingerprint
-bin/fingerprintd
 sbin/signinfolistener:bin/signinfolistener
 bin/teecd
 lib64/hw/fingerprint.msm8916.so
