@@ -12,7 +12,7 @@ audio_hal.period_size=192
 ro.qc.sdk.audio.fluencetype=fluence
 persist.audio.fluence.voicecall=true
 persist.audio.fluence.voicerec=false
-persist.audio.fluence.speaker=false
+persist.audio.fluence.speaker=true
 
 ro.qc.sdk.audio.ssr=false
 tunnel.audio.encode = false
@@ -24,11 +24,9 @@ voice.voip.conc.disabled=true
 audio.offload.buffer.size.kb=64
 audio.offload.min.duration.secs=30
 av.offload.enable=true
-av.streaming.offload.enable=true
-audio.offload.pcm.enable=false
-audio.offload.disable=1
+audio.offload.pcm.enable=true
+audio.offload.disable=false
 audio.offload.gapless.enabled=true
-vidc.enc.narrow.searchrange=1
 
 # Bluetooth
 qcom.bluetooth.soc=smd
