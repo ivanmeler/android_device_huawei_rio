@@ -840,6 +840,7 @@ service fingerprintd  /system/bin/fingerprintd
 service signinfolistener /system/bin/signinfolistener
     class core
     user system
+    group system readproc
     seclabel u:r:signinfolistener:s0
 
 service teecd /system/bin/teecd
