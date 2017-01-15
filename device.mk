@@ -101,6 +101,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     init.qcom.bt.sh
 
+# Bootanim
+PRODUCT_PACKAGES += \
+    bootanimation.zip
+
 # Camera & Compatibility 
 PRODUCT_PACKAGES += \
     camera.msm8916 \
