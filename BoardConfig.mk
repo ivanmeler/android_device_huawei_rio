@@ -90,6 +90,11 @@ TARGET_USES_ION := true
 TARGET_QCOM_NO_FM_FIRMWARE := true
 AUDIO_FEATURE_ENABLED_FM_POWER_OPT := true
 
+# GPS
+TARGET_GPS_HAL_PATH := $(LOCAL_PATH)/gps
+USE_DEVICE_SPECIFIC_GPS := true
+TARGET_NO_RPC := true
+
 # Kernel
 BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom msm_rtb.filter=0x237 ehci-hcd.park=3 androidboot.bootdevice=7824900.sdhci lpm_levels.sleep_disabled=1 earlyprintk
 BOARD_DTBTOOL_ARGS := -2
