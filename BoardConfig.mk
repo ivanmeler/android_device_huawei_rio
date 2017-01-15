@@ -52,7 +52,6 @@ TARGET_NO_BOOTLOADER := true
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_QCOM := true
-BLUETOOTH_HCI_USE_MCT := true
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(LOCAL_PATH)/bluetooth
 
 # Bootanimation
@@ -60,8 +59,6 @@ TARGET_BOOTANIMATION_PRELOAD := true
 TARGET_BOOTANIMATION_TEXTURE_CACHE := true
 
 # Camera
-BOARD_CAMERA_SENSORS := altek6010_imx278_liteon altek6010_imx278_sunny altek6010_ov5648
-TARGET_USE_VENDOR_CAMERA_EXT := true
 USE_DEVICE_SPECIFIC_CAMERA := true
 TARGET_HAS_LEGACY_CAMERA_HAL1 := true
 
@@ -91,9 +88,6 @@ TARGET_USES_ION := true
 # FM
 TARGET_QCOM_NO_FM_FIRMWARE := true
 AUDIO_FEATURE_ENABLED_FM_POWER_OPT := true
-
-# Init
-TARGET_PLATFORM_DEVICE_BASE := /devices/soc.0/
 
 # Kernel
 BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom msm_rtb.filter=0x237 ehci-hcd.park=3 androidboot.bootdevice=7824900.sdhci lpm_levels.sleep_disabled=1 earlyprintk androidboot.selinux=permissive
@@ -160,7 +154,6 @@ TARGET_RELEASETOOLS_EXTENSIONS := $(LOCAL_PATH)/releasetools
 
 # RIL
 BOARD_RIL_CLASS := ../../../device/huawei/rio/ril
-PROTOBUF_SUPPORTED := true
 TARGET_RIL_VARIANT := caf
 
 # SELinux
