@@ -1098,7 +1098,6 @@ bin/imsqmidaemon
 bin/netmgrd
 bin/qmuxd
 bin/radish
-bin/rfs_access
 sbin/rmt_storage:bin/rmt_storage
 etc/data/dsi_config.xml
 etc/data/netmgr_config.xml
