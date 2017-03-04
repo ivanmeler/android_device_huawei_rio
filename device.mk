@@ -208,10 +208,9 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilts/sec_config:system/etc/sec_config
 
 
-# Keyhandler
+# Doze
 PRODUCT_PACKAGES += \
-    CMActions \
-    com.cyanogenmod.keyhandler
+    RioDoze
 
 # Lights
 PRODUCT_PACKAGES += \
