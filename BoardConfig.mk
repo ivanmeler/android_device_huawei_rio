@@ -155,13 +155,6 @@ BOARD_USES_QCOM_HARDWARE := true
 TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/rootdir/fstab.qcom
 TARGET_RECOVERY_DEVICE_MODULES := libinit_rio
 
-# Release
-TARGET_BOARD_INFO_FILE := $(LOCAL_PATH)/board-info.txt
-
-# Release tools
-TARGET_RECOVERY_UPDATER_LIBS := librecovery_updater_rio
-TARGET_RELEASETOOLS_EXTENSIONS := $(LOCAL_PATH)/releasetools
-
 # RIL
 BOARD_RIL_CLASS := ../../../device/huawei/rio/ril
 TARGET_RIL_VARIANT := caf
