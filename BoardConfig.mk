@@ -160,7 +160,7 @@ BOARD_RIL_CLASS := ../../../device/huawei/rio/ril
 TARGET_RIL_VARIANT := caf
 
 # SELinux
-include device/qcom/sepolicy/sepolicy.mk
+#include device/qcom/sepolicy/sepolicy.mk
 
 # Temp: disable device selinux
 #Coresponding in kernel arg here
