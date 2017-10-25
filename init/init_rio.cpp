@@ -29,10 +29,13 @@
 #include <fstream>
 #include <string>
 
-#include "vendor_init.h"
+#include <android-base/properties.h>
 #include "property_service.h"
+#include "vendor_init.h"
 #include "log.h"
-#include "util.h"
+
+using android::base::GetProperty;
+using android::base::SetProperty;
 
 void vendor_load_properties()
 {
@@ -41,7 +44,7 @@ void vendor_load_properties()
     std::string buf;
     bool boll;
 
-    platform = property_get("ro.board.platform");
+    platform = GetProperty("ro.board.platform", "");
     if (platform != ANDROID_TARGET)
         return;
 
@@ -51,47 +54,47 @@ void vendor_load_properties()
             break;
     fin.close();
 
-    platform = property_get("ro.boot.hwsim");
+    platform = GetProperty("ro.boot.hwsim", "");
 
     if (buf.find("RIO-L01") != std::string::npos) {
-        property_set("ro.product.model", "HUAWEI RIO-L01");
-        property_set("ro.product.device", "hwRIO-L01");
-        property_set("ro.build.product", "RIO-L01");
-        property_set("ro.build.description", "RIO-L01-user 6.0.1 GRJ90 C432B340 release-keys");
-        property_set("ro.build.fingerprint", "HUAWEI/RIO-L01/hwRIO-L01:6.0.1/HuaweiRIO-L01/C432B340:user/release-keys");
+        SetProperty("ro.product.model", "HUAWEI RIO-L01");
+        SetProperty("ro.product.device", "hwRIO-L01");
+        SetProperty("ro.build.product", "RIO-L01");
+        SetProperty("ro.build.description", "RIO-L01-user 6.0.1 GRJ90 C432B340 release-keys");
+        SetProperty("ro.build.fingerprint", "HUAWEI/RIO-L01/hwRIO-L01:6.0.1/HuaweiRIO-L01/C432B340:user/release-keys");
     }
     else if (buf.find("RIO-L02") != std::string::npos) {
-        property_set("ro.product.model", "HUAWEI RIO-L02");
-        property_set("ro.product.device", "hwRIO-L02");
-        property_set("ro.build.product", "RIO-L02");
+        SetProperty("ro.product.model", "HUAWEI RIO-L02");
+        SetProperty("ro.product.device", "hwRIO-L02");
+        SetProperty("ro.build.product", "RIO-L02");
     }
     else if (buf.find("RIO-L03") != std::string::npos) {
-        property_set("ro.product.model", "HUAWEI RIO-L03");
-        property_set("ro.product.device", "hwRIO-L03");
-        property_set("ro.build.product", "RIO-L03");
+        SetProperty("ro.product.model", "HUAWEI RIO-L03");
+        SetProperty("ro.product.device", "hwRIO-L03");
+        SetProperty("ro.build.product", "RIO-L03");
     }
     else if (buf.find("RIO-AL00") != std::string::npos) {
-        property_set("ro.product.model", "HUAWEI RIO-AL00");
-        property_set("ro.product.device", "hwRIO-AL00");
-        property_set("ro.build.product", "RIO-AL00");
+        SetProperty("ro.product.model", "HUAWEI RIO-AL00");
+        SetProperty("ro.product.device", "hwRIO-AL00");
+        SetProperty("ro.build.product", "RIO-AL00");
     }
     else if (buf.find("RIO-CL00") != std::string::npos) {
-        property_set("ro.product.model", "HUAWEI RIO-CL00");
-        property_set("ro.product.device", "hwRIO-CL00");
-        property_set("ro.build.product", "RIO-CL00");
+        SetProperty("ro.product.model", "HUAWEI RIO-CL00");
+        SetProperty("ro.product.device", "hwRIO-CL00");
+        SetProperty("ro.build.product", "RIO-CL00");
     }
     else if (buf.find("RIO-TL00") != std::string::npos) {
-        property_set("ro.product.model", "HUAWEI RIO-TL00");
-        property_set("ro.product.device", "hwRIO-TL00");
-        property_set("ro.build.product", "RIO-TL00");
+        SetProperty("ro.product.model", "HUAWEI RIO-TL00");
+        SetProperty("ro.product.device", "hwRIO-TL00");
+        SetProperty("ro.build.product", "RIO-TL00");
     }
 
     if (platform == "double") {
-	property_set("persist.radio.multisim.config", "dsds");
-	property_set("ro.telephony.ril.config", "simactivation,sim2gsmonly");
-	property_set("ro.telephony.default_network", "9,9");
+	SetProperty("persist.radio.multisim.config", "dsds");
+	SetProperty("ro.telephony.ril.config", "simactivation,sim2gsmonly");
+	SetProperty("ro.telephony.default_network", "9,9");
     } else {
-	property_set("ro.telephony.ril.config", "simactivation");
-	property_set("ro.telephony.default_network", "9");
+	SetProperty("ro.telephony.ril.config", "simactivation");
+	SetProperty("ro.telephony.default_network", "9");
     }
 }

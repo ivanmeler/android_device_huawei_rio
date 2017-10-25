@@ -19,18 +19,32 @@
 #include <ui/Rect.h>
 #include <gui/SurfaceControl.h>
 
+
 namespace android {
 
 // ---------------------------------------------------------------------------
 
 extern "C" {
+void _ZN7android21SurfaceComposerClient13createSurfaceERKNS_7String8EjjijPNS_14SurfaceControlEjj(
+        const String8& name,
+        uint32_t w,
+        uint32_t h,
+        PixelFormat format,
+        uint32_t flags,
+        SurfaceControl* parent,
+        uint32_t windowType,
+        uint32_t ownerUid);
 
-    /* status_t SurfaceControl::setLayer */
-    status_t _ZN7android14SurfaceControl8setLayerEj( uint32_t layer);
+void _ZN7android21SurfaceComposerClient13createSurfaceERKNS_7String8Ejjij(
+        const String8& name,
+        uint32_t w,
+        uint32_t h,
+        PixelFormat format,
+        uint32_t flags)
+{
+return _ZN7android21SurfaceComposerClient13createSurfaceERKNS_7String8EjjijPNS_14SurfaceControlEjj(name, w, h, format, flags, nullptr, 0, 0);
+}
 
-    status_t _ZN7android14SurfaceControl8setLayerEi( int32_t layer) {
-		return _ZN7android14SurfaceControl8setLayerEj( (uint32_t)layer);
-	}
 }
 
 // ---------------------------------------------------------------------------

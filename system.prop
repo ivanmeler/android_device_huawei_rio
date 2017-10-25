@@ -100,6 +100,9 @@ mm.enable.smoothstreaming=true
 mmp.enable.3g2=true
 media.aac_51_output_enabled=true
 
+# Disable treble OMX
+persist.media.treble_omx=false
+
 # Net
 persist.data.netmgrd.qos.enable=true
 persist.timed.enable=true

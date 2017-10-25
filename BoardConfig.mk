@@ -69,10 +69,9 @@ BOARD_CHARGER_ENABLE_SUSPEND := true
 BOARD_CHARGER_DISABLE_INIT_BLANK := true
 BACKLIGHT_PATH := /sys/class/leds/lcd-backlight/brightness
 
-# CMHW
+# LineageHW
 BOARD_HARDWARE_CLASS := \
-    $(LOCAL_PATH)/cmhw \
-    hardware/cyanogen/cmhw
+    $(LOCAL_PATH)/lineagehw
 
 # Crypto
 TARGET_HW_DISK_ENCRYPTION := true
@@ -100,6 +99,7 @@ TARGET_NO_RPC := true
 
 # Kernel
 BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom msm_rtb.filter=0x237 ehci-hcd.park=3 androidboot.bootdevice=7824900.sdhci lpm_levels.sleep_disabled=1 earlyprintk
+BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
 BOARD_DTBTOOL_ARGS := -2
 BOARD_KERNEL_BASE := 0x80000000
 BOARD_KERNEL_PAGESIZE := 2048
@@ -109,7 +109,7 @@ BOARD_RAMDISK_OFFSET     := 0x02000000
 TARGET_KERNEL_ARCH := arm64
 TARGET_KERNEL_CROSS_COMPILE_PREFIX := aarch64-linux-android-
 TARGET_KERNEL_HEADER_ARCH := arm64
-TARGET_USES_UNCOMPRESSED_KERNEL := true
+BOARD_KERNEL_IMAGE_NAME := Image
 
 TARGET_KERNEL_SOURCE := kernel/huawei/msm8939
 TARGET_KERNEL_CONFIG := cm_rio_defconfig
@@ -166,10 +166,13 @@ BOARD_RIL_CLASS := ../../../device/huawei/rio/ril
 TARGET_RIL_VARIANT := caf
 
 # SELinux
-include device/qcom/sepolicy/sepolicy.mk
+#include device/qcom/sepolicy/sepolicy.mk
 
-BOARD_SEPOLICY_DIRS += \
-    device/huawei/rio/sepolicy
+# Temp: disable device selinux
+#Coresponding in kernel arg here
+#
+#BOARD_SEPOLICY_DIRS += \
+#    device/huawei/rio/sepolicy
 
 # Vendor Init
 TARGET_UNIFIED_DEVICE := true

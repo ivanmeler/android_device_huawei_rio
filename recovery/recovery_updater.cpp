@@ -151,32 +151,33 @@ err_ret:
 }
 
 /* verify_trustzone("TZ_VERSION", "TZ_VERSION", ...) */
-Value * VerifyTrustZoneFn(const char *name, State *state, int argc, Expr *argv[]) {
+Value * VerifyTrustZoneFn(const char *name, State *state, const std::vector<std::unique_ptr<Expr>>& argv) {
     char current_tz_version[TZ_VER_BUF_LEN];
-    char *tz_version;
-    int i, ret;
+    size_t i;
+    int ret;
 
     ret = get_tz_version(current_tz_version, TZ_VER_BUF_LEN);
     if (ret) {
-        return ErrorAbort(state, "%s() failed to read current TZ version: %d",
+        return ErrorAbort(state, kFreadFailure, "%s() failed to read current TZ version: %d",
                 name, ret);
     }
 
-    for (i = 0; i < argc; i++) {
-        ret = ReadArgs(state, &argv[i], 1, &tz_version);
-        if (ret < 0) {
-            return ErrorAbort(state, "%s() error parsing arguments: %d",
-                name, ret);
-        }
+    std::vector<std::string> tz_version;
+    if (!ReadArgs(state, argv, &tz_version)) {
+        return ErrorAbort(state, kArgsParsingFailure, "%s() error parsing arguments", name);
+    }
 
+    ret = 0;
+    for (const auto& version : tz_version) {
         uiPrintf(state, "Comparing TZ version %s to %s",
-                tz_version, current_tz_version);
-        if (strncmp(tz_version, current_tz_version, strlen(tz_version)) == 0) {
-            return StringValue(strdup("1"));
+            version.c_str(), current_tz_version);
+        if (strncmp(version.c_str(), current_tz_version, version.length()) == 0) {
+            ret = 1;
+            break;
         }
     }
 
-    return StringValue(strdup("0"));
+    return StringValue(strdup(ret ? "1" : "0"));
 }
 
 void Register_librecovery_updater_rio() {
