@@ -279,6 +279,27 @@ PRODUCT_PACKAGES += \
     wpa_supplicant.conf \
     wcnss_service
 
+# Hidl hals
+    android.hardware.graphics.allocator@2.0-impl \
+    android.hardware.graphics.mapper@2.0-impl \
+    android.hardware.graphics.composer@2.1-impl \
+    android.hardware.memtrack@1.0-impl \
+    android.hardware.light@2.0-impl \
+    android.hardware.wifi@1.0-impl \
+    android.hardware.wifi.supplicant@1.0-impl \
+    android.hardware.audio@2.0-impl \
+    android.hardware.audio.effect@2.0-impl \
+    android.hardware.bluetooth@1.0-impl \
+    android.hardware.drm@1.0-impl \
+    android.hardware.keymaster@3.0-impl \
+    android.hardware.light@2.0-impl \
+    android.hardware.gnss@1.0-impl \
+    android.hardware.power@1.0-impl \
+    android.hardware.sensors@1.0-impl \
+    android.hardware.usb@1.0-service \
+    android.hardware.vibrator@1.0-impl \
+    android.hardware.wifi@1.0-service
+
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/wifi/hostapd.accept:system/etc/hostapd/hostapd.accept \
     $(LOCAL_PATH)/wifi/hostapd.conf:system/etc/hostapd/hostapd_default.conf \
