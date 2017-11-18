@@ -641,7 +641,6 @@ service rmt_storage /system/bin/rmt_storage
     class core
     user root
     group wakelock
-    seclabel u:r:rmt_storage:s0
 
 service config_bt_addr /system/bin/btnvtool -O
     class core
